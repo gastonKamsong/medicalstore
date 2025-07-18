@@ -6,13 +6,13 @@
 <div class="container mx-auto px-4 py-8">
     <h1 class="text-3xl font-bold mb-8">Shopping Cart</h1>
     
-    {% if cart %}
+    {% if cart_items %}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Cart Items -->
         <div class="lg:col-span-2">
             <div class="bg-white rounded-lg shadow-lg overflow-hidden">
                 <div class="p-6">
-                    {% for item in cart %}
+                    {% for item in cart_items %}
                     <div class="flex items-center py-6 {% if not forloop.last %}border-b border-gray-200{% endif %}">
                         <!-- Product Image -->
                         <div class="w-20 h-20 flex-shrink-0">

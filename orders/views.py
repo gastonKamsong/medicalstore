@@ -12,7 +12,10 @@ def order_create(request):
     if len(cart) == 0:
         messages.error(request, 'Your cart is empty.')
         return redirect('cart:cart_detail')
-    
+
+    # Get detailed cart items
+    cart_items = cart.get_products_detail()
+
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
@@ -21,15 +24,15 @@ def order_create(request):
                 order.user = request.user
             order.total_amount = cart.get_total_price()
             order.save()
-            
-            for item in cart:
+
+            for item in cart_items:
                 OrderItem.objects.create(
                     order=order,
                     product=item['product'],
                     price=item['price'],
                     quantity=item['quantity']
                 )
-            
+
             # Clear the cart
             cart.clear()
             messages.success(request, f'Order {order.id} created successfully!')
@@ -44,9 +47,16 @@ def order_create(request):
                 'email': request.user.email,
             }
         form = OrderCreateForm(initial=initial_data)
-    
-    return render(request, 'orders/order/create.html', {'cart': cart, 'form': form})
 
+    context = {
+        'cart': cart,
+        'cart_items': cart_items,
+        'total_price': cart.get_total_price(),
+        'total_quantity': len(cart),
+        'form': form,
+    }
+
+    return render(request, 'orders/order/create.html', context)
 
 def order_created(request, order_id):
     """Order confirmation page"""

@@ -34,9 +34,17 @@ def cart_remove(request, product_id):
 def cart_detail(request):
     """Display cart contents"""
     cart = Cart(request)
-    for item in cart:
+    details = cart.get_products_detail()
+    for item in details:
         item['update_quantity_form'] = CartAddProductForm(initial={
             'quantity': item['quantity'],
             'override': True
         })
-    return render(request, 'cart/detail.html', {'cart': cart})
+    context = {
+        'cart': cart,
+        'cart_items': details,
+        'total_price': cart.get_total_price(),
+        'total_quantity': len(cart),
+    }
+    return render(request, 'cart/detail.html', context)
+
