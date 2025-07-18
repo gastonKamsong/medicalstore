@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+
+{% block title %}About Us - MedicalStore{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Hero Section -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">About MedicalStore</h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Your trusted partner in professional medical products with comprehensive information about composition, usage, and health benefits.
+        </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+        <!-- Our Mission -->
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Our Mission</h2>
+            <p class="text-gray-600 mb-4">
+                At MedicalStore, we are committed to providing healthcare professionals and individuals with access to high-quality medical products backed by comprehensive scientific information.
+            </p>
+            <p class="text-gray-600 mb-4">
+                We believe that informed decisions lead to better health outcomes. That's why every product in our catalog comes with detailed information about its composition, proper usage instructions, creation methods, and proven health benefits.
+            </p>
+        </div>
+
+        <!-- Our Values -->
+        <div>
+            <h2 class="text-2xl font-bold text-gray-800 mb-4">Our Values</h2>
+            <ul class="space-y-3">
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-medical-blue mr-3 mt-1"></i>
+                    <div>
+                        <strong>Scientific Accuracy:</strong> All product information is based on scientific research and verified data.
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-medical-blue mr-3 mt-1"></i>
+                    <div>
+                        <strong>Transparency:</strong> We provide complete information about ingredients, composition, and manufacturing processes.
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-medical-blue mr-3 mt-1"></i>
+                    <div>
+                        <strong>Quality Assurance:</strong> We partner only with certified manufacturers and suppliers.
+                    </div>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-medical-blue mr-3 mt-1"></i>
+                    <div>
+                        <strong>Professional Support:</strong> Our team includes healthcare professionals ready to assist you.
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="bg-gray-50 rounded-lg p-8 mb-16">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-8">What Makes Us Different</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="bg-medical-blue rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-microscope text-2xl text-white"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Detailed Composition</h3>
+                <p class="text-gray-600 text-sm">
+                    Every product includes comprehensive information about its key elements, ingredients, and active compounds.
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="bg-medical-blue rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-book-medical text-2xl text-white"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Usage Instructions</h3>
+                <p class="text-gray-600 text-sm">
+                    Clear, professional guidance on proper usage, dosage, and administration for optimal results.
+                </p>
+            </div>
+            <div class="text-center">
+                <div class="bg-medical-blue rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-industry text-2xl text-white"></i>
+                </div>
+                <h3 class="text-lg font-semibold mb-2">Creation Methods</h3>
+                <p class="text-gray-600 text-sm">
+                    Transparent information about how products are formulated, manufactured, and quality-tested.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <div class="text-center mb-16">
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">Our Commitment to Healthcare</h2>
+        <div class="max-w-4xl mx-auto">
+            <p class="text-gray-600 mb-6">
+                Our team consists of healthcare professionals, pharmacists, and medical researchers who are passionate about improving access to quality medical information and products.
+            </p>
+            <p class="text-gray-600 mb-6">
+                We work closely with medical institutions, research facilities, and certified manufacturers to ensure that every product meets the highest standards of quality and safety.
+            </p>
+        </div>
+    </div>
+
+    <!-- Contact CTA -->
+    <div class="bg-medical-blue text-white rounded-lg p-8 text-center">
+        <h2 class="text-2xl font-bold mb-4">Have Questions?</h2>
+        <p class="mb-6">
+            Our team of healthcare professionals is here to help you make informed decisions about medical products.
+        </p>
+        <a href="{% url 'pages:contact' %}" 
+           class="bg-white text-medical-blue px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+            Contact Us
+        </a>
+    </div>
+</div>
+{% endblock %}

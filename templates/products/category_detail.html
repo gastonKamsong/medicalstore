@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ category.name }} - MedicalStore{% endblock %}
+{% block meta_description %}{{ category.meta_description|default:category.description|truncatewords:20 }}{% endblock %}
+{% block meta_keywords %}{{ category.meta_keywords }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Category Header -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">{{ category.name }}</h1>
+        {% if category.description %}
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{ category.description }}</p>
+        {% endif %}
+    </div>
+
+    <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Sidebar Filters -->
+        <div class="lg:w-1/4">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h3 class="text-lg font-semibold mb-4">Filter Products</h3>
+                
+                <form method="GET" class="space-y-6">
+                    <!-- Price Range -->
+                    <div>
+                        <h4 class="font-medium mb-2">Price Range</h4>
+                        <div class="space-y-2">
+                            <input type="number" name="min_price" placeholder="Min Price" 
+                                   value="{{ min_price }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded">
+                            <input type="number" name="max_price" placeholder="Max Price" 
+                                   value="{{ max_price }}"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded">
+                        </div>
+                    </div>
+                    
+                    <button type="submit" 
+                            class="w-full bg-medical-blue text-white py-2 rounded hover:bg-medical-dark">
+                        Apply Filters
+                    </button>
+                    
+                    {% if min_price or max_price %}
+                        <a href="{% url 'products:category_detail' category.slug %}" 
+                           class="w-full block text-center border border-gray-300 text-gray-600 py-2 rounded hover:bg-gray-50">
+                            Clear Filters
+                        </a>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+        
+        <!-- Products Grid -->
+        <div class="lg:w-3/4">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Products in {{ category.name }}</h2>
+                <p class="text-gray-600">{{ page_obj.paginator.count }} products found</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for product in page_obj %}
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" 
+                             class="w-full h-48 object-cover">
+                    {% else %}
+                        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                            <i class="fas fa-pills text-4xl text-gray-400"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold mb-2">{{ product.name }}</h3>
+                        <p class="text-gray-600 text-sm mb-3">{{ product.description|truncatewords:15 }}</p>
+                        
+                        <!-- Benefits Preview -->
+                        {% if product.benefits %}
+                            <p class="text-xs text-medical-blue mb-3">
+                                <i class="fas fa-heart mr-1"></i>{{ product.benefits|truncatewords:8 }}
+                            </p>
+                        {% endif %}
+                        
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-medical-blue">${{ product.price }}</span>
+                            <div class="flex space-x-2">
+                                <a href="{{ product.get_absolute_url }}" 
+                                   class="bg-medical-blue text-white px-4 py-2 rounded hover:bg-medical-dark transition duration-300">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                        
+                        {% if not product.is_in_stock %}
+                            <p class="text-red-500 text-sm mt-2">Out of Stock</p>
+                        {% else %}
+                            <p class="text-green-600 text-sm mt-2">
+                                <i class="fas fa-check mr-1"></i>In Stock ({{ product.stock_quantity }})
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-span-full text-center py-12">
+                    <i class="fas fa-box-open text-6xl text-gray-300 mb-4"></i>
+                    <h3 class="text-xl font-semibold text-gray-600 mb-2">No products found</h3>
+                    <p class="text-gray-500 mb-4">
+                        {% if min_price or max_price %}
+                            No products match your current filters. Try adjusting your price range.
+                        {% else %}
+                            This category doesn't have any products yet.
+                        {% endif %}
+                    </p>
+                    {% if min_price or max_price %}
+                        <a href="{% url 'products:category_detail' category.slug %}" 
+                           class="inline-block bg-medical-blue text-white px-6 py-2 rounded hover:bg-medical-dark">
+                            Clear Filters
+                        </a>
+                    {% else %}
+                        <a href="{% url 'products:product_list' %}" 
+                           class="inline-block bg-medical-blue text-white px-6 py-2 rounded hover:bg-medical-dark">
+                            Browse All Products
+                        </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination -->
+            {% if page_obj.has_other_pages %}
+            <div class="flex justify-center mt-8">
+                <nav class="flex space-x-2">
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}" 
+                           class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50">
+                            Previous
+                        </a>
+                    {% endif %}
+                    
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <span class="px-3 py-2 bg-medical-blue text-white rounded">{{ num }}</span>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                            <a href="?page={{ num }}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}" 
+                               class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50">
+                                {{ num }}
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}" 
+                           class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50">
+                            Next
+                        </a>
+                    {% endif %}
+                </nav>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Category Information -->
+    {% if category.description %}
+    <div class="mt-16 bg-white rounded-lg shadow-lg p-8">
+        <h2 class="text-2xl font-bold mb-4">About {{ category.name }}</h2>
+        <div class="prose max-w-none text-gray-700">
+            {{ category.description|linebreaks }}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

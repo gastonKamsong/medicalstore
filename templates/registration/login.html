@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Login - MedicalStore{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-md mx-auto">
+        <div class="bg-white rounded-lg shadow-lg p-8">
+            <div class="text-center mb-8">
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
+                <p class="text-gray-600">Sign in to your MedicalStore account</p>
+            </div>
+
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                    <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                        <p class="text-red-800 text-sm">
+                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            Please correct the errors below.
+                        </p>
+                    </div>
+                {% endif %}
+
+                <div>
+                    <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        Username
+                    </label>
+                    <input type="text" name="username" id="{{ form.username.id_for_label }}" 
+                           value="{{ form.username.value|default:'' }}" required
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
+                    {% if form.username.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.username.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="{{ form.password.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                        Password
+                    </label>
+                    <input type="password" name="password" id="{{ form.password.id_for_label }}" required
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
+                    {% if form.password.errors %}
+                        <p class="text-red-500 text-sm mt-1">{{ form.password.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div class="flex items-center justify-between">
+                    <label class="flex items-center">
+                        <input type="checkbox" name="remember_me" class="mr-2">
+                        <span class="text-sm text-gray-600">Remember me</span>
+                    </label>
+                    <a href="{% url 'password_reset' %}" class="text-sm text-medical-blue hover:text-medical-dark">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <button type="submit" 
+                        class="w-full bg-medical-blue text-white py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
+                    Sign In
+                </button>
+
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+
+            <div class="mt-8 text-center">
+                <p class="text-gray-600">
+                    Don't have an account? 
+                    <a href="{% url 'accounts:register' %}" class="text-medical-blue hover:text-medical-dark font-semibold">
+                        Sign up here
+                    </a>
+                </p>
+            </div>
+
+            <!-- Guest Checkout Option -->
+            {% if 'cart' in request.path or 'checkout' in request.path %}
+            <div class="mt-6 pt-6 border-t border-gray-200">
+                <p class="text-center text-gray-600 mb-4">Or continue as guest</p>
+                <a href="{% url 'orders:order_create' %}" 
+                   class="w-full block text-center border border-medical-blue text-medical-blue py-3 rounded-lg font-semibold hover:bg-medical-light transition duration-300">
+                    Continue as Guest
+                </a>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Medical Disclaimer -->
+        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
+            <p class="text-sm text-yellow-800 text-center">
+                <i class="fas fa-info-circle mr-2"></i>
+                By signing in, you acknowledge that you understand our medical products are for informational purposes and should not replace professional medical advice.
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

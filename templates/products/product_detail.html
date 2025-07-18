@@ -1,0 +1,208 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} - MedicalStore{% endblock %}
+{% block meta_description %}{{ product.meta_description|default:product.description|truncatewords:20 }}{% endblock %}
+{% block meta_keywords %}{{ product.meta_keywords }}{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <!-- Breadcrumb -->
+    <nav class="mb-8">
+        <ol class="flex items-center space-x-2 text-sm text-gray-600">
+            <li><a href="{% url 'pages:home' %}" class="hover:text-medical-blue">Home</a></li>
+            <li><i class="fas fa-chevron-right text-xs"></i></li>
+            <li><a href="{% url 'products:product_list' %}" class="hover:text-medical-blue">Products</a></li>
+            <li><i class="fas fa-chevron-right text-xs"></i></li>
+            <li><a href="{% url 'products:category_detail' product.category.slug %}" class="hover:text-medical-blue">{{ product.category.name }}</a></li>
+            <li><i class="fas fa-chevron-right text-xs"></i></li>
+            <li class="text-gray-800">{{ product.name }}</li>
+        </ol>
+    </nav>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Product Image -->
+        <div class="space-y-4">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" 
+                     class="w-full rounded-lg shadow-lg">
+            {% else %}
+                <div class="w-full h-96 bg-gray-200 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-pills text-8xl text-gray-400"></i>
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Product Info -->
+        <div class="space-y-6">
+            <div>
+                <h1 class="text-3xl font-bold text-gray-800 mb-2">{{ product.name }}</h1>
+                <p class="text-gray-600">
+                    <i class="fas fa-tag mr-2"></i>{{ product.category.name }}
+                </p>
+            </div>
+
+            <div class="flex items-center space-x-4">
+                <span class="text-4xl font-bold text-medical-blue">${{ product.price }}</span>
+                {% if product.is_in_stock %}
+                    <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
+                        <i class="fas fa-check mr-1"></i>In Stock ({{ product.stock_quantity }})
+                    </span>
+                {% else %}
+                    <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm">
+                        <i class="fas fa-times mr-1"></i>Out of Stock
+                    </span>
+                {% endif %}
+            </div>
+
+            <!-- Add to Cart Form -->
+            {% if product.is_in_stock %}
+            <form action="{% url 'cart:cart_add' product.id %}" method="post" class="space-y-4">
+                {% csrf_token %}
+                <div class="flex items-center space-x-4">
+                    <label for="quantity" class="text-sm font-medium">Quantity:</label>
+                    <select name="quantity" id="quantity" class="border border-gray-300 rounded px-3 py-2">
+                        {% for i in "12345678910"|make_list %}
+                            <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <input type="hidden" name="override" value="False">
+                <button type="submit" 
+                        class="bg-medical-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
+                    <i class="fas fa-cart-plus mr-2"></i>Add to Cart
+                </button>
+            </form>
+            {% endif %}
+
+            <!-- Medical Disclaimer -->
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <p class="text-sm text-yellow-800">
+                    <i class="fas fa-exclamation-triangle mr-2"></i>
+                    <strong>Medical Disclaimer:</strong> This information is for educational purposes only and should not replace professional medical advice. Consult your healthcare provider before use.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Tabs -->
+    <div class="mt-16">
+        <div class="border-b border-gray-200">
+            <nav class="-mb-px flex space-x-8">
+                <button onclick="showTab('description')" id="tab-description" 
+                        class="tab-button py-2 px-1 border-b-2 border-medical-blue text-medical-blue font-medium text-sm">
+                    Description
+                </button>
+                <button onclick="showTab('composition')" id="tab-composition" 
+                        class="tab-button py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">
+                    Composition
+                </button>
+                <button onclick="showTab('usage')" id="tab-usage" 
+                        class="tab-button py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">
+                    How to Use
+                </button>
+                <button onclick="showTab('creation')" id="tab-creation" 
+                        class="tab-button py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">
+                    How It's Made
+                </button>
+                <button onclick="showTab('benefits')" id="tab-benefits" 
+                        class="tab-button py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">
+                    Benefits
+                </button>
+            </nav>
+        </div>
+
+        <div class="mt-8">
+            <div id="content-description" class="tab-content">
+                <div class="prose max-w-none">
+                    <h3 class="text-xl font-semibold mb-4">Product Description</h3>
+                    <p class="text-gray-700 leading-relaxed">{{ product.description|linebreaks }}</p>
+                </div>
+            </div>
+
+            <div id="content-composition" class="tab-content hidden">
+                <div class="prose max-w-none">
+                    <h3 class="text-xl font-semibold mb-4">Composition & Ingredients</h3>
+                    <p class="text-gray-700 leading-relaxed">{{ product.composition|linebreaks }}</p>
+                </div>
+            </div>
+
+            <div id="content-usage" class="tab-content hidden">
+                <div class="prose max-w-none">
+                    <h3 class="text-xl font-semibold mb-4">Usage Instructions</h3>
+                    <p class="text-gray-700 leading-relaxed">{{ product.usage_instructions|linebreaks }}</p>
+                </div>
+            </div>
+
+            <div id="content-creation" class="tab-content hidden">
+                <div class="prose max-w-none">
+                    <h3 class="text-xl font-semibold mb-4">Creation Method</h3>
+                    <p class="text-gray-700 leading-relaxed">{{ product.creation_method|linebreaks }}</p>
+                </div>
+            </div>
+
+            <div id="content-benefits" class="tab-content hidden">
+                <div class="prose max-w-none">
+                    <h3 class="text-xl font-semibold mb-4">Health Benefits</h3>
+                    <p class="text-gray-700 leading-relaxed">{{ product.benefits|linebreaks }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    {% if related_products %}
+    <div class="mt-16">
+        <h2 class="text-2xl font-bold mb-8">Related Products</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for related_product in related_products %}
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
+                {% if related_product.image %}
+                    <img src="{{ related_product.image.url }}" alt="{{ related_product.name }}" 
+                         class="w-full h-48 object-cover">
+                {% else %}
+                    <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+                        <i class="fas fa-pills text-4xl text-gray-400"></i>
+                    </div>
+                {% endif %}
+                <div class="p-4">
+                    <h3 class="font-semibold mb-2">{{ related_product.name }}</h3>
+                    <p class="text-gray-600 text-sm mb-3">{{ related_product.description|truncatewords:10 }}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-lg font-bold text-medical-blue">${{ related_product.price }}</span>
+                        <a href="{{ related_product.get_absolute_url }}" 
+                           class="text-medical-blue hover:text-medical-dark text-sm font-semibold">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function showTab(tabName) {
+    // Hide all tab contents
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => content.classList.add('hidden'));
+    
+    // Remove active state from all tabs
+    const buttons = document.querySelectorAll('.tab-button');
+    buttons.forEach(button => {
+        button.classList.remove('border-medical-blue', 'text-medical-blue');
+        button.classList.add('border-transparent', 'text-gray-500');
+    });
+    
+    // Show selected tab content
+    document.getElementById('content-' + tabName).classList.remove('hidden');
+    
+    // Add active state to selected tab
+    const activeButton = document.getElementById('tab-' + tabName);
+    activeButton.classList.remove('border-transparent', 'text-gray-500');
+    activeButton.classList.add('border-medical-blue', 'text-medical-blue');
+}
+</script>
+{% endblock %}
