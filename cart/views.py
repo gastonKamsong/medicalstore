@@ -34,18 +34,17 @@ def cart_remove(request, product_id):
 def cart_detail(request):
     """Display cart contents"""
     cart = Cart(request)
-    # Create a list of items with forms to avoid modifying the cart iterator
-    cart_items = []
-    for item in cart:
-        # Create a copy of the item to avoid modifying the original
-        item_copy = item.copy()
-        item_copy['update_quantity_form'] = CartAddProductForm(initial={
+    print(cart)
+    details = cart.get_products_detail()
+    for item in details:
+        item['update_quantity_form'] = CartAddProductForm(initial={
             'quantity': item['quantity'],
             'override': True
         })
-        cart_items.append(item_copy)
-    
-    return render(request, 'cart/detail.html', {
+    context = {
         'cart': cart,
-        'cart_items': cart_items
-    })
+        'cart_items': details,
+        'total_price': cart.get_total_price(),
+        'total_quantity': len(cart),
+    }
+    return render(request, 'cart/detail.html', context)

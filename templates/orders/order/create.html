@@ -129,7 +129,7 @@
             <h2 class="text-xl font-semibold mb-6">Order Summary</h2>
             
             <div class="space-y-4 mb-6">
-                {% for item in cart %}
+                {% for item in cart_items %}
                 <div class="flex items-center justify-between py-2 border-b border-gray-100">
                     <div class="flex items-center">
                         {% if item.product.image %}

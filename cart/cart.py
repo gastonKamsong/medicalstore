@@ -87,3 +87,18 @@ class Cart:
         # remove cart from session
         del self.session[settings.CART_SESSION_ID]
         self.save()
+        
+    def get_products_detail(self):
+        """Return a list of product details for all items in the cart"""
+        product_ids = self.cart.keys()
+        products = Product.objects.filter(id__in=product_ids)
+        product_details = []
+        for product in products:
+            item = self.cart[str(product.id)]
+            product_details.append({
+                'product': product,
+                'quantity': item['quantity'],
+                'price': float(item['price']),
+                'total_price': float(item['price']) * item['quantity']
+            })
+        return product_details
