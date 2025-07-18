@@ -4,7 +4,7 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="bg-gradient-to-r from-medical-blue to-medical-dark text-white py-20">
+<section class="cannabis-gradient text-white py-20">
     <div class="container mx-auto px-4 text-center">
         <h1 class="text-5xl font-bold mb-6">Professional Medical Products</h1>
         <p class="text-xl mb-8 max-w-2xl mx-auto">
@@ -12,7 +12,7 @@
             usage instructions, and proven health benefits.
         </p>
         <a href="{% url 'products:product_list' %}" 
-           class="bg-white text-medical-blue px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
+           class="bg-white text-cannabis-green px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition duration-300">
             Explore Products
         </a>
     </div>
@@ -21,15 +21,15 @@
 <!-- Categories Section -->
 <section class="py-16">
     <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Product Categories</h2>
+        <h2 class="text-3xl font-bold text-center mb-12 text-primary">Product Categories</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for category in categories %}
             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
                 <div class="p-6">
-                    <h3 class="text-xl font-semibold mb-3 text-gray-800">{{ category.name }}</h3>
+                    <h3 class="text-xl font-semibold mb-3 text-primary">{{ category.name }}</h3>
                     <p class="text-gray-600 mb-4">{{ category.description|truncatewords:20 }}</p>
                     <a href="{% url 'products:category_detail' category.slug %}" 
-                       class="text-medical-blue hover:text-medical-dark font-semibold">
+                       class="text-cannabis-green hover:text-cannabis-dark font-semibold">
                         View Products <i class="fas fa-arrow-right ml-1"></i>
                     </a>
                 </div>
@@ -44,9 +44,9 @@
 </section>
 
 <!-- Featured Products Section -->
-<section class="py-16 bg-gray-100">
+<section class="py-16 bg-gray-50">
     <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Featured Products</h2>
+        <h2 class="text-3xl font-bold text-center mb-12 text-primary">Featured Products</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {% for product in featured_products %}
             <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
@@ -59,12 +59,12 @@
                     </div>
                 {% endif %}
                 <div class="p-6">
-                    <h3 class="text-lg font-semibold mb-2 text-gray-800">{{ product.name }}</h3>
+                    <h3 class="text-lg font-semibold mb-2 text-primary">{{ product.name }}</h3>
                     <p class="text-gray-600 text-sm mb-3">{{ product.description|truncatewords:15 }}</p>
                     <div class="flex justify-between items-center">
-                        <span class="text-2xl font-bold text-medical-blue">${{ product.price }}</span>
+                        <span class="text-2xl font-bold text-cannabis-green">${{ product.price }}</span>
                         <a href="{{ product.get_absolute_url }}" 
-                           class="bg-medical-blue text-white px-4 py-2 rounded hover:bg-medical-dark transition duration-300">
+                           class="bg-cannabis-green text-white px-4 py-2 rounded hover:bg-cannabis-dark transition duration-300">
                             View Details
                         </a>
                     </div>
@@ -80,7 +80,7 @@
         {% if featured_products %}
         <div class="text-center mt-12">
             <a href="{% url 'products:product_list' %}" 
-               class="bg-medical-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
+               class="bg-cannabis-green text-white px-8 py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300">
                 View All Products
             </a>
         </div>
@@ -91,25 +91,25 @@
 <!-- Features Section -->
 <section class="py-16">
     <div class="container mx-auto px-4">
-        <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Why Choose MedicalStore?</h2>
+        <h2 class="text-3xl font-bold text-center mb-12 text-primary">Why Choose Our Products?</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div class="text-center">
-                <div class="bg-medical-light rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-microscope text-2xl text-medical-blue"></i>
+                <div class="bg-cannabis-light rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-microscope text-2xl text-cannabis-green"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-3">Scientific Composition</h3>
                 <p class="text-gray-600">Detailed information about key elements and ingredients in each product.</p>
             </div>
             <div class="text-center">
-                <div class="bg-medical-light rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-book-medical text-2xl text-medical-blue"></i>
+                <div class="bg-cannabis-light rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-book-medical text-2xl text-cannabis-green"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-3">Usage Instructions</h3>
                 <p class="text-gray-600">Clear, professional guidance on how to use each medical product safely.</p>
             </div>
             <div class="text-center">
-                <div class="bg-medical-light rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                    <i class="fas fa-heart text-2xl text-medical-blue"></i>
+                <div class="bg-cannabis-light rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-heart text-2xl text-cannabis-green"></i>
                 </div>
                 <h3 class="text-xl font-semibold mb-3">Health Benefits</h3>
                 <p class="text-gray-600">Comprehensive information about the health benefits of each product.</p>

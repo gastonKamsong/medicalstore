@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-07-18 13:04+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1?0:(((n%100>19)||((n%100==0)&&(n!=0)))?"
+"2:1));\n"
+#: pages/models.py:7
+msgid "Site Name"
+msgstr ""
+
+#: pages/models.py:8
+msgid "Tagline"
+msgstr ""
+
+#: pages/models.py:11
+msgid "Email"
+msgstr ""
+
+#: pages/models.py:12
+msgid "Phone"
+msgstr ""
+
+#: pages/models.py:13
+msgid "Address"
+msgstr ""
+
+#: pages/models.py:16
+msgid "Facebook URL"
+msgstr ""
+
+#: pages/models.py:17
+msgid "Twitter URL"
+msgstr ""
+
+#: pages/models.py:18
+msgid "Instagram URL"
+msgstr ""
+
+#: pages/models.py:21
+msgid "Business Hours"
+msgstr ""
+
+#: pages/models.py:22
+msgid "About Text"
+msgstr ""
+
+#: pages/models.py:25 templates/base.html:204
+msgid "Privacy Policy"
+msgstr ""
+
+#: pages/models.py:26
+msgid "Terms of Service"
+msgstr ""
+
+#: pages/models.py:29 pages/models.py:30
+msgid "Site Settings"
+msgstr ""
+
+#: templates/base.html:10
+msgid ""
+"natural medical products, cannabis, CBD, hemp, organic medicine, herbal "
+"remedies"
+msgstr ""
+
+#: templates/base.html:68
+msgid ""
+"We use cookies to improve your experience. By continuing to use our site, "
+"you accept our use of cookies."
+msgstr ""
+
+#: templates/base.html:69
+msgid "Learn more"
+msgstr ""
+
+#: templates/base.html:72
+msgid "Accept"
+msgstr ""
+
+#: templates/base.html:92
+msgid "Search products..."
+msgstr ""
+
+#: templates/base.html:104 templates/base.html:193
+msgid "Products"
+msgstr ""
+
+#: templates/base.html:105
+msgid "About"
+msgstr ""
+
+#: templates/base.html:106 templates/base.html:195
+msgid "Contact"
+msgstr ""
+
+#: templates/base.html:147
+msgid "Profile"
+msgstr ""
+
+#: templates/base.html:148
+msgid "Order History"
+msgstr ""
+
+#: templates/base.html:149
+msgid "Logout"
+msgstr ""
+
+#: templates/base.html:153
+msgid "Login"
+msgstr ""
+
+#: templates/base.html:154
+msgid "Register"
+msgstr ""
+
+#: templates/base.html:191
+msgid "Quick Links"
+msgstr ""
+
+#: templates/base.html:194
+msgid "About Us"
+msgstr ""
+
+#: templates/base.html:196
+msgid "FAQ"
+msgstr ""
+
+#: templates/base.html:201
+msgid "Legal"
+msgstr ""
+
+#: templates/base.html:203
+msgid "Legal Notice"
+msgstr ""
+
+#: templates/base.html:209
+msgid "Contact Info"
+msgstr ""
+
+#: templates/base.html:219
+msgid "All rights reserved."
+msgstr ""
+
+#: templates/base.html:221
+msgid "Medical Disclaimer:"
+msgstr ""
+
+#: templates/base.html:221
+msgid ""
+"The information provided is for educational purposes only and should not "
+"replace professional medical advice."
+msgstr ""

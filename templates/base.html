@@ -1,11 +1,13 @@
+{% load static %}
+{% load i18n %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ LANGUAGE_CODE }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}MedicalStore - Professional Medical Products{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}Professional medical products with detailed composition, usage instructions, and health benefits.{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}medical products, healthcare, medicine, health benefits{% endblock %}">
+    <title>{% block title %}{{ site_settings.site_name }} - {{ site_settings.tagline }}{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}{{ site_settings.about_text }}{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}{% trans 'natural medical products, cannabis, CBD, hemp, organic medicine, herbal remedies' %}{% endblock %}">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -14,9 +16,15 @@
             theme: {
                 extend: {
                     colors: {
-                        'medical-blue': '#3B82F6',
-                        'medical-light': '#EBF8FF',
-                        'medical-dark': '#1E40AF',
+                        'cannabis-green': '#4CAF50',  /* Updated primary accent */
+                        'cannabis-dark': '#1B5E20',   /* Updated deep green */
+                        'cannabis-light': '#E8F5E9',  /* Updated light accent */
+                        'cannabis-accent': '#1B5E20', /* Matching deep green */
+                        'natural-brown': '#92400e',
+                        'earth-tone': '#a3a3a3',
+                        'leaf-green': '#4CAF50',      /* Matching primary */
+                        'forest-green': '#1B5E20',    /* Matching deep green */
+                        'text-primary': '#212121',    /* Added text color */
                     },
                     fontFamily: {
                         'sans': ['Inter', 'system-ui', 'sans-serif'],
@@ -32,18 +40,46 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
+    <!-- Custom CSS -->
+    <style>
+        .cannabis-gradient {
+            background: linear-gradient(135deg, #4CAF50 0%, #1B5E20 100%); /* Updated gradient */
+        }
+        
+        .natural-gradient {
+            background: linear-gradient(135deg, #4CAF50 0%, #1B5E20 50%, #1B5E20 100%); /* Updated gradient */
+        }
+        
+        .hero-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M30 20c5.5 0 10 4.5 10 10s-4.5 10-10 10-10-4.5-10-10 4.5-10 10-10zm0 2c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .leaf-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%234CAF50' fill-opacity='0.05'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10c2.8 0 5.3-1.1 7.1-2.9C18.9 25.3 20 22.8 20 20z'/%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* Ensure text contrast */
+        .text-cannabis-dark {
+            color: #1B5E20;
+        }
+        
+        .text-cannabis-green {
+            color: #4CAF50;
+        }
+    </style>
+    
     {% block extra_css %}{% endblock %}
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-white font-sans leaf-pattern text-primary"> <!-- Updated background and text colors -->
     <!-- GDPR Cookie Consent -->
-    <div id="cookie-consent" class="fixed bottom-0 left-0 right-0 bg-gray-800 text-white p-4 z-50 hidden">
+    <div id="cookie-consent" class="fixed bottom-0 left-0 right-0 bg-forest-green text-white p-4 z-50 hidden">
         <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
             <p class="text-sm mb-2 md:mb-0">
-                We use cookies to improve your experience. By continuing to use our site, you accept our use of cookies.
-                <a href="{% url 'pages:privacy' %}" class="underline">Learn more</a>
+                {% trans "We use cookies to improve your experience. By continuing to use our site, you accept our use of cookies." %}
+                <a href="{% url 'pages:privacy' %}" class="underline">{% trans "Learn more" %}</a>
             </p>
-            <button onclick="acceptCookies()" class="bg-medical-blue hover:bg-medical-dark px-4 py-2 rounded text-sm">
-                Accept
+            <button onclick="acceptCookies()" class="bg-cannabis-green hover:bg-cannabis-dark px-4 py-2 rounded text-sm">
+                {% trans "Accept" %}
             </button>
         </div>
     </div>
@@ -54,8 +90,8 @@
             <div class="flex justify-between items-center py-4">
                 <!-- Logo -->
                 <div class="flex items-center">
-                    <a href="{% url 'pages:home' %}" class="text-2xl font-bold text-medical-blue">
-                        <i class="fas fa-heartbeat mr-2"></i>MedicalStore
+                    <a href="{% url 'pages:home' %}" class="text-2xl font-bold text-cannabis-green">
+                        <i class="fas fa-leaf mr-2"></i>{{ site_settings.site_name }}
                     </a>
                 </div>
 
@@ -63,10 +99,10 @@
                 <div class="hidden md:flex flex-1 max-w-lg mx-8">
                     <form method="GET" action="{% url 'products:product_list' %}" class="w-full">
                         <div class="relative">
-                            <input type="text" name="q" placeholder="Search products..." 
+                            <input type="text" name="q" placeholder="{% trans 'Search products...' %}" 
                                    value="{{ request.GET.q }}"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
-                            <button type="submit" class="absolute right-2 top-2 text-gray-400 hover:text-medical-blue">
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
+                            <button type="submit" class="absolute right-2 top-2 text-gray-400 hover:text-cannabis-green">
                                 <i class="fas fa-search"></i>
                             </button>
                         </div>
@@ -75,15 +111,37 @@
 
                 <!-- Navigation Links -->
                 <div class="flex items-center space-x-6">
-                    <a href="{% url 'products:product_list' %}" class="text-gray-700 hover:text-medical-blue">Products</a>
-                    <a href="{% url 'pages:about' %}" class="text-gray-700 hover:text-medical-blue">About</a>
-                    <a href="{% url 'pages:contact' %}" class="text-gray-700 hover:text-medical-blue">Contact</a>
+                    <a href="{% url 'products:product_list' %}" class="text-gray-700 hover:text-cannabis-green">{% trans "Products" %}</a>
+                    <a href="{% url 'pages:about' %}" class="text-gray-700 hover:text-cannabis-green">{% trans "About" %}</a>
+                    <a href="{% url 'pages:contact' %}" class="text-gray-700 hover:text-cannabis-green">{% trans "Contact" %}</a>
+                    
+                    <!-- Language Switcher -->
+                    <div class="relative group">
+                        <button class="text-gray-700 hover:text-cannabis-green flex items-center">
+                            <i class="fas fa-globe mr-1"></i>
+                            {{ LANGUAGE_CODE|upper }}
+                            <i class="fas fa-chevron-down ml-1 text-xs"></i>
+                        </button>
+                        <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 hidden group-hover:block">
+                            {% get_available_languages as LANGUAGES %}
+                            {% for lang_code, lang_name in LANGUAGES %}
+                                <form method="post" action="{% url 'set_language' %}" class="inline">
+                                    {% csrf_token %}
+                                    <input name="next" type="hidden" value="{{ request.get_full_path }}" />
+                                    <input name="language" type="hidden" value="{{ lang_code }}" />
+                                    <button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-cannabis-light hover:text-cannabis-dark">
+                                        {{ lang_name }}
+                                    </button>
+                                </form>
+                            {% endfor %}
+                        </div>
+                    </div>
                     
                     <!-- Cart -->
-                    <a href="{% url 'cart:cart_detail' %}" class="relative text-gray-700 hover:text-medical-blue">
+                    <a href="{% url 'cart:cart_detail' %}" class="relative text-gray-700 hover:text-cannabis-green">
                         <i class="fas fa-shopping-cart text-xl"></i>
                         {% if cart|length > 0 %}
-                            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                            <span class="absolute -top-2 -right-2 bg-cannabis-green text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                                 {{ cart|length }}
                             </span>
                         {% endif %}
@@ -92,18 +150,18 @@
                     <!-- User Menu -->
                     {% if user.is_authenticated %}
                         <div class="relative group">
-                            <button class="text-gray-700 hover:text-medical-blue">
+                            <button class="text-gray-700 hover:text-cannabis-green">
                                 <i class="fas fa-user"></i> {{ user.first_name|default:user.username }}
                             </button>
                             <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
-                                <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                                <a href="{% url 'orders:order_history' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Order History</a>
-                                <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</a>
+                                <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-cannabis-light">{% trans "Profile" %}</a>
+                                <a href="{% url 'orders:order_history' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-cannabis-light">{% trans "Order History" %}</a>
+                                <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-cannabis-light">{% trans "Logout" %}</a>
                             </div>
                         </div>
                     {% else %}
-                        <a href="{% url 'login' %}" class="text-gray-700 hover:text-medical-blue">Login</a>
-                        <a href="{% url 'accounts:register' %}" class="bg-medical-blue text-white px-4 py-2 rounded hover:bg-medical-dark">Register</a>
+                        <a href="{% url 'login' %}" class="text-gray-700 hover:text-cannabis-green">{% trans "Login" %}</a>
+                        <a href="{% url 'accounts:register' %}" class="bg-cannabis-green text-white px-4 py-2 rounded hover:bg-cannabis-dark">{% trans "Register" %}</a>
                     {% endif %}
                 </div>
             </div>
@@ -114,7 +172,7 @@
     {% if messages %}
         <div class="container mx-auto px-4 mt-4">
             {% for message in messages %}
-                <div class="alert alert-{{ message.tags }} bg-{% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% else %}blue{% endif %}-100 border border-{% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% else %}blue{% endif %}-400 text-{% if message.tags == 'error' %}red{% elif message.tags == 'success' %}green{% else %}blue{% endif %}-700 px-4 py-3 rounded mb-4">
+                <div class="alert alert-{{ message.tags }} bg-{% if message.tags == 'error' %}red-100{% elif message.tags == 'success' %}cannabis-light{% else %}cannabis-light{% endif %} border border-{% if message.tags == 'error' %}red-400{% elif message.tags == 'success' %}cannabis-green{% else %}cannabis-green{% endif %} text-{% if message.tags == 'error' %}red-700{% elif message.tags == 'success' %}cannabis-dark{% else %}cannabis-dark{% endif %} px-4 py-3 rounded mb-4">
                     {{ message }}
                 </div>
             {% endfor %}
@@ -122,55 +180,55 @@
     {% endif %}
 
     <!-- Main Content -->
-    <main>
+    <main class="text-primary"> <!-- Added text color class -->
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white mt-16">
+    <footer class="bg-forest-green text-white mt-16">
         <div class="container mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4">
-                        <i class="fas fa-heartbeat mr-2"></i>MedicalStore
+                        <i class="fas fa-leaf mr-2"></i>{{ site_settings.site_name }}
                     </h3>
                     <p class="text-gray-300">
-                        Professional medical products with detailed composition, usage instructions, and proven health benefits.
+                        {{ site_settings.about_text }}
                     </p>
                 </div>
                 
                 <div>
-                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <h4 class="font-semibold mb-4">{% trans "Quick Links" %}</h4>
                     <ul class="space-y-2">
-                        <li><a href="{% url 'products:product_list' %}" class="text-gray-300 hover:text-white">Products</a></li>
-                        <li><a href="{% url 'pages:about' %}" class="text-gray-300 hover:text-white">About Us</a></li>
-                        <li><a href="{% url 'pages:contact' %}" class="text-gray-300 hover:text-white">Contact</a></li>
-                        <li><a href="{% url 'pages:faq' %}" class="text-gray-300 hover:text-white">FAQ</a></li>
+                        <li><a href="{% url 'products:product_list' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Products" %}</a></li>
+                        <li><a href="{% url 'pages:about' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "About Us" %}</a></li>
+                        <li><a href="{% url 'pages:contact' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Contact" %}</a></li>
+                        <li><a href="{% url 'pages:faq' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "FAQ" %}</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h4 class="font-semibold mb-4">Legal</h4>
+                    <h4 class="font-semibold mb-4">{% trans "Legal" %}</h4>
                     <ul class="space-y-2">
-                        <li><a href="{% url 'pages:legal' %}" class="text-gray-300 hover:text-white">Legal Notice</a></li>
-                        <li><a href="{% url 'pages:privacy' %}" class="text-gray-300 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="{% url 'pages:legal' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Legal Notice" %}</a></li>
+                        <li><a href="{% url 'pages:privacy' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Privacy Policy" %}</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h4 class="font-semibold mb-4">Contact Info</h4>
+                    <h4 class="font-semibold mb-4">{% trans "Contact Info" %}</h4>
                     <ul class="space-y-2 text-gray-300">
-                        <li><i class="fas fa-envelope mr-2"></i>info@medicalstore.com</li>
-                        <li><i class="fas fa-phone mr-2"></i>+33 1 23 45 67 89</li>
-                        <li><i class="fas fa-map-marker-alt mr-2"></i>Paris, France</li>
+                        <li><i class="fas fa-envelope mr-2"></i>{{ site_settings.email }}</li>
+                        <li><i class="fas fa-phone mr-2"></i>{{ site_settings.phone }}</li>
+                        <li><i class="fas fa-map-marker-alt mr-2"></i>{{ site_settings.address }}</li>
                     </ul>
                 </div>
             </div>
             
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
-                <p>&copy; 2024 MedicalStore. All rights reserved.</p>
+                <p>&copy; 2024 {{ site_settings.site_name }}. {% trans "All rights reserved." %}</p>
                 <p class="mt-2 text-sm">
-                    <strong>Medical Disclaimer:</strong> The information provided is for educational purposes only and should not replace professional medical advice.
+                    <strong>{% trans "Medical Disclaimer:" %}</strong> {% trans "The information provided is for educational purposes only and should not replace professional medical advice." %}
                 </p>
             </div>
         </div>
