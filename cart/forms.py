@@ -8,7 +8,9 @@ class CartAddProductForm(forms.Form):
     quantity = forms.TypedChoiceField(
         choices=PRODUCT_QUANTITY_CHOICES,
         coerce=int,
-        widget=forms.Select(attrs={'class': 'form-select'})
+        widget=forms.Select(attrs={
+            'class': 'border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-medical-blue focus:border-transparent'
+        })
     )
     override = forms.BooleanField(
         required=False,

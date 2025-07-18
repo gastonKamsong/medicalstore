@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Order History - MedicalStore{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 mb-8">Order History</h1>
+        
+        {% if orders %}
+            <div class="space-y-6">
+                {% for order in orders %}
+                <div class="bg-white rounded-lg shadow-lg p-6">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-lg font-semibold">Order #{{ order.id }}</h3>
+                            <p class="text-gray-600">{{ order.created|date:"F d, Y" }}</p>
+                        </div>
+                        <div class="text-right">
+                            <span class="inline-block px-3 py-1 rounded-full text-sm font-medium
+                                {% if order.status == 'pending' %}bg-yellow-100 text-yellow-800
+                                {% elif order.status == 'processing' %}bg-blue-100 text-blue-800
+                                {% elif order.status == 'shipped' %}bg-purple-100 text-purple-800
+                                {% elif order.status == 'delivered' %}bg-green-100 text-green-800
+                                {% elif order.status == 'cancelled' %}bg-red-100 text-red-800
+                                {% endif %}">
+                                {{ order.get_status_display }}
+                            </span>
+                            <p class="text-lg font-bold text-medical-blue mt-1">${{ order.total_amount }}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Items -->
+                    <div class="border-t pt-4">
+                        <h4 class="font-medium mb-3">Items Ordered</h4>
+                        <div class="space-y-2">
+                            {% for item in order.items.all %}
+                            <div class="flex items-center justify-between py-2">
+                                <div class="flex items-center">
+                                    {% if item.product.image %}
+                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" 
+                                             class="w-12 h-12 object-cover rounded mr-3">
+                                    {% else %}
+                                        <div class="w-12 h-12 bg-gray-200 rounded mr-3 flex items-center justify-center">
+                                            <i class="fas fa-pills text-gray-400 text-sm"></i>
+                                        </div>
+                                    {% endif %}
+                                    <div>
+                                        <p class="font-medium">{{ item.product.name }}</p>
+                                        <p class="text-sm text-gray-600">Quantity: {{ item.quantity }}</p>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <p class="font-semibold">${{ item.get_cost }}</p>
+                                    <p class="text-sm text-gray-600">${{ item.price }} each</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Delivery Address -->
+                    <div class="border-t pt-4 mt-4">
+                        <h4 class="font-medium mb-2">Delivery Address</h4>
+                        <div class="text-sm text-gray-600">
+                            <p>{{ order.first_name }} {{ order.last_name }}</p>
+                            <p>{{ order.address }}</p>
+                            <p>{{ order.city }}, {{ order.postal_code }}</p>
+                            <p>{{ order.country }}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Actions -->
+                    <div class="border-t pt-4 mt-4 flex justify-between items-center">
+                        <div class="text-sm text-gray-600">
+                            <p>Order placed on {{ order.created|date:"F d, Y \a\t g:i A" }}</p>
+                        </div>
+                        <div class="space-x-2">
+                            {% if order.status == 'pending' or order.status == 'processing' %}
+                                <button class="text-red-600 hover:text-red-800 text-sm">
+                                    Cancel Order
+                                </button>
+                            {% endif %}
+                            <a href="{% url 'pages:contact' %}" 
+                               class="text-medical-blue hover:text-medical-dark text-sm">
+                                Contact Support
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination if needed -->
+            <div class="mt-8 text-center">
+                <a href="{% url 'products:product_list' %}" 
+                   class="bg-medical-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
+                    Continue Shopping
+                </a>
+            </div>
+        {% else %}
+            <!-- No Orders -->
+            <div class="text-center py-16">
+                <i class="fas fa-receipt text-8xl text-gray-300 mb-6"></i>
+                <h2 class="text-2xl font-semibold text-gray-600 mb-4">No orders yet</h2>
+                <p class="text-gray-500 mb-8">You haven't placed any orders yet. Start shopping to see your order history here!</p>
+                <a href="{% url 'products:product_list' %}" 
+                   class="bg-medical-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
+                    Browse Products
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

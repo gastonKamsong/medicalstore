@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
 from django.contrib import messages
 from products.models import Product
-from .models import Cart
+from .cart import Cart
 from .forms import CartAddProductForm
 
 
@@ -34,9 +34,18 @@ def cart_remove(request, product_id):
 def cart_detail(request):
     """Display cart contents"""
     cart = Cart(request)
+    # Create a list of items with forms to avoid modifying the cart iterator
+    cart_items = []
     for item in cart:
-        item['update_quantity_form'] = CartAddProductForm(initial={
+        # Create a copy of the item to avoid modifying the original
+        item_copy = item.copy()
+        item_copy['update_quantity_form'] = CartAddProductForm(initial={
             'quantity': item['quantity'],
             'override': True
         })
-    return render(request, 'cart/detail.html', {'cart': cart})
+        cart_items.append(item_copy)
+    
+    return render(request, 'cart/detail.html', {
+        'cart': cart,
+        'cart_items': cart_items
+    })

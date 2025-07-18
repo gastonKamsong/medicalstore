@@ -15,7 +15,9 @@ class UserRegistrationForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
-            field.widget.attrs.update({'class': 'form-control'})
+            field.widget.attrs.update({
+                'class': 'w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent'
+            })
 
     def save(self, commit=True):
         user = super().save(commit=False)

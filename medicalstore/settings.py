@@ -28,6 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']  # Allow all hosts for development
 
+# CSRF trusted origins for development
+CSRF_TRUSTED_ORIGINS = [
+    'https://work-1-cjphokmvhicueqze.prod-runtime.all-hands.dev',
+    'https://work-2-cjphokmvhicueqze.prod-runtime.all-hands.dev',
+]
+
+# Cart session settings
+CART_SESSION_ID = 'cart'
+
 
 # Application definition
 
