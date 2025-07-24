@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8">Shopping Cart</h1>
+    <h1 class="text-3xl font-bold mb-8 text-primary">Shopping Cart</h1>
     
     {% if cart_items %}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -29,12 +29,12 @@
                         <!-- Product Info -->
                         <div class="ml-6 flex-1">
                             <h3 class="text-lg font-semibold">
-                                <a href="{{ item.product.get_absolute_url }}" class="text-gray-800 hover:text-medical-blue">
+                                <a href="{{ item.product.get_absolute_url }}" class="text-primary hover:text-cannabis-green">
                                     {{ item.product.name }}
                                 </a>
                             </h3>
                             <p class="text-gray-600 text-sm">{{ item.product.category.name }}</p>
-                            <p class="text-medical-blue font-semibold">${{ item.price }}</p>
+                            <p class="text-cannabis-green font-semibold">${{ item.price }}</p>
                         </div>
                         
                         <!-- Quantity Controls -->
@@ -43,7 +43,7 @@
                                 {% csrf_token %}
                                 {{ item.update_quantity_form.quantity }}
                                 {{ item.update_quantity_form.override }}
-                                <button type="submit" class="ml-2 bg-medical-blue text-white px-3 py-1 rounded text-sm hover:bg-medical-dark">
+                                <button type="submit" class="ml-2 bg-cannabis-green text-white px-3 py-1 rounded text-sm hover:bg-cannabis-dark transition duration-300">
                                     Update
                                 </button>
                             </form>
@@ -58,7 +58,7 @@
                         
                         <!-- Item Total -->
                         <div class="ml-6 text-right">
-                            <p class="text-lg font-semibold">${{ item.total_price }}</p>
+                            <p class="text-lg font-semibold text-primary">${{ item.total_price }}</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -69,32 +69,32 @@
         <!-- Cart Summary -->
         <div class="lg:col-span-1">
             <div class="bg-white rounded-lg shadow-lg p-6 sticky top-24">
-                <h2 class="text-xl font-semibold mb-4">Order Summary</h2>
+                <h2 class="text-xl font-semibold mb-4 text-primary">Order Summary</h2>
                 
                 <div class="space-y-3 mb-6">
-                    <div class="flex justify-between">
+                    <div class="flex justify-between text-gray-700">
                         <span>Items ({{ cart|length }})</span>
                         <span>${{ cart.get_total_price }}</span>
                     </div>
-                    <div class="flex justify-between">
+                    <div class="flex justify-between text-gray-700">
                         <span>Shipping</span>
                         <span>Free</span>
                     </div>
                     <div class="border-t pt-3">
                         <div class="flex justify-between text-lg font-semibold">
-                            <span>Total</span>
-                            <span class="text-medical-blue">${{ cart.get_total_price }}</span>
+                            <span class="text-primary">Total</span>
+                            <span class="text-cannabis-green">${{ cart.get_total_price }}</span>
                         </div>
                     </div>
                 </div>
                 
                 <a href="{% url 'orders:order_create' %}" 
-                   class="w-full bg-medical-blue text-white py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300 block text-center">
+                   class="w-full bg-cannabis-green text-white py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300 block text-center">
                     Proceed to Checkout
                 </a>
                 
                 <a href="{% url 'products:product_list' %}" 
-                   class="w-full mt-3 border border-medical-blue text-medical-blue py-3 rounded-lg font-semibold hover:bg-medical-light transition duration-300 block text-center">
+                   class="w-full mt-3 border border-cannabis-green text-cannabis-green py-3 rounded-lg font-semibold hover:bg-cannabis-light transition duration-300 block text-center">
                     Continue Shopping
                 </a>
             </div>
@@ -108,7 +108,7 @@
         <h2 class="text-2xl font-semibold text-gray-600 mb-4">Your cart is empty</h2>
         <p class="text-gray-500 mb-8">Add some medical products to get started!</p>
         <a href="{% url 'products:product_list' %}" 
-           class="bg-medical-blue text-white px-8 py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
+           class="bg-cannabis-green text-white px-8 py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300">
             Browse Products
         </a>
     </div>

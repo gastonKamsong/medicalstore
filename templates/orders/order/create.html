@@ -4,12 +4,12 @@
 
 {% block content %}
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8">Checkout</h1>
+    <h1 class="text-3xl font-bold mb-8 text-primary">Checkout</h1>
     
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Order Form -->
         <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-xl font-semibold mb-6">Delivery Information</h2>
+            <h2 class="text-xl font-semibold mb-6 text-primary">Delivery Information</h2>
             
             <form method="post" class="space-y-4">
                 {% csrf_token %}
@@ -102,12 +102,12 @@
                 
                 <!-- Payment Section (Placeholder) -->
                 <div class="border-t pt-6 mt-6">
-                    <h3 class="text-lg font-semibold mb-4">Payment Method</h3>
-                    <div class="bg-gray-50 p-4 rounded-lg">
+                    <h3 class="text-lg font-semibold mb-4 text-primary">Payment Method</h3>
+                    <div class="bg-cannabis-light p-4 rounded-lg">
                         <div class="flex items-center">
-                            <input type="radio" id="card" name="payment" value="card" checked class="mr-3">
+                            <input type="radio" id="card" name="payment" value="card" checked class="mr-3 text-cannabis-green focus:ring-cannabis-green">
                             <label for="card" class="flex items-center">
-                                <i class="fas fa-credit-card mr-2 text-medical-blue"></i>
+                                <i class="fas fa-credit-card mr-2 text-cannabis-green"></i>
                                 Credit/Debit Card
                             </label>
                         </div>
@@ -118,7 +118,7 @@
                 </div>
                 
                 <button type="submit" 
-                        class="w-full bg-medical-blue text-white py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
+                        class="w-full bg-cannabis-green text-white py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300">
                     Place Order
                 </button>
             </form>
@@ -126,7 +126,7 @@
         
         <!-- Order Summary -->
         <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-xl font-semibold mb-6">Order Summary</h2>
+            <h2 class="text-xl font-semibold mb-6 text-primary">Order Summary</h2>
             
             <div class="space-y-4 mb-6">
                 {% for item in cart_items %}
@@ -141,7 +141,7 @@
                             </div>
                         {% endif %}
                         <div>
-                            <h4 class="font-medium text-sm">{{ item.product.name }}</h4>
+                            <h4 class="font-medium text-sm text-primary">{{ item.product.name }}</h4>
                             <p class="text-gray-600 text-xs">Qty: {{ item.quantity }}</p>
                         </div>
                     </div>
@@ -151,22 +151,22 @@
             </div>
             
             <div class="space-y-2 mb-6">
-                <div class="flex justify-between">
+                <div class="flex justify-between text-gray-700">
                     <span>Subtotal</span>
                     <span>${{ cart.get_total_price }}</span>
                 </div>
-                <div class="flex justify-between">
+                <div class="flex justify-between text-gray-700">
                     <span>Shipping</span>
                     <span>Free</span>
                 </div>
-                <div class="flex justify-between">
+                <div class="flex justify-between text-gray-700">
                     <span>Tax</span>
                     <span>$0.00</span>
                 </div>
                 <div class="border-t pt-2">
                     <div class="flex justify-between text-lg font-semibold">
-                        <span>Total</span>
-                        <span class="text-medical-blue">${{ cart.get_total_price }}</span>
+                        <span class="text-primary">Total</span>
+                        <span class="text-cannabis-green">${{ cart.get_total_price }}</span>
                     </div>
                 </div>
             </div>

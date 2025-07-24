@@ -8,7 +8,7 @@
 <div class="container mx-auto px-4 py-8">
     <!-- Category Header -->
     <div class="text-center mb-12">
-        <h1 class="text-4xl font-bold text-gray-800 mb-4">{{ category.name }}</h1>
+        <h1 class="text-4xl font-bold text-primary mb-4">{{ category.name }}</h1>
         {% if category.description %}
             <p class="text-xl text-gray-600 max-w-3xl mx-auto">{{ category.description }}</p>
         {% endif %}
@@ -18,30 +18,30 @@
         <!-- Sidebar Filters -->
         <div class="lg:w-1/4">
             <div class="bg-white rounded-lg shadow-lg p-6">
-                <h3 class="text-lg font-semibold mb-4">Filter Products</h3>
+                <h3 class="text-lg font-semibold mb-4 text-primary">Filter Products</h3>
                 
                 <form method="GET" class="space-y-6">
                     <!-- Price Range -->
                     <div>
-                        <h4 class="font-medium mb-2">Price Range</h4>
+                        <h4 class="font-medium mb-2 text-primary">Price Range</h4>
                         <div class="space-y-2">
                             <input type="number" name="min_price" placeholder="Min Price" 
                                    value="{{ min_price }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded">
+                                   class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                             <input type="number" name="max_price" placeholder="Max Price" 
                                    value="{{ max_price }}"
-                                   class="w-full px-3 py-2 border border-gray-300 rounded">
+                                   class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                         </div>
                     </div>
                     
                     <button type="submit" 
-                            class="w-full bg-medical-blue text-white py-2 rounded hover:bg-medical-dark">
+                            class="w-full bg-cannabis-green text-white py-2 rounded hover:bg-cannabis-dark transition duration-300">
                         Apply Filters
                     </button>
                     
                     {% if min_price or max_price %}
                         <a href="{% url 'products:category_detail' category.slug %}" 
-                           class="w-full block text-center border border-gray-300 text-gray-600 py-2 rounded hover:bg-gray-50">
+                           class="w-full block text-center border border-gray-300 text-gray-600 py-2 rounded hover:bg-gray-50 transition duration-300">
                             Clear Filters
                         </a>
                     {% endif %}
@@ -52,7 +52,7 @@
         <!-- Products Grid -->
         <div class="lg:w-3/4">
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold">Products in {{ category.name }}</h2>
+                <h2 class="text-2xl font-bold text-primary">Products in {{ category.name }}</h2>
                 <p class="text-gray-600">{{ page_obj.paginator.count }} products found</p>
             </div>
             
@@ -69,21 +69,21 @@
                     {% endif %}
                     
                     <div class="p-6">
-                        <h3 class="text-lg font-semibold mb-2">{{ product.name }}</h3>
+                        <h3 class="text-lg font-semibold mb-2 text-primary">{{ product.name }}</h3>
                         <p class="text-gray-600 text-sm mb-3">{{ product.description|truncatewords:15 }}</p>
                         
                         <!-- Benefits Preview -->
                         {% if product.benefits %}
-                            <p class="text-xs text-medical-blue mb-3">
+                            <p class="text-xs text-cannabis-green mb-3">
                                 <i class="fas fa-heart mr-1"></i>{{ product.benefits|truncatewords:8 }}
                             </p>
                         {% endif %}
                         
                         <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-medical-blue">${{ product.price }}</span>
+                            <span class="text-2xl font-bold text-cannabis-green">${{ product.price }}</span>
                             <div class="flex space-x-2">
                                 <a href="{{ product.get_absolute_url }}" 
-                                   class="bg-medical-blue text-white px-4 py-2 rounded hover:bg-medical-dark transition duration-300">
+                                   class="bg-cannabis-green text-white px-4 py-2 rounded hover:bg-cannabis-dark transition duration-300">
                                     View Details
                                 </a>
                             </div>
@@ -111,12 +111,12 @@
                     </p>
                     {% if min_price or max_price %}
                         <a href="{% url 'products:category_detail' category.slug %}" 
-                           class="inline-block bg-medical-blue text-white px-6 py-2 rounded hover:bg-medical-dark">
+                           class="inline-block bg-cannabis-green text-white px-6 py-2 rounded hover:bg-cannabis-dark transition duration-300">
                             Clear Filters
                         </a>
                     {% else %}
                         <a href="{% url 'products:product_list' %}" 
-                           class="inline-block bg-medical-blue text-white px-6 py-2 rounded hover:bg-medical-dark">
+                           class="inline-block bg-cannabis-green text-white px-6 py-2 rounded hover:bg-cannabis-dark transition duration-300">
                             Browse All Products
                         </a>
                     {% endif %}
@@ -130,17 +130,17 @@
                 <nav class="flex space-x-2">
                     {% if page_obj.has_previous %}
                         <a href="?page={{ page_obj.previous_page_number }}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}" 
-                           class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50">
+                           class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50 transition duration-300">
                             Previous
                         </a>
                     {% endif %}
                     
                     {% for num in page_obj.paginator.page_range %}
                         {% if page_obj.number == num %}
-                            <span class="px-3 py-2 bg-medical-blue text-white rounded">{{ num }}</span>
+                            <span class="px-3 py-2 bg-cannabis-green text-white rounded">{{ num }}</span>
                         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
                             <a href="?page={{ num }}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}" 
-                               class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50">
+                               class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50 transition duration-300">
                                 {{ num }}
                             </a>
                         {% endif %}
@@ -148,7 +148,7 @@
                     
                     {% if page_obj.has_next %}
                         <a href="?page={{ page_obj.next_page_number }}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}" 
-                           class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50">
+                           class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50 transition duration-300">
                             Next
                         </a>
                     {% endif %}
@@ -161,7 +161,7 @@
     <!-- Category Information -->
     {% if category.description %}
     <div class="mt-16 bg-white rounded-lg shadow-lg p-8">
-        <h2 class="text-2xl font-bold mb-4">About {{ category.name }}</h2>
+        <h2 class="text-2xl font-bold mb-4 text-primary">About {{ category.name }}</h2>
         <div class="prose max-w-none text-gray-700">
             {{ category.description|linebreaks }}
         </div>
