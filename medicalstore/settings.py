@@ -30,8 +30,8 @@ ALLOWED_HOSTS = ['*']  # Allow all hosts for development
 
 # CSRF trusted origins for development
 CSRF_TRUSTED_ORIGINS = [
-    'https://work-1-cjphokmvhicueqze.prod-runtime.all-hands.dev',
-    'https://work-2-cjphokmvhicueqze.prod-runtime.all-hands.dev',
+    'https://work-1-vgrggshdjmezrwkq.prod-runtime.all-hands.dev',
+    'https://work-2-vgrggshdjmezrwkq.prod-runtime.all-hands.dev',
 ]
 
 # Cart session settings
@@ -41,6 +41,7 @@ CART_SESSION_ID = 'cart'
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,41 +130,19 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-# European Languages Support
+# Supported Languages - Updated to match requirements
 LANGUAGES = [
+    ('da', 'Danish'),
     ('en', 'English'),
-    ('fr', 'Français'),
-    ('de', 'Deutsch'),
-    ('es', 'Español'),
-    ('it', 'Italiano'),
-    ('pt', 'Português'),
-    ('nl', 'Nederlands'),
-    ('pl', 'Polski'),
-    ('ru', 'Русский'),
-    ('cs', 'Čeština'),
-    ('sk', 'Slovenčina'),
-    ('hu', 'Magyar'),
-    ('ro', 'Română'),
-    ('bg', 'Български'),
-    ('hr', 'Hrvatski'),
-    ('sl', 'Slovenščina'),
-    ('et', 'Eesti'),
-    ('lv', 'Latviešu'),
-    ('lt', 'Lietuvių'),
-    ('fi', 'Suomi'),
-    ('sv', 'Svenska'),
-    ('da', 'Dansk'),
-    ('no', 'Norsk'),
-    ('is', 'Íslenska'),
-    ('ga', 'Gaeilge'),
-    ('cy', 'Cymraeg'),
-    ('mt', 'Malti'),
-    ('el', 'Ελληνικά'),
-    ('mk', 'Македонски'),
-    ('sq', 'Shqip'),
-    ('sr', 'Српски'),
-    ('bs', 'Bosanski'),
-    ('me', 'Crnogorski'),
+    ('fi', 'Finnish'),
+    ('fr', 'French'),
+    ('de', 'German'),
+    ('it', 'Italian'),
+    ('hu', 'Hungarian'),
+    ('no', 'Norwegian'),
+    ('ga', 'Irish'),
+    ('es', 'Spanish'),
+    ('sv', 'Swedish'),
 ]
 
 LOCALE_PATHS = [
@@ -197,12 +176,6 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 # Session settings
 SESSION_COOKIE_AGE = 86400  # 24 hours
 SESSION_SAVE_EVERY_REQUEST = True
-
-# Internationalization support for future multilingual features
-LANGUAGES = [
-    ('en', 'English'),
-    ('fr', 'French'),
-]
 
 # Login/Logout URLs
 LOGIN_URL = '/accounts/login/'

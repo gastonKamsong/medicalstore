@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-07-18 13:04+0000\n"
+"POT-Creation-Date: 2025-07-24 09:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,25 +17,26 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
 #: pages/models.py:7
 msgid "Site Name"
-msgstr ""
+msgstr "Oldal neve"
 
 #: pages/models.py:8
 msgid "Tagline"
-msgstr ""
+msgstr "Szlogen"
 
 #: pages/models.py:11
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: pages/models.py:12
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
 #: pages/models.py:13
 msgid "Address"
-msgstr ""
+msgstr "Cím"
 
 #: pages/models.py:16
 msgid "Facebook URL"
@@ -51,23 +52,23 @@ msgstr ""
 
 #: pages/models.py:21
 msgid "Business Hours"
-msgstr ""
+msgstr "Nyitvatartás"
 
 #: pages/models.py:22
 msgid "About Text"
-msgstr ""
+msgstr "Bemutatkozó szöveg"
 
-#: pages/models.py:25 templates/base.html:204
+#: pages/models.py:25 templates/base.html:214
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Adatvédelmi irányelvek"
 
 #: pages/models.py:26
 msgid "Terms of Service"
-msgstr ""
+msgstr "Szolgáltatási feltételek"
 
 #: pages/models.py:29 pages/models.py:30
 msgid "Site Settings"
-msgstr ""
+msgstr "Oldal beállítások"
 
 #: templates/base.html:10
 msgid ""
@@ -75,89 +76,89 @@ msgid ""
 "remedies"
 msgstr ""
 
-#: templates/base.html:68
+#: templates/base.html:78
 msgid ""
 "We use cookies to improve your experience. By continuing to use our site, "
 "you accept our use of cookies."
 msgstr ""
 
-#: templates/base.html:69
+#: templates/base.html:79
 msgid "Learn more"
-msgstr ""
+msgstr "Tudj meg többet"
 
-#: templates/base.html:72
+#: templates/base.html:82
 msgid "Accept"
-msgstr ""
+msgstr "Elfogad"
 
-#: templates/base.html:92
+#: templates/base.html:102
 msgid "Search products..."
-msgstr ""
+msgstr "Termékek keresése..."
 
-#: templates/base.html:104 templates/base.html:193
+#: templates/base.html:114 templates/base.html:203
 msgid "Products"
-msgstr ""
+msgstr "Termékek"
 
-#: templates/base.html:105
+#: templates/base.html:115
 msgid "About"
-msgstr ""
+msgstr "Rólunk"
 
-#: templates/base.html:106 templates/base.html:195
+#: templates/base.html:116 templates/base.html:205
 msgid "Contact"
-msgstr ""
+msgstr "Kapcsolat"
 
-#: templates/base.html:147
+#: templates/base.html:157
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
-#: templates/base.html:148
+#: templates/base.html:158
 msgid "Order History"
-msgstr ""
+msgstr "Rendelési előzmények"
 
-#: templates/base.html:149
+#: templates/base.html:159
 msgid "Logout"
-msgstr ""
+msgstr "Kijelentkezés"
 
-#: templates/base.html:153
+#: templates/base.html:163
 msgid "Login"
-msgstr ""
+msgstr "Bejelentkezés"
 
-#: templates/base.html:154
+#: templates/base.html:164
 msgid "Register"
-msgstr ""
-
-#: templates/base.html:191
-msgid "Quick Links"
-msgstr ""
-
-#: templates/base.html:194
-msgid "About Us"
-msgstr ""
-
-#: templates/base.html:196
-msgid "FAQ"
-msgstr ""
+msgstr "Regisztráció"
 
 #: templates/base.html:201
+msgid "Quick Links"
+msgstr "Gyors linkek"
+
+#: templates/base.html:204
+msgid "About Us"
+msgstr "Rólunk"
+
+#: templates/base.html:206
+msgid "FAQ"
+msgstr "GYIK"
+
+#: templates/base.html:211
 msgid "Legal"
-msgstr ""
+msgstr "Jogi"
 
-#: templates/base.html:203
+#: templates/base.html:213
 msgid "Legal Notice"
-msgstr ""
-
-#: templates/base.html:209
-msgid "Contact Info"
-msgstr ""
+msgstr "Jogi nyilatkozat"
 
 #: templates/base.html:219
+msgid "Contact Info"
+msgstr "Kapcsolati információ"
+
+#: templates/base.html:229
 msgid "All rights reserved."
-msgstr ""
+msgstr "Minden jog fenntartva."
 
-#: templates/base.html:221
+#: templates/base.html:231
 msgid "Medical Disclaimer:"
-msgstr ""
+msgstr "Orvosi felelősségkizárás:"
 
-#: templates/base.html:221
+#: templates/base.html:231
 msgid ""
 "The information provided is for educational purposes only and should not "
 "replace professional medical advice."

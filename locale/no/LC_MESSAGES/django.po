@@ -16,23 +16,22 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: pages/models.py:7
 msgid "Site Name"
-msgstr "Nom du Site"
+msgstr "Nettstedsnavn"
 
 #: pages/models.py:8
 msgid "Tagline"
-msgstr "Slogan"
+msgstr "Slagord"
 
 #: pages/models.py:11
 msgid "Email"
-msgstr "E-mail"
+msgstr "E-post"
 
 #: pages/models.py:12
 msgid "Phone"
-msgstr "Téléphone"
+msgstr "Telefon"
 
 #: pages/models.py:13
 msgid "Address"
@@ -52,63 +51,59 @@ msgstr ""
 
 #: pages/models.py:21
 msgid "Business Hours"
-msgstr ""
+msgstr "Åpningstider"
 
 #: pages/models.py:22
 msgid "About Text"
-msgstr ""
+msgstr "Om tekst"
 
 #: pages/models.py:25 templates/base.html:214
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Personvernregler"
 
 #: pages/models.py:26
 msgid "Terms of Service"
-msgstr ""
+msgstr "Tjenestevilkår"
 
 #: pages/models.py:29 pages/models.py:30
 msgid "Site Settings"
-msgstr ""
+msgstr "Nettstedsinnstillinger"
 
 #: templates/base.html:10
 msgid ""
 "natural medical products, cannabis, CBD, hemp, organic medicine, herbal "
 "remedies"
 msgstr ""
-"produits médicaux naturels, cannabis, CBD, chanvre, médecine biologique, "
-"remèdes à base de plantes"
 
 #: templates/base.html:78
 msgid ""
 "We use cookies to improve your experience. By continuing to use our site, "
 "you accept our use of cookies."
 msgstr ""
-"Nous utilisons des cookies pour améliorer votre expérience. En continuant à "
-"utiliser notre site, vous acceptez notre utilisation des cookies."
 
 #: templates/base.html:79
 msgid "Learn more"
-msgstr "En savoir plus"
+msgstr "Lær mer"
 
 #: templates/base.html:82
 msgid "Accept"
-msgstr "Accepter"
+msgstr "Godta"
 
 #: templates/base.html:102
 msgid "Search products..."
-msgstr "Rechercher des produits..."
+msgstr "Søk produkter..."
 
 #: templates/base.html:114 templates/base.html:203
 msgid "Products"
-msgstr "Produits"
+msgstr "Produkter"
 
 #: templates/base.html:115
 msgid "About"
-msgstr "À propos"
+msgstr "Om"
 
 #: templates/base.html:116 templates/base.html:205
 msgid "Contact"
-msgstr "Contact"
+msgstr "Kontakt"
 
 #: templates/base.html:157
 msgid "Profile"
@@ -116,27 +111,27 @@ msgstr "Profil"
 
 #: templates/base.html:158
 msgid "Order History"
-msgstr "Historique des commandes"
+msgstr "Bestillingshistorikk"
 
 #: templates/base.html:159
 msgid "Logout"
-msgstr "Déconnexion"
+msgstr "Logg ut"
 
 #: templates/base.html:163
 msgid "Login"
-msgstr "Connexion"
+msgstr "Logg inn"
 
 #: templates/base.html:164
 msgid "Register"
-msgstr "S'inscrire"
+msgstr "Registrer"
 
 #: templates/base.html:201
 msgid "Quick Links"
-msgstr "Liens rapides"
+msgstr "Hurtiglenker"
 
 #: templates/base.html:204
 msgid "About Us"
-msgstr "À propos de nous"
+msgstr "Om oss"
 
 #: templates/base.html:206
 msgid "FAQ"
@@ -144,28 +139,26 @@ msgstr "FAQ"
 
 #: templates/base.html:211
 msgid "Legal"
-msgstr "Légal"
+msgstr "Juridisk"
 
 #: templates/base.html:213
 msgid "Legal Notice"
-msgstr "Mentions légales"
+msgstr "Juridisk merknad"
 
 #: templates/base.html:219
 msgid "Contact Info"
-msgstr "Informations de contact"
+msgstr "Kontaktinfo"
 
 #: templates/base.html:229
 msgid "All rights reserved."
-msgstr "Tous droits réservés."
+msgstr "Alle rettigheter forbeholdt."
 
 #: templates/base.html:231
 msgid "Medical Disclaimer:"
-msgstr "Avertissement médical :"
+msgstr "Medisinsk ansvarsfraskrivelse:"
 
 #: templates/base.html:231
 msgid ""
 "The information provided is for educational purposes only and should not "
 "replace professional medical advice."
 msgstr ""
-"Les informations fournies sont à des fins éducatives uniquement et ne "
-"doivent pas remplacer les conseils médicaux professionnels."

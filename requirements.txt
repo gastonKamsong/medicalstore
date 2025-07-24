@@ -2,6 +2,7 @@ Django==5.2.4
 Pillow==10.4.0
 asgiref==3.8.1
 sqlparse==0.5.1
+django-modeltranslation==0.18.11
 
 # Production dependencies (uncomment for deployment)
 # gunicorn==21.2.0
