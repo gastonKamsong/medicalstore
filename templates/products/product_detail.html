@@ -95,7 +95,7 @@
                 <h3 class="font-semibold text-cannabis-dark mb-2">
                     <i class="fas fa-heart mr-2"></i>{% trans "Key Benefits" %}
                 </h3>
-                <p class="text-sm text-gray-700">{{ product.benefits|truncatewords:20 }}</p>
+                <p class="text-sm text-gray-700">{{ product.benefits }}</p>
             </div>
             {% endif %}
 
@@ -119,17 +119,21 @@
             </form>
             {% endif %}
 
-            <!-- Medical Information -->
-            <div class="bg-white border border-cannabis-light rounded-lg p-4 space-y-3">
-                <h3 class="font-semibold text-cannabis-dark">
-                    <i class="fas fa-info-circle mr-2"></i>{% trans "Medical Information" %}
+            <!-- Recommended Methods -->
+            {% if product.recommended_methods %}
+            <div class="bg-white border border-cannabis-light rounded-lg p-4">
+                <h3 class="font-semibold text-cannabis-dark mb-2">
+                    <i class="fas fa-tint mr-2"></i>{% trans "Recommended Methods" %}
                 </h3>
-                <div class="text-sm text-gray-600 space-y-2">
-                    <p><strong>{% trans "Dosage:" %}</strong> {% trans "Start with low doses (2.5-5mg THC). Wait 2 hours before consuming more." %}</p>
-                    <p><strong>{% trans "Effects:" %}</strong> {% trans "Onset in 5-15 minutes when inhaled, 30-90 minutes when ingested. Effects last 2-6 hours." %}</p>
-                    <p><strong>{% trans "Warning:" %}</strong> {% trans "Not recommended for pregnant/nursing women or those with heart conditions. May interact with medications." %}</p>
+                <div class="flex flex-wrap gap-2">
+                    {% for method in product.recommended_methods %}
+                    <span class="bg-blue-50 text-blue-800 px-3 py-1 rounded-full text-sm">
+                        {{ method }}
+                    </span>
+                    {% endfor %}
                 </div>
             </div>
+            {% endif %}
         </div>
     </div>
 
@@ -147,15 +151,11 @@
                 </button>
                 <button onclick="showTab('usage')" id="tab-usage" 
                         class="tab-button py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">
-                    <i class="fas fa-book-medical mr-2"></i>{% trans "How to Use" %}
+                    <i class="fas fa-book-medical mr-2"></i>{% trans "Usage" %}
                 </button>
                 <button onclick="showTab('creation')" id="tab-creation" 
                         class="tab-button py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">
                     <i class="fas fa-industry mr-2"></i>{% trans "Production" %}
-                </button>
-                <button onclick="showTab('benefits')" id="tab-benefits" 
-                        class="tab-button py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">
-                    <i class="fas fa-heart mr-2"></i>{% trans "Benefits" %}
                 </button>
             </nav>
         </div>
@@ -164,90 +164,33 @@
             <!-- Description Tab -->
             <div id="content-description" class="tab-content">
                 <div class="prose max-w-none">
-                    <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">{% trans "Product Description" %}</h3>
-                    <p class="text-gray-700 leading-relaxed">{{ product.description|linebreaks }}</p>
-                    
-                    {% if product.strain_type %}
-                    <div class="mt-6 bg-cannabis-light bg-opacity-20 p-4 rounded-lg">
-                        <h4 class="font-semibold text-cannabis-dark mb-2">
-                            <i class="fas fa-dna mr-2"></i>{% trans "Strain Characteristics" %}
-                        </h4>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                            <div class="bg-white p-3 rounded border border-cannabis-light">
-                                <h5 class="font-medium text-cannabis-green mb-1">{% trans "Effects" %}</h5>
-                                <p class="text-gray-600">
-                                    {% if product.strain_type == 'Sativa' %}
-                                        {% trans "Energetic, uplifting, cerebral" %}
-                                    {% elif product.strain_type == 'Indica' %}
-                                        {% trans "Relaxing, sedating, body-focused" %}
-                                    {% else %}
-                                        {% trans "Balanced, hybrid effects" %}
-                                    {% endif %}
-                                </p>
-                            </div>
-                            <div class="bg-white p-3 rounded border border-cannabis-light">
-                                <h5 class="font-medium text-cannabis-green mb-1">{% trans "Aroma" %}</h5>
-                                <p class="text-gray-600">{{ product.aroma_profile|default:_("Earthy, herbal notes") }}</p>
-                            </div>
-                            <div class="bg-white p-3 rounded border border-cannabis-light">
-                                <h5 class="font-medium text-cannabis-green mb-1">{% trans "Best For" %}</h5>
-                                <p class="text-gray-600">
-                                    {% if product.strain_type == 'Sativa' %}
-                                        {% trans "Daytime use, creativity, focus" %}
-                                    {% elif product.strain_type == 'Indica' %}
-                                        {% trans "Evening use, relaxation, sleep" %}
-                                    {% else %}
-                                        {% trans "Versatile use throughout day" %}
-                                    {% endif %}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    {% endif %}
+                    {{ product.description|linebreaks }}
                 </div>
             </div>
 
             <!-- Composition Tab -->
             <div id="content-composition" class="tab-content hidden">
                 <div class="prose max-w-none">
-                    <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">{% trans "Composition & Ingredients" %}</h3>
-                    <p class="text-gray-700 leading-relaxed">{{ product.composition|linebreaks }}</p>
-                    
-                    <!-- Terpene Profile -->
-                    {% if product.terpenes %}
-                    <div class="mt-6 bg-cannabis-light bg-opacity-20 p-4 rounded-lg">
-                        <h4 class="font-semibold text-cannabis-dark mb-3">
-                            <i class="fas fa-atom mr-2"></i>{% trans "Terpene Profile" %}
-                        </h4>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-sm">
-                            {% for terpene in product.terpenes.all %}
-                            <div class="bg-white p-3 rounded border border-cannabis-light">
-                                <h5 class="font-medium text-cannabis-green mb-1">{{ terpene.name }}</h5>
-                                <p class="text-gray-600">{{ terpene.description|truncatewords:10 }}</p>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    {% endif %}
+                    <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">{% trans "Ingredients" %}</h3>
+                    {{ product.composition|linebreaks }}
                 </div>
             </div>
 
             <!-- Usage Tab -->
             <div id="content-usage" class="tab-content hidden">
                 <div class="prose max-w-none">
-                    <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">{% trans "Usage Instructions" %}</h3>
-                    <p class="text-gray-700 leading-relaxed">{{ product.usage_instructions|linebreaks }}</p>
+                    <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">{% trans "How to Use" %}</h3>
+                    {{ product.usage_instructions|linebreaks }}
                     
                     <div class="mt-6 bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                         <h4 class="font-semibold text-yellow-800 mb-2">
                             <i class="fas fa-exclamation-triangle mr-2"></i>{% trans "Safety Information" %}
                         </h4>
                         <ul class="text-sm text-yellow-800 list-disc pl-5 space-y-1">
-                            <li>{% trans "Start with low doses, especially if new to cannabis" %}</li>
+                            <li>{% trans "Start with low doses" %}</li>
                             <li>{% trans "Do not operate heavy machinery after use" %}</li>
                             <li>{% trans "Keep out of reach of children and pets" %}</li>
                             <li>{% trans "Store in a cool, dark place" %}</li>
-                            <li>{% trans "Consult your doctor if taking other medications" %}</li>
                         </ul>
                     </div>
                 </div>
@@ -257,63 +200,7 @@
             <div id="content-creation" class="tab-content hidden">
                 <div class="prose max-w-none">
                     <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">{% trans "Production Method" %}</h3>
-                    <p class="text-gray-700 leading-relaxed">{{ product.creation_method|linebreaks }}</p>
-                    
-                    <div class="mt-6 bg-cannabis-light bg-opacity-20 p-4 rounded-lg">
-                        <h4 class="font-semibold text-cannabis-dark mb-3">
-                            <i class="fas fa-certificate mr-2"></i>{% trans "Quality Assurance" %}
-                        </h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                            <div class="bg-white p-3 rounded border border-cannabis-light">
-                                <h5 class="font-medium text-cannabis-green mb-1">{% trans "Testing" %}</h5>
-                                <p class="text-gray-600">{% trans "Lab-tested for potency and contaminants" %}</p>
-                            </div>
-                            <div class="bg-white p-3 rounded border border-cannabis-light">
-                                <h5 class="font-medium text-cannabis-green mb-1">{% trans "Growing Method" %}</h5>
-                                <p class="text-gray-600">{% trans "Organically grown without pesticides" %}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Benefits Tab -->
-            <div id="content-benefits" class="tab-content hidden">
-                <div class="prose max-w-none">
-                    <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">{% trans "Health Benefits" %}</h3>
-                    <p class="text-gray-700 leading-relaxed">{{ product.benefits|linebreaks }}</p>
-                    
-                    <div class="mt-6 bg-cannabis-light bg-opacity-20 p-4 rounded-lg">
-                        <h4 class="font-semibold text-cannabis-dark mb-3">
-                            <i class="fas fa-heartbeat mr-2"></i>{% trans "Therapeutic Applications" %}
-                        </h4>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                            <div class="bg-white p-3 rounded border border-cannabis-light">
-                                <h5 class="font-medium text-cannabis-green mb-1">{% trans "Physical" %}</h5>
-                                <ul class="list-disc pl-5 text-gray-600 space-y-1">
-                                    <li>{% trans "Pain relief" %}</li>
-                                    <li>{% trans "Muscle relaxation" %}</li>
-                                    <li>{% trans "Appetite stimulation" %}</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-3 rounded border border-cannabis-light">
-                                <h5 class="font-medium text-cannabis-green mb-1">{% trans "Mental" %}</h5>
-                                <ul class="list-disc pl-5 text-gray-600 space-y-1">
-                                    <li>{% trans "Anxiety reduction" %}</li>
-                                    <li>{% trans "Stress relief" %}</li>
-                                    <li>{% trans "Mood elevation" %}</li>
-                                </ul>
-                            </div>
-                            <div class="bg-white p-3 rounded border border-cannabis-light">
-                                <h5 class="font-medium text-cannabis-green mb-1">{% trans "Other" %}</h5>
-                                <ul class="list-disc pl-5 text-gray-600 space-y-1">
-                                    <li>{% trans "Sleep improvement" %}</li>
-                                    <li>{% trans "Neuroprotective effects" %}</li>
-                                    <li>{% trans "Anti-inflammatory" %}</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    {{ product.creation_method|linebreaks }}
                 </div>
             </div>
         </div>
@@ -362,12 +249,12 @@
 <script>
 function showTab(tabName) {
     // Hide all tab contents
-    const contents = document.querySelectorAll('.tab-content');
-    contents.forEach(content => content.classList.add('hidden'));
+    document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.add('hidden');
+    });
     
     // Remove active state from all tabs
-    const buttons = document.querySelectorAll('.tab-button');
-    buttons.forEach(button => {
+    document.querySelectorAll('.tab-button').forEach(button => {
         button.classList.remove('border-cannabis-green', 'text-cannabis-green');
         button.classList.add('border-transparent', 'text-gray-500');
     });

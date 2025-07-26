@@ -3,12 +3,87 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 
+from django.db import models
+from django.utils.text import slugify
+from django.urls import reverse
+
 class Category(models.Model):
+    STRAIN_TYPE_CHOICES = [
+        ('Sativa', 'Sativa'),
+        ('Indica', 'Indica'),
+        ('Hybrid', 'Hybrid'),
+        ('Other', 'Other'),
+    ]
+
+    RATIO_CHOICES = [
+        ('high_cbd', 'High CBD (20:1)'),
+        ('balanced', 'Balanced (1:1)'),
+        ('high_thc', 'High THC (1:20)'),
+    ]
+
+    CONSUMPTION_METHODS = [
+        ('flower', 'Flower'),
+        ('oil', 'Oils & Tinctures'),
+        ('edible', 'Edibles'),
+    ]
+
     name = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
     description = models.TextField(blank=True)
-    meta_description = models.CharField(max_length=160, blank=True, help_text="SEO meta description")
-    meta_keywords = models.CharField(max_length=255, blank=True, help_text="SEO keywords")
+    meta_description = models.CharField(max_length=160, blank=True)
+    meta_keywords = models.CharField(max_length=255, blank=True)
+
+    # Filters/Tags
+    strain_type = models.CharField(
+        max_length=10,
+        choices=STRAIN_TYPE_CHOICES,
+        blank=True,
+        null=True,
+        help_text="Dominant strain type for this category"
+    )
+
+    preferred_ratio = models.CharField(
+        max_length=20,
+        choices=RATIO_CHOICES,
+        blank=True,
+        null=True,
+        help_text="Suggested cannabinoid ratio for products in this category"
+    )
+
+    recommended_methods = models.JSONField(
+        blank=True,
+        null=True,
+        help_text="Suggested consumption methods (e.g., ['flower', 'oil'])"
+    )
+
+    # Medical Display Info
+    primary_benefits = models.TextField(
+        blank=True,
+        help_text="Key therapeutic benefits shown in medical section"
+    )
+    dosage_advice = models.TextField(
+        blank=True,
+        help_text="Recommended dosing guidance for category"
+    )
+    effects_timeline = models.TextField(
+        blank=True,
+        help_text="Expected onset and duration of effects"
+    )
+    storage_advice = models.TextField(
+        blank=True,
+        help_text="Proper storage instructions"
+    )
+
+    # Misc
+    icon = models.CharField(
+        max_length=50,
+        blank=True,
+        default='fas fa-cannabis',
+        help_text="Font Awesome icon class"
+    )
+    is_medical = models.BooleanField(default=False)
+    is_recreational = models.BooleanField(default=True)
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -26,6 +101,14 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('products:category_detail', kwargs={'slug': self.slug})
+
+    def get_strain_color(self):
+        if self.strain_type == 'Sativa':
+            return 'bg-green-100 text-green-800'
+        elif self.strain_type == 'Indica':
+            return 'bg-purple-100 text-purple-800'
+        else:
+            return 'bg-blue-100 text-blue-800'
 
 
 class Product(models.Model):
@@ -51,6 +134,24 @@ class Product(models.Model):
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    strain_type = models.CharField(
+        max_length=10,
+        choices=Category.STRAIN_TYPE_CHOICES,
+        blank=True,
+        null=True,
+    )
+    preferred_ratio = models.CharField(
+        max_length=20,
+        choices=Category.RATIO_CHOICES,
+        blank=True,
+        null=True,
+    )
+    recommended_methods = models.JSONField(
+        blank=True,
+        null=True,
+        help_text="e.g., ['flower', 'oil']"
+    )
 
     class Meta:
         ordering = ['-created_at']

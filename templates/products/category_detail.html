@@ -6,7 +6,9 @@
 
 {% block content %}
 {% load i18n %}
+{% load query_transform %}
 
+<!-- Updated template -->
 <div class="container mx-auto px-4 py-8">
     <!-- Category Header -->
     <div class="text-center mb-12">
@@ -36,14 +38,29 @@
                         </div>
                     </div>
                     
+                    <!-- Strain Type -->
+                    <div>
+                        <h4 class="font-medium mb-2 text-cannabis-dark">{% trans "Strain Type" %}</h4>
+                        <select name="strain_type" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
+                            <option value="">{% trans "All Strains" %}</option>
+                            {% for choice in strain_choices %}
+                                <option value="{{ choice.0 }}" {% if active_filters.strain_type == choice.0 %}selected{% endif %}>
+                                    {{ choice.1 }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    
                     <!-- CBD/THC Ratio -->
                     <div>
                         <h4 class="font-medium mb-2 text-cannabis-dark">{% trans "CBD:THC Ratio" %}</h4>
                         <select name="ratio" class="w-full px-3 py-2 border border-gray-300 rounded focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                             <option value="">{% trans "All Ratios" %}</option>
-                            <option value="high_cbd">{% trans "High CBD (20:1)" %}</option>
-                            <option value="balanced">{% trans "Balanced (1:1)" %}</option>
-                            <option value="high_thc">{% trans "High THC (1:20)" %}</option>
+                            {% for choice in ratio_choices %}
+                                <option value="{{ choice.0 }}" {% if active_filters.ratio == choice.0 %}selected{% endif %}>
+                                    {{ choice.1 }}
+                                </option>
+                            {% endfor %}
                         </select>
                     </div>
                     
@@ -51,18 +68,14 @@
                     <div>
                         <h4 class="font-medium mb-2 text-cannabis-dark">{% trans "Consumption Method" %}</h4>
                         <div class="space-y-2">
+                            {% for method in method_choices %}
                             <label class="flex items-center">
-                                <input type="checkbox" name="method" value="flower" class="rounded text-cannabis-green focus:ring-cannabis-green">
-                                <span class="ml-2 text-gray-700">{% trans "Flower" %}</span>
+                                <input type="checkbox" name="method" value="{{ method.0 }}" 
+                                       class="rounded text-cannabis-green focus:ring-cannabis-green"
+                                       {% if method.0 in active_filters.methods %}checked{% endif %}>
+                                <span class="ml-2 text-gray-700">{{ method.1 }}</span>
                             </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" name="method" value="oil" class="rounded text-cannabis-green focus:ring-cannabis-green">
-                                <span class="ml-2 text-gray-700">{% trans "Oils & Tinctures" %}</span>
-                            </label>
-                            <label class="flex items-center">
-                                <input type="checkbox" name="method" value="edible" class="rounded text-cannabis-green focus:ring-cannabis-green">
-                                <span class="ml-2 text-gray-700">{% trans "Edibles" %}</span>
-                            </label>
+                            {% endfor %}
                         </div>
                     </div>
                     
@@ -71,7 +84,7 @@
                         {% trans "Apply Filters" %}
                     </button>
                     
-                    {% if min_price or max_price %}
+                    {% if active_filters.strain_type or active_filters.ratio or active_filters.methods or min_price or max_price %}
                         <a href="{% url 'products:category_detail' category.slug %}" 
                            class="w-full block text-center border border-gray-300 text-gray-600 py-2 rounded hover:bg-gray-50 transition duration-300">
                             {% trans "Clear Filters" %}
@@ -83,21 +96,29 @@
             <!-- Medical Information -->
             <div class="mt-6 bg-white rounded-lg shadow-lg p-6 border border-cannabis-light">
                 <h3 class="text-lg font-semibold mb-4 text-cannabis-dark">
-                    <i class="fas fa-info-circle mr-2"></i>{% trans "Medical Information" %}
+                    <i class="{{ category.icon|default:'fas fa-info-circle' }} mr-2"></i>{% trans "Medical Information" %}
                 </h3>
                 <div class="text-sm text-gray-600 space-y-4">
+                    {% if category.dosage_advice %}
                     <p>
                         <strong class="text-cannabis-dark">{% trans "Dosage Advice:" %}</strong> 
-                        {% trans "Start with low doses (2.5-5mg THC) and wait 2 hours before consuming more." %}
+                        {{ category.dosage_advice }}
                     </p>
+                    {% endif %}
+                    
+                    {% if category.effects_timeline %}
                     <p>
                         <strong class="text-cannabis-dark">{% trans "Effects Timeline:" %}</strong> 
-                        {% trans "Inhalation: 5-15 minutes onset. Edibles: 30-90 minutes onset. Effects last 2-6 hours." %}
+                        {{ category.effects_timeline }}
                     </p>
+                    {% endif %}
+                    
+                    {% if category.storage_advice %}
                     <p>
                         <strong class="text-cannabis-dark">{% trans "Storage:" %}</strong> 
-                        {% trans "Store in cool, dark place. Keep away from children and pets." %}
+                        {{ category.storage_advice }}
                     </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -108,6 +129,56 @@
                 <h2 class="text-2xl font-bold text-cannabis-dark">{% trans "Products in" %} {{ category.name }}</h2>
                 <p class="text-gray-600">{{ page_obj.paginator.count }} {% trans "products found" %}</p>
             </div>
+            
+            <!-- Active Filters -->
+            {% if active_filters.strain_type or active_filters.ratio or active_filters.methods or min_price or max_price %}
+            <div class="mb-4 flex flex-wrap gap-2">
+                {% if min_price %}
+                <span class="px-3 py-1 bg-cannabis-light text-cannabis-dark rounded-full text-sm flex items-center">
+                    Min: ${{ min_price }}
+                    <a href="?{% query_transform min_price=None %}" class="ml-2 text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </span>
+                {% endif %}
+                
+                {% if max_price %}
+                <span class="px-3 py-1 bg-cannabis-light text-cannabis-dark rounded-full text-sm flex items-center">
+                    Max: ${{ max_price }}
+                    <a href="?{% query_transform max_price=None %}" class="ml-2 text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </span>
+                {% endif %}
+                
+                {% if active_filters.strain_type %}
+                <span class="px-3 py-1 bg-cannabis-light text-cannabis-dark rounded-full text-sm flex items-center">
+                    Strain: {{ active_filters.strain_type }}
+                    <a href="?{% query_transform  strain_type=None %}" class="ml-2 text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </span>
+                {% endif %}
+                
+                {% if active_filters.ratio %}
+                <span class="px-3 py-1 bg-cannabis-light text-cannabis-dark rounded-full text-sm flex items-center">
+                    Ratio: {{ active_filters.ratio }}
+                    <a href="?{% query_transform  ratio=None %}" class="ml-2 text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </span>
+                {% endif %}
+                
+                {% for method in active_filters.methods %}
+                <span class="px-3 py-1 bg-cannabis-light text-cannabis-dark rounded-full text-sm flex items-center">
+                    Method: {{ method }}
+                    <a href="?{% query_transform  method=method remove=True %}" class="ml-2 text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </a>
+                </span>
+                {% endfor %}
+            </div>
+            {% endif %}
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {% for product in page_obj %}
@@ -127,11 +198,8 @@
                         <!-- Strain Type -->
                         {% if product.strain_type %}
                         <div class="mb-2">
-                            <span class="inline-block px-2 py-1 text-xs rounded 
-                                {% if product.strain_type == 'Sativa' %}bg-green-100 text-green-800
-                                {% elif product.strain_type == 'Indica' %}bg-purple-100 text-purple-800
-                                {% else %}bg-blue-100 text-blue-800{% endif %}">
-                                {{ product.strain_type }}
+                            <span class="inline-block px-2 py-1 text-xs rounded {{ product.get_strain_color }}">
+                                {{ product.get_strain_type_display }}
                             </span>
                         </div>
                         {% endif %}
@@ -152,11 +220,16 @@
                             {% endif %}
                         </div>
                         
-                        <!-- Benefits -->
-                        {% if product.benefits %}
-                            <p class="text-xs text-cannabis-green mb-3">
-                                <i class="fas fa-heart mr-1"></i>{{ product.benefits|truncatewords:8 }}
+                        <!-- Consumption Methods -->
+                        {% if product.recommended_methods %}
+                        <div class="mb-3">
+                            <p class="text-xs text-gray-500">
+                                <i class="fas fa-tint mr-1"></i>
+                                {% for method in product.recommended_methods %}
+                                    <span class="mr-2">{{ method }}</span>
+                                {% endfor %}
                             </p>
+                        </div>
                         {% endif %}
                         
                         <div class="flex justify-between items-center">
@@ -173,7 +246,7 @@
                             <p class="text-red-500 text-sm mt-2">{% trans "Out of Stock" %}</p>
                         {% else %}
                             <p class="text-green-600 text-sm mt-2">
-                                <i class="fas fa-check mr-1"></i>{% trans "In Stock" %} ({{ product.stock_quantity }})
+                                <i class="fas fa-check mr-1"></i>{% trans "In Stock" %}
                             </p>
                         {% endif %}
                     </div>
@@ -183,13 +256,13 @@
                     <i class="fas fa-cannabis text-6xl text-gray-300 mb-4"></i>
                     <h3 class="text-xl font-semibold text-gray-600 mb-2">{% trans "No products found" %}</h3>
                     <p class="text-gray-500 mb-4">
-                        {% if min_price or max_price %}
-                            {% trans "No products match your current filters. Try adjusting your price range." %}
+                        {% if active_filters.strain_type or active_filters.ratio or active_filters.methods or min_price or max_price %}
+                            {% trans "No products match your current filters. Try adjusting your filters." %}
                         {% else %}
                             {% trans "This category doesn't have any products yet." %}
                         {% endif %}
                     </p>
-                    {% if min_price or max_price %}
+                    {% if active_filters.strain_type or active_filters.ratio or active_filters.methods or min_price or max_price %}
                         <a href="{% url 'products:category_detail' category.slug %}" 
                            class="inline-block bg-cannabis-green text-white px-6 py-2 rounded hover:bg-cannabis-dark transition duration-300">
                             {% trans "Clear Filters" %}
@@ -209,7 +282,7 @@
             <div class="flex justify-center mt-8">
                 <nav class="flex space-x-2">
                     {% if page_obj.has_previous %}
-                        <a href="?page={{ page_obj.previous_page_number }}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}" 
+                        <a href="?{% query_transform  page=page_obj.previous_page_number %}" 
                            class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50 transition duration-300">
                             {% trans "Previous" %}
                         </a>
@@ -219,7 +292,7 @@
                         {% if page_obj.number == num %}
                             <span class="px-3 py-2 bg-cannabis-green text-white rounded">{{ num }}</span>
                         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                            <a href="?page={{ num }}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}" 
+                            <a href="?{% query_transform  page=num %}" 
                                class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50 transition duration-300">
                                 {{ num }}
                             </a>
@@ -227,7 +300,7 @@
                     {% endfor %}
                     
                     {% if page_obj.has_next %}
-                        <a href="?page={{ page_obj.next_page_number }}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}" 
+                        <a href="?{% query_transform page=page_obj.next_page_number %}" 
                            class="px-3 py-2 bg-white border border-gray-300 rounded hover:bg-gray-50 transition duration-300">
                             {% trans "Next" %}
                         </a>
@@ -239,33 +312,27 @@
     </div>
 
     <!-- Category Information -->
-    {% if category.description %}
+    {% if category.description or category.primary_benefits %}
     <div class="mt-16 bg-white rounded-lg shadow-lg p-8 border border-cannabis-light">
         <h2 class="text-2xl font-bold mb-4 text-cannabis-dark">{% trans "About" %} {{ category.name }}</h2>
-        <div class="prose max-w-none text-gray-700">
+        
+        {% if category.description %}
+        <div class="prose max-w-none text-gray-700 mb-6">
             {{ category.description|linebreaks }}
         </div>
+        {% endif %}
         
         <!-- Medical Uses -->
+        {% if category.primary_benefits %}
         <div class="mt-6 bg-cannabis-light bg-opacity-30 p-4 rounded-lg">
             <h3 class="font-semibold text-lg text-cannabis-dark mb-2">
                 <i class="fas fa-heartbeat mr-2"></i>{% trans "Therapeutic Uses" %}
             </h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                <div class="bg-white p-3 rounded">
-                    <h4 class="font-medium text-cannabis-green">{% trans "Pain Management" %}</h4>
-                    <p class="text-gray-600">{% trans "May help with chronic pain, arthritis, and neuropathic pain." %}</p>
-                </div>
-                <div class="bg-white p-3 rounded">
-                    <h4 class="font-medium text-cannabis-green">{% trans "Mental Health" %}</h4>
-                    <p class="text-gray-600">{% trans "Potential benefits for anxiety, PTSD, and depression (consult doctor)." %}</p>
-                </div>
-                <div class="bg-white p-3 rounded">
-                    <h4 class="font-medium text-cannabis-green">{% trans "Sleep Disorders" %}</h4>
-                    <p class="text-gray-600">{% trans "May improve sleep quality for insomnia patients." %}</p>
-                </div>
+            <div class="text-sm text-gray-600">
+                {{ category.primary_benefits|linebreaks }}
             </div>
         </div>
+        {% endif %}
     </div>
     {% endif %}
 </div>
