@@ -3,12 +3,13 @@
 {% block title %}Register - MedicalStore{% endblock %}
 
 {% block content %}
+{% load i18n %}
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-md mx-auto">
-        <div class="bg-white rounded-lg shadow-lg p-8">
+        <div class="bg-white rounded-lg shadow-lg p-8 border border-cannabis-light">
             <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-800 mb-2">Create Account</h1>
-                <p class="text-gray-600">Join MedicalStore for a personalized experience</p>
+                <h1 class="text-3xl font-bold text-cannabis-dark mb-2">{% trans "Create Account" %}</h1>
+                <p class="text-gray-600">{% trans "Join CannabiCare for exclusive access to premium cannabis products" %}</p>
             </div>
 
             <form method="post" class="space-y-6">
@@ -18,15 +19,15 @@
                     <div class="bg-red-50 border border-red-200 rounded-lg p-4">
                         <p class="text-red-800 text-sm">
                             <i class="fas fa-exclamation-circle mr-2"></i>
-                            Please correct the errors below.
+                            {% trans "Please correct the errors below." %}
                         </p>
                     </div>
                 {% endif %}
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                            First Name
+                        <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-cannabis-dark mb-1">
+                            {% trans "First Name" %}
                         </label>
                         {{ form.first_name }}
                         {% if form.first_name.errors %}
@@ -35,8 +36,8 @@
                     </div>
                     
                     <div>
-                        <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                            Last Name
+                        <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-cannabis-dark mb-1">
+                            {% trans "Last Name" %}
                         </label>
                         {{ form.last_name }}
                         {% if form.last_name.errors %}
@@ -46,8 +47,8 @@
                 </div>
 
                 <div>
-                    <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Username
+                    <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-cannabis-dark mb-1">
+                        {% trans "Username" %}
                     </label>
                     {{ form.username }}
                     {% if form.username.errors %}
@@ -56,8 +57,8 @@
                 </div>
 
                 <div>
-                    <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Email Address
+                    <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-cannabis-dark mb-1">
+                        {% trans "Email Address" %}
                     </label>
                     {{ form.email }}
                     {% if form.email.errors %}
@@ -66,21 +67,21 @@
                 </div>
 
                 <div>
-                    <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Password
+                    <label for="{{ form.password1.id_for_label }}" class="block text-sm font-medium text-cannabis-dark mb-1">
+                        {% trans "Password" %}
                     </label>
                     {{ form.password1 }}
                     {% if form.password1.errors %}
                         <p class="text-red-500 text-sm mt-1">{{ form.password1.errors.0 }}</p>
                     {% endif %}
                     <p class="text-xs text-gray-500 mt-1">
-                        Password must be at least 8 characters long and contain letters and numbers.
+                        {% trans "Password must be at least 8 characters long and contain letters and numbers." %}
                     </p>
                 </div>
 
                 <div>
-                    <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Confirm Password
+                    <label for="{{ form.password2.id_for_label }}" class="block text-sm font-medium text-cannabis-dark mb-1">
+                        {% trans "Confirm Password" %}
                     </label>
                     {{ form.password2 }}
                     {% if form.password2.errors %}
@@ -90,63 +91,80 @@
 
                 <div class="space-y-3">
                     <label class="flex items-start">
-                        <input type="checkbox" name="terms" required class="mt-1 mr-3">
+                        <input type="checkbox" name="terms" required class="mt-1 mr-3 border-cannabis-dark text-cannabis-green focus:ring-cannabis-green">
                         <span class="text-sm text-gray-600">
-                            I agree to the <a href="{% url 'pages:legal' %}" class="text-medical-blue hover:text-medical-dark">Terms of Service</a> 
-                            and <a href="{% url 'pages:privacy' %}" class="text-medical-blue hover:text-medical-dark">Privacy Policy</a>
+                            {% trans "I agree to the" %} 
+                            <a href="{% url 'pages:legal' %}" class="text-cannabis-green hover:text-cannabis-dark">
+                                {% trans "Terms of Service" %}
+                            </a> 
+                            {% trans "and" %}
+                            <a href="{% url 'pages:privacy' %}" class="text-cannabis-green hover:text-cannabis-dark">
+                                {% trans "Privacy Policy" %}
+                            </a>
                         </span>
                     </label>
                     
                     <label class="flex items-start">
-                        <input type="checkbox" name="medical_disclaimer" required class="mt-1 mr-3">
+                        <input type="checkbox" name="age_verification" required class="mt-1 mr-3 border-cannabis-dark text-cannabis-green focus:ring-cannabis-green">
                         <span class="text-sm text-gray-600">
-                            I understand that the information provided is for educational purposes only and should not replace professional medical advice
+                            {% trans "I confirm that I am at least 21 years of age" %}
                         </span>
                     </label>
                     
                     <label class="flex items-start">
-                        <input type="checkbox" name="newsletter" class="mt-1 mr-3">
+                        <input type="checkbox" name="medical_disclaimer" required class="mt-1 mr-3 border-cannabis-dark text-cannabis-green focus:ring-cannabis-green">
                         <span class="text-sm text-gray-600">
-                            I would like to receive updates about new products and health information (optional)
+                            {% trans "I understand cannabis products are for adult use only and should be kept away from children" %}
+                        </span>
+                    </label>
+                    
+                    <label class="flex items-start">
+                        <input type="checkbox" name="newsletter" class="mt-1 mr-3 border-cannabis-dark text-cannabis-green focus:ring-cannabis-green">
+                        <span class="text-sm text-gray-600">
+                            {% trans "I would like to receive updates about new cannabis strains and products (optional)" %}
                         </span>
                     </label>
                 </div>
 
                 <button type="submit" 
-                        class="w-full bg-medical-blue text-white py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
-                    Create Account
+                        class="w-full bg-cannabis-green hover:bg-cannabis-dark text-white py-3 rounded-lg font-semibold transition duration-300 shadow-md">
+                    {% trans "Create Account" %}
                 </button>
             </form>
 
             <div class="mt-8 text-center">
                 <p class="text-gray-600">
-                    Already have an account? 
-                    <a href="{% url 'login' %}" class="text-medical-blue hover:text-medical-dark font-semibold">
-                        Sign in here
+                    {% trans "Already have an account?" %} 
+                    <a href="{% url 'login' %}" class="text-cannabis-green hover:text-cannabis-dark font-semibold">
+                        {% trans "Sign in here" %}
                     </a>
                 </p>
             </div>
         </div>
 
         <!-- Benefits of Registration -->
-        <div class="bg-medical-light rounded-lg p-6 mt-6">
-            <h3 class="font-semibold text-medical-dark mb-3">Benefits of Creating an Account</h3>
+        <div class="bg-cannabis-light rounded-lg p-6 mt-6 border border-cannabis-light">
+            <h3 class="font-semibold text-cannabis-dark mb-3">{% trans "Why Register With Us?" %}</h3>
             <ul class="space-y-2 text-sm text-gray-700">
                 <li class="flex items-center">
-                    <i class="fas fa-check text-medical-blue mr-2"></i>
-                    Track your orders and view order history
+                    <i class="fas fa-cannabis text-cannabis-green mr-2"></i>
+                    {% trans "Access to premium cannabis strains and CBD products" %}
                 </li>
                 <li class="flex items-center">
-                    <i class="fas fa-check text-medical-blue mr-2"></i>
-                    Save delivery addresses for faster checkout
+                    <i class="fas fa-percentage text-cannabis-green mr-2"></i>
+                    {% trans "Exclusive member discounts and early access to sales" %}
                 </li>
                 <li class="flex items-center">
-                    <i class="fas fa-check text-medical-blue mr-2"></i>
-                    Receive personalized product recommendations
+                    <i class="fas fa-seedling text-cannabis-green mr-2"></i>
+                    {% trans "Grower's corner with cultivation tips and resources" %}
                 </li>
                 <li class="flex items-center">
-                    <i class="fas fa-check text-medical-blue mr-2"></i>
-                    Access to exclusive health information and updates
+                    <i class="fas fa-book-medical text-cannabis-green mr-2"></i>
+                    {% trans "Medical cannabis information and research updates" %}
+                </li>
+                <li class="flex items-center">
+                    <i class="fas fa-truck text-cannabis-green mr-2"></i>
+                    {% trans "Fast, discreet delivery options" %}
                 </li>
             </ul>
         </div>

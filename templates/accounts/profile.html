@@ -3,141 +3,217 @@
 {% block title %}My Profile - MedicalStore{% endblock %}
 
 {% block content %}
+{% load i18n %}
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-4xl mx-auto">
-        <h1 class="text-3xl font-bold text-gray-800 mb-8">My Profile</h1>
+        <h1 class="text-3xl font-bold text-cannabis-dark mb-8">
+            <i class="fas fa-user-circle mr-2"></i>{% trans "My Profile" %}
+        </h1>
         
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Profile Sidebar -->
             <div class="lg:col-span-1">
-                <div class="bg-white rounded-lg shadow-lg p-6">
+                <div class="bg-white rounded-lg shadow-lg p-6 border border-cannabis-light">
                     <div class="text-center mb-6">
-                        <div class="bg-medical-blue rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
+                        <div class="bg-cannabis-green rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
                             <i class="fas fa-user text-3xl text-white"></i>
                         </div>
-                        <h2 class="text-xl font-semibold">{{ user.get_full_name|default:user.username }}</h2>
+                        <h2 class="text-xl font-semibold text-cannabis-dark">{{ user.get_full_name|default:user.username }}</h2>
                         <p class="text-gray-600">{{ user.email }}</p>
                     </div>
                     
                     <nav class="space-y-2">
-                        <a href="#profile-info" class="block w-full text-left px-4 py-2 rounded hover:bg-medical-light text-medical-blue">
-                            <i class="fas fa-user mr-2"></i>Profile Information
+                        <a href="#profile-info" class="block w-full text-left px-4 py-2 rounded hover:bg-cannabis-light text-cannabis-green font-medium">
+                            <i class="fas fa-user mr-2"></i>{% trans "Profile Information" %}
                         </a>
-                        <a href="{% url 'orders:order_history' %}" class="block w-full text-left px-4 py-2 rounded hover:bg-medical-light text-gray-700">
-                            <i class="fas fa-receipt mr-2"></i>Order History
+                        <a href="{% url 'orders:order_history' %}" class="block w-full text-left px-4 py-2 rounded hover:bg-cannabis-light text-gray-700">
+                            <i class="fas fa-receipt mr-2"></i>{% trans "Order History" %}
                         </a>
-                        <a href="#security" class="block w-full text-left px-4 py-2 rounded hover:bg-medical-light text-gray-700">
-                            <i class="fas fa-lock mr-2"></i>Security Settings
+                        <a href="#medical-profile" class="block w-full text-left px-4 py-2 rounded hover:bg-cannabis-light text-gray-700">
+                            <i class="fas fa-heartbeat mr-2"></i>{% trans "Medical Profile" %}
+                        </a>
+                        <a href="#security" class="block w-full text-left px-4 py-2 rounded hover:bg-cannabis-light text-gray-700">
+                            <i class="fas fa-lock mr-2"></i>{% trans "Security Settings" %}
                         </a>
                         <a href="{% url 'logout' %}" class="block w-full text-left px-4 py-2 rounded hover:bg-red-50 text-red-600">
-                            <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                            <i class="fas fa-sign-out-alt mr-2"></i>{% trans "Logout" %}
                         </a>
                     </nav>
+                </div>
+
+                <!-- Medical Information Card -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mt-6 border border-cannabis-light">
+                    <h3 class="text-lg font-semibold mb-4 text-cannabis-dark">
+                        <i class="fas fa-heartbeat mr-2"></i>{% trans "Medical Resources" %}
+                    </h3>
+                    <ul class="space-y-3 text-sm">
+                        <li>
+                            <a href="#" class="text-cannabis-green hover:text-cannabis-dark flex items-center">
+                                <i class="fas fa-book-medical mr-2"></i>
+                                {% trans "Cannabis Dosage Guide" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-cannabis-green hover:text-cannabis-dark flex items-center">
+                                <i class="fas fa-file-medical mr-2"></i>
+                                {% trans "Medical Research" %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-cannabis-green hover:text-cannabis-dark flex items-center">
+                                <i class="fas fa-user-md mr-2"></i>
+                                {% trans "Find a Doctor" %}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
             
             <!-- Profile Content -->
             <div class="lg:col-span-2">
                 <!-- Profile Information -->
-                <div id="profile-info" class="bg-white rounded-lg shadow-lg p-6 mb-6">
-                    <h3 class="text-xl font-semibold mb-4">Profile Information</h3>
+                <div id="profile-info" class="bg-white rounded-lg shadow-lg p-6 mb-6 border border-cannabis-light">
+                    <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">
+                        <i class="fas fa-user-edit mr-2"></i>{% trans "Profile Information" %}
+                    </h3>
                     
                     <form class="space-y-4">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">First Name</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "First Name" %}</label>
                                 <input type="text" value="{{ user.first_name }}" 
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                             </div>
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-1">Last Name</label>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Last Name" %}</label>
                                 <input type="text" value="{{ user.last_name }}" 
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
+                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                             </div>
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Email Address" %}</label>
                             <input type="email" value="{{ user.email }}" 
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                         </div>
                         
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-1">Username</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Username" %}</label>
                             <input type="text" value="{{ user.username }}" disabled
                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-gray-50">
-                            <p class="text-xs text-gray-500 mt-1">Username cannot be changed</p>
+                            <p class="text-xs text-gray-500 mt-1">{% trans "Username cannot be changed" %}</p>
                         </div>
                         
                         <div class="flex items-center">
-                            <input type="checkbox" id="newsletter" class="mr-2">
+                            <input type="checkbox" id="newsletter" class="mr-2 text-cannabis-green focus:ring-cannabis-green">
                             <label for="newsletter" class="text-sm text-gray-700">
-                                Subscribe to newsletter for health tips and product updates
+                                {% trans "Subscribe to cannabis research and product updates" %}
                             </label>
                         </div>
                         
                         <button type="submit" 
-                                class="bg-medical-blue text-white px-6 py-2 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
-                            Update Profile
+                                class="bg-cannabis-green text-white px-6 py-2 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300">
+                            <i class="fas fa-save mr-2"></i>{% trans "Update Profile" %}
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Medical Profile -->
+                <div id="medical-profile" class="bg-white rounded-lg shadow-lg p-6 mb-6 border border-cannabis-light">
+                    <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">
+                        <i class="fas fa-heartbeat mr-2"></i>{% trans "Medical Profile" %}
+                    </h3>
+                    
+                    <form class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Medical Conditions (optional)" %}</label>
+                            <textarea class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent" 
+                                      rows="3" placeholder="{% trans 'For personalized product recommendations' %}"></textarea>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Experience Level with Cannabis" %}</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green">
+                                <option>{% trans "Select your experience level" %}</option>
+                                <option>{% trans "Beginner (first time user)" %}</option>
+                                <option>{% trans "Intermediate (occasional use)" %}</option>
+                                <option>{% trans "Experienced (regular medical user)" %}</option>
+                            </select>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <input type="checkbox" id="medical-patient" class="mr-2 text-cannabis-green focus:ring-cannabis-green">
+                            <label for="medical-patient" class="text-sm text-gray-700">
+                                {% trans "I am a registered medical cannabis patient" %}
+                            </label>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="bg-cannabis-green text-white px-6 py-2 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300">
+                            <i class="fas fa-save mr-2"></i>{% trans "Save Medical Profile" %}
                         </button>
                     </form>
                 </div>
                 
                 <!-- Account Statistics -->
-                <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-                    <h3 class="text-xl font-semibold mb-4">Account Summary</h3>
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-6 border border-cannabis-light">
+                    <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">
+                        <i class="fas fa-chart-bar mr-2"></i>{% trans "Account Summary" %}
+                    </h3>
                     
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="text-center p-4 bg-medical-light rounded-lg">
-                            <div class="text-2xl font-bold text-medical-blue">{{ user.order_set.count }}</div>
-                            <div class="text-sm text-gray-600">Total Orders</div>
+                        <div class="text-center p-4 bg-cannabis-light bg-opacity-30 rounded-lg">
+                            <div class="text-2xl font-bold text-cannabis-green">{{ user.order_set.count }}</div>
+                            <div class="text-sm text-gray-600">{% trans "Total Orders" %}</div>
                         </div>
                         <div class="text-center p-4 bg-green-50 rounded-lg">
                             <div class="text-2xl font-bold text-green-600">
-                                ${{ user.order_set.aggregate.total_spent|default:0 }}
+                                €{{ user.order_set.aggregate.total_spent|default:0 }}
                             </div>
-                            <div class="text-sm text-gray-600">Total Spent</div>
+                            <div class="text-sm text-gray-600">{% trans "Total Spent" %}</div>
                         </div>
                         <div class="text-center p-4 bg-blue-50 rounded-lg">
                             <div class="text-2xl font-bold text-blue-600">{{ user.date_joined|date:"M Y" }}</div>
-                            <div class="text-sm text-gray-600">Member Since</div>
+                            <div class="text-sm text-gray-600">{% trans "Member Since" %}</div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Security Settings -->
-                <div id="security" class="bg-white rounded-lg shadow-lg p-6">
-                    <h3 class="text-xl font-semibold mb-4">Security Settings</h3>
+                <div id="security" class="bg-white rounded-lg shadow-lg p-6 border border-cannabis-light">
+                    <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">
+                        <i class="fas fa-shield-alt mr-2"></i>{% trans "Security Settings" %}
+                    </h3>
                     
                     <div class="space-y-4">
-                        <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                        <div class="flex justify-between items-center py-3 border-b border-cannabis-light">
                             <div>
-                                <h4 class="font-medium">Password</h4>
-                                <p class="text-sm text-gray-600">Last changed: Never</p>
+                                <h4 class="font-medium">{% trans "Password" %}</h4>
+                                <p class="text-sm text-gray-600">{% trans "Last changed: Never" %}</p>
                             </div>
                             <a href="{% url 'password_change' %}" 
-                               class="text-medical-blue hover:text-medical-dark font-semibold">
-                                Change Password
+                               class="text-cannabis-green hover:text-cannabis-dark font-semibold">
+                                <i class="fas fa-key mr-1"></i>{% trans "Change Password" %}
                             </a>
                         </div>
                         
-                        <div class="flex justify-between items-center py-3 border-b border-gray-200">
+                        <div class="flex justify-between items-center py-3 border-b border-cannabis-light">
                             <div>
-                                <h4 class="font-medium">Two-Factor Authentication</h4>
-                                <p class="text-sm text-gray-600">Not enabled</p>
+                                <h4 class="font-medium">{% trans "Two-Factor Authentication" %}</h4>
+                                <p class="text-sm text-gray-600">{% trans "Not enabled" %}</p>
                             </div>
-                            <button class="text-medical-blue hover:text-medical-dark font-semibold">
-                                Enable 2FA
+                            <button class="text-cannabis-green hover:text-cannabis-dark font-semibold">
+                                <i class="fas fa-mobile-alt mr-1"></i>{% trans "Enable 2FA" %}
                             </button>
                         </div>
                         
                         <div class="flex justify-between items-center py-3">
                             <div>
-                                <h4 class="font-medium">Login Sessions</h4>
-                                <p class="text-sm text-gray-600">Manage active sessions</p>
+                                <h4 class="font-medium">{% trans "Login Sessions" %}</h4>
+                                <p class="text-sm text-gray-600">{% trans "Manage active sessions" %}</p>
                             </div>
-                            <button class="text-medical-blue hover:text-medical-dark font-semibold">
-                                View Sessions
+                            <button class="text-cannabis-green hover:text-cannabis-dark font-semibold">
+                                <i class="fas fa-desktop mr-1"></i>{% trans "View Sessions" %}
                             </button>
                         </div>
                     </div>

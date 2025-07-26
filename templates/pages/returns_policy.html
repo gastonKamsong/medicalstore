@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}Privacy Policy - MedicalStore{% endblock %}
+
+{% block content %}
+{% load static %}
+{% load i18n %}
+<div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-deep-green mb-6 font-headings">{% trans "Returns Policy" %}</h1>
+    
+    <div class="bg-cannabis-light rounded-lg p-6 mb-8">
+        <h2 class="text-xl font-semibold text-deep-green mb-4 font-headings">{% trans "Cannabis Product Returns" %}</h2>
+        <p class="mb-4">{% trans "Due to the nature of cannabis products, we have specific return policies to ensure compliance with all regulations." %}</p>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h3 class="font-bold text-cannabis-green mb-2">{% trans "Unopened Products" %}</h3>
+                <p>{% trans "We accept returns of unopened, factory-sealed products within 14 days of delivery. Products must be in original packaging with all seals intact." %}</p>
+            </div>
+            
+            <div class="bg-white p-4 rounded-lg shadow">
+                <h3 class="font-bold text-cannabis-green mb-2">{% trans "Defective Products" %}</h3>
+                <p>{% trans "If you receive a defective or damaged product, please contact us within 48 hours with photos of the issue. We'll arrange a replacement or refund." %}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold text-deep-green mb-4 font-headings">{% trans "Non-Returnable Items" %}</h2>
+        <ul class="list-disc pl-5 space-y-2">
+            <li>{% trans "Opened cannabis products (for health and safety reasons)" %}</li>
+            <li>{% trans "Consumable products (edibles, pre-rolls, etc.)" %}</li>
+            <li>{% trans "Products purchased during sales or promotions" %}</li>
+            <li>{% trans "Custom or personalized items" %}</li>
+        </ul>
+    </div>
+
+    <div class="mb-8">
+        <h2 class="text-xl font-semibold text-deep-green mb-4 font-headings">{% trans "Return Process" %}</h2>
+        <ol class="list-decimal pl-5 space-y-3">
+            <li>
+                <strong>{% trans "Contact Us" %}</strong>: 
+                {% trans "Email returns@example.com with your order number and reason for return within 14 days of delivery." %}
+            </li>
+            <li>
+                <strong>{% trans "Approval" %}</strong>: 
+                {% trans "We'll review your request and send return instructions if approved." %}
+            </li>
+            <li>
+                <strong>{% trans "Ship Back" %}</strong>: 
+                {% trans "Send the unopened product in its original packaging using our approved carrier." %}
+            </li>
+            <li>
+                <strong>{% trans "Refund" %}</strong>: 
+                {% trans "Once received and inspected, we'll process your refund within 5 business days." %}
+            </li>
+        </ol>
+    </div>
+
+    <div class="bg-cannabis-light rounded-lg p-6">
+        <h2 class="text-xl font-semibold text-deep-green mb-4 font-headings">{% trans "Important Notes" %}</h2>
+        <div class="space-y-4">
+            <p>{% trans "All returns are subject to compliance with local cannabis regulations. We reserve the right to refuse returns that don't meet our policy requirements." %}</p>
+            <p>{% trans "Original shipping costs are non-refundable. Return shipping is the customer's responsibility unless the return is due to our error." %}</p>
+            <p>{% trans "Refunds will be issued to the original payment method. Processing may take 5-10 business days to appear in your account." %}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

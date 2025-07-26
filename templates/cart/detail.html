@@ -3,14 +3,27 @@
 {% block title %}Shopping Cart - MedicalStore{% endblock %}
 
 {% block content %}
+{% load i18n %}
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8 text-primary">Shopping Cart</h1>
+    <h1 class="text-3xl font-bold mb-8 text-cannabis-dark">
+        <i class="fas fa-shopping-cart mr-2"></i>{% trans "Shopping Cart" %}
+    </h1>
     
     {% if cart_items %}
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <!-- Cart Items -->
-        <div class="lg:col-span-2">
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+        <div class="lg:col-span-2 space-y-6">
+            <!-- Medical Notice -->
+            <div class="bg-cannabis-light bg-opacity-30 p-4 rounded-lg border border-cannabis-light">
+                <h3 class="font-semibold text-cannabis-dark mb-2">
+                    <i class="fas fa-info-circle mr-2"></i>{% trans "Important Information" %}
+                </h3>
+                <p class="text-sm text-gray-700">
+                    {% trans "All cannabis products are for adults 21+ only. By proceeding to checkout, you confirm you meet the legal age requirement in your jurisdiction." %}
+                </p>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-cannabis-light">
                 <div class="p-6">
                     {% for item in cart_items %}
                     <div class="flex items-center py-6 {% if not forloop.last %}border-b border-gray-200{% endif %}">
@@ -18,10 +31,10 @@
                         <div class="w-20 h-20 flex-shrink-0">
                             {% if item.product.image %}
                                 <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" 
-                                     class="w-full h-full object-cover rounded">
+                                     class="w-full h-full object-cover rounded border border-cannabis-light">
                             {% else %}
-                                <div class="w-full h-full bg-gray-200 rounded flex items-center justify-center">
-                                    <i class="fas fa-pills text-gray-400"></i>
+                                <div class="w-full h-full bg-gray-200 rounded flex items-center justify-center border border-cannabis-light">
+                                    <i class="fas fa-cannabis text-gray-400"></i>
                                 </div>
                             {% endif %}
                         </div>
@@ -29,28 +42,56 @@
                         <!-- Product Info -->
                         <div class="ml-6 flex-1">
                             <h3 class="text-lg font-semibold">
-                                <a href="{{ item.product.get_absolute_url }}" class="text-primary hover:text-cannabis-green">
+                                <a href="{{ item.product.get_absolute_url }}" class="text-cannabis-dark hover:text-cannabis-green">
                                     {{ item.product.name }}
                                 </a>
                             </h3>
-                            <p class="text-gray-600 text-sm">{{ item.product.category.name }}</p>
-                            <p class="text-cannabis-green font-semibold">${{ item.price }}</p>
+                            <div class="flex items-center space-x-3 mt-1">
+                                {% if item.product.strain_type %}
+                                <span class="text-xs px-2 py-1 rounded 
+                                    {% if item.product.strain_type == 'Sativa' %}bg-green-100 text-green-800
+                                    {% elif item.product.strain_type == 'Indica' %}bg-purple-100 text-purple-800
+                                    {% else %}bg-blue-100 text-blue-800{% endif %}">
+                                    {{ item.product.strain_type }}
+                                </span>
+                                {% endif %}
+                                <span class="text-gray-600 text-sm">{{ item.product.category.name }}</span>
+                            </div>
+                            <div class="mt-2">
+                                <span class="text-cannabis-green font-semibold">€{{ item.price }}</span>
+                                {% if item.product.thc_content %}
+                                <span class="ml-3 text-xs bg-red-50 text-red-800 px-2 py-1 rounded">
+                                    <i class="fas fa-fire mr-1"></i>THC: {{ item.product.thc_content }}%
+                                </span>
+                                {% endif %}
+                                {% if item.product.cbd_content %}
+                                <span class="ml-2 text-xs bg-green-50 text-green-800 px-2 py-1 rounded">
+                                    <i class="fas fa-leaf mr-1"></i>CBD: {{ item.product.cbd_content }}%
+                                </span>
+                                {% endif %}
+                            </div>
                         </div>
                         
                         <!-- Quantity Controls -->
                         <div class="flex items-center space-x-4">
                             <form action="{% url 'cart:cart_add' item.product.id %}" method="post" class="flex items-center">
                                 {% csrf_token %}
-                                {{ item.update_quantity_form.quantity }}
-                                {{ item.update_quantity_form.override }}
+                                <select name="quantity" class="border border-gray-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-cannabis-green">
+                                    {% for i in "12345678910"|make_list %}
+                                        <option value="{{ forloop.counter }}" {% if forloop.counter == item.quantity %}selected{% endif %}>
+                                            {{ forloop.counter }}
+                                        </option>
+                                    {% endfor %}
+                                </select>
+                                <input type="hidden" name="override" value="True">
                                 <button type="submit" class="ml-2 bg-cannabis-green text-white px-3 py-1 rounded text-sm hover:bg-cannabis-dark transition duration-300">
-                                    Update
+                                    {% trans "Update" %}
                                 </button>
                             </form>
                             
                             <form action="{% url 'cart:cart_remove' item.product.id %}" method="post">
                                 {% csrf_token %}
-                                <button type="submit" class="text-red-600 hover:text-red-800">
+                                <button type="submit" class="text-red-600 hover:text-red-800" aria-label="{% trans 'Remove item' %}">
                                     <i class="fas fa-trash"></i>
                                 </button>
                             </form>
@@ -58,7 +99,7 @@
                         
                         <!-- Item Total -->
                         <div class="ml-6 text-right">
-                            <p class="text-lg font-semibold text-primary">${{ item.total_price }}</p>
+                            <p class="text-lg font-semibold text-cannabis-dark">€{{ item.total_price }}</p>
                         </div>
                     </div>
                     {% endfor %}
@@ -68,35 +109,48 @@
         
         <!-- Cart Summary -->
         <div class="lg:col-span-1">
-            <div class="bg-white rounded-lg shadow-lg p-6 sticky top-24">
-                <h2 class="text-xl font-semibold mb-4 text-primary">Order Summary</h2>
+            <div class="bg-white rounded-lg shadow-lg p-6 sticky top-24 border border-cannabis-light">
+                <h2 class="text-xl font-semibold mb-4 text-cannabis-dark">
+                    <i class="fas fa-receipt mr-2"></i>{% trans "Order Summary" %}
+                </h2>
                 
                 <div class="space-y-3 mb-6">
                     <div class="flex justify-between text-gray-700">
-                        <span>Items ({{ cart|length }})</span>
-                        <span>${{ cart.get_total_price }}</span>
+                        <span>{% trans "Items" %} ({{ cart|length }})</span>
+                        <span>€{{ cart.get_total_price }}</span>
                     </div>
                     <div class="flex justify-between text-gray-700">
-                        <span>Shipping</span>
-                        <span>Free</span>
+                        <span>{% trans "Shipping" %}</span>
+                        <span>{% trans "Free" %}</span>
                     </div>
-                    <div class="border-t pt-3">
+                    <div class="border-t border-cannabis-light pt-3">
                         <div class="flex justify-between text-lg font-semibold">
-                            <span class="text-primary">Total</span>
-                            <span class="text-cannabis-green">${{ cart.get_total_price }}</span>
+                            <span class="text-cannabis-dark">{% trans "Total" %}</span>
+                            <span class="text-cannabis-green">€{{ cart.get_total_price }}</span>
                         </div>
                     </div>
                 </div>
                 
                 <a href="{% url 'orders:order_create' %}" 
                    class="w-full bg-cannabis-green text-white py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300 block text-center">
-                    Proceed to Checkout
+                    <i class="fas fa-lock mr-2"></i>{% trans "Proceed to Checkout" %}
                 </a>
                 
                 <a href="{% url 'products:product_list' %}" 
                    class="w-full mt-3 border border-cannabis-green text-cannabis-green py-3 rounded-lg font-semibold hover:bg-cannabis-light transition duration-300 block text-center">
-                    Continue Shopping
+                    <i class="fas fa-arrow-left mr-2"></i>{% trans "Continue Shopping" %}
                 </a>
+                
+                <!-- Age Verification -->
+                <div class="mt-6 p-3 bg-gray-50 rounded-lg border border-gray-200">
+                    <div class="flex items-start">
+                        <input type="checkbox" id="age-verify" class="mt-1 mr-2 text-cannabis-green focus:ring-cannabis-green">
+                        <label for="age-verify" class="text-sm text-gray-600">
+                            {% trans "I confirm that I am 21 years of age or older and agree to the" %} 
+                            <a href="#" class="text-cannabis-green hover:underline">{% trans "Terms of Service" %}</a>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -105,13 +159,59 @@
     <!-- Empty Cart -->
     <div class="text-center py-16">
         <i class="fas fa-shopping-cart text-8xl text-gray-300 mb-6"></i>
-        <h2 class="text-2xl font-semibold text-gray-600 mb-4">Your cart is empty</h2>
-        <p class="text-gray-500 mb-8">Add some medical products to get started!</p>
+        <h2 class="text-2xl font-semibold text-gray-600 mb-4">{% trans "Your cart is empty" %}</h2>
+        <p class="text-gray-500 mb-8">{% trans "Add some medical cannabis products to get started!" %}</p>
         <a href="{% url 'products:product_list' %}" 
            class="bg-cannabis-green text-white px-8 py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300">
-            Browse Products
+            <i class="fas fa-search mr-2"></i>{% trans "Browse Products" %}
         </a>
     </div>
     {% endif %}
 </div>
+
+<!-- Medical Information Modal (hidden by default) -->
+<div id="medical-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+    <div class="bg-white rounded-lg p-6 max-w-md w-full mx-4">
+        <h3 class="text-xl font-semibold mb-4 text-cannabis-dark">
+            <i class="fas fa-heartbeat mr-2"></i>{% trans "Medical Use Information" %}
+        </h3>
+        <div class="text-sm text-gray-700 space-y-3">
+            <p>{% trans "For medical cannabis patients, please note:" %}</p>
+            <ul class="list-disc pl-5 space-y-2">
+                <li>{% trans "Consult with your physician about proper dosing" %}</li>
+                <li>{% trans "Start with low doses and increase gradually" %}</li>
+                <li>{% trans "Be aware of potential drug interactions" %}</li>
+                <li>{% trans "Store products securely away from children/pets" %}</li>
+                <li>{% trans "Effects may vary based on individual physiology" %}</li>
+            </ul>
+        </div>
+        <div class="mt-6 text-right">
+            <button onclick="document.getElementById('medical-modal').classList.add('hidden')" 
+                    class="bg-cannabis-green text-white px-4 py-2 rounded hover:bg-cannabis-dark">
+                {% trans "I Understand" %}
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Show medical info modal for first-time cannabis product buyers
+document.addEventListener('DOMContentLoaded', function() {
+    const hasCannabisProducts = {% if cart_items %}true{% else %}false{% endif %};
+    const seenModal = localStorage.getItem('seenMedicalModal');
+    
+    if (hasCannabisProducts && !seenModal) {
+        document.getElementById('medical-modal').classList.remove('hidden');
+        localStorage.setItem('seenMedicalModal', 'true');
+    }
+});
+
+// Age verification for checkout
+document.querySelector('a[href="{% url 'orders:order_create' %}"]').addEventListener('click', function(e) {
+    if (!document.getElementById('age-verify').checked) {
+        e.preventDefault();
+        alert('{% trans "Please confirm you are 21+ to proceed with checkout" %}');
+    }
+});
+</script>
 {% endblock %}

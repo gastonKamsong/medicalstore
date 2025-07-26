@@ -3,89 +3,100 @@
 {% block title %}Contact Us - MedicalStore{% endblock %}
 
 {% block content %}
+{% load i18n %}
+
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-6xl mx-auto">
         <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-gray-800 mb-4">Contact Us</h1>
+            <h1 class="text-4xl font-bold text-cannabis-dark mb-4">{% trans "Contact Us" %}</h1>
             <p class="text-xl text-gray-600">
-                Get in touch with our team of healthcare professionals
+                {% trans "Connect with our cannabis experts and customer care team" %}
             </p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <!-- Contact Form -->
-            <div class="bg-white rounded-lg shadow-lg p-8">
-                <h2 class="text-2xl font-semibold mb-6">Send us a Message</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold mb-6 text-cannabis-green">{% trans "Send us a Message" %}</h2>
                 
                 <form class="space-y-6">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label for="first_name" class="block text-sm font-medium text-gray-700 mb-1">
-                                First Name *
+                                {% trans "First Name" %} *
                             </label>
                             <input type="text" id="first_name" name="first_name" required
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                         </div>
                         <div>
                             <label for="last_name" class="block text-sm font-medium text-gray-700 mb-1">
-                                Last Name *
+                                {% trans "Last Name" %} *
                             </label>
                             <input type="text" id="last_name" name="last_name" required
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                         </div>
                     </div>
                     
                     <div>
                         <label for="email" class="block text-sm font-medium text-gray-700 mb-1">
-                            Email Address *
+                            {% trans "Email Address" %} *
                         </label>
                         <input type="email" id="email" name="email" required
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                     </div>
                     
                     <div>
                         <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">
-                            Phone Number
+                            {% trans "Phone Number" %}
                         </label>
                         <input type="tel" id="phone" name="phone"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                     </div>
                     
                     <div>
                         <label for="subject" class="block text-sm font-medium text-gray-700 mb-1">
-                            Subject *
+                            {% trans "Subject" %} *
                         </label>
                         <select id="subject" name="subject" required
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
-                            <option value="">Select a subject</option>
-                            <option value="product_inquiry">Product Inquiry</option>
-                            <option value="order_support">Order Support</option>
-                            <option value="technical_support">Technical Support</option>
-                            <option value="partnership">Partnership Inquiry</option>
-                            <option value="general">General Question</option>
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
+                            <option value="">{% trans "Select a subject" %}</option>
+                            <option value="product_inquiry">{% trans "Cannabis Product Inquiry" %}</option>
+                            <option value="order_support">{% trans "Order Support" %}</option>
+                            <option value="medical_questions">{% trans "Medical Cannabis Questions" %}</option>
+                            <option value="growing_advice">{% trans "Cultivation Advice" %}</option>
+                            <option value="wholesale">{% trans "Wholesale/Business Inquiry" %}</option>
+                            <option value="general">{% trans "General Question" %}</option>
                         </select>
                     </div>
                     
                     <div>
                         <label for="message" class="block text-sm font-medium text-gray-700 mb-1">
-                            Message *
+                            {% trans "Message" %} *
                         </label>
                         <textarea id="message" name="message" rows="6" required
-                                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent"
-                                  placeholder="Please provide details about your inquiry..."></textarea>
+                                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent"
+                                  placeholder="{% trans 'Please provide details about your cannabis-related inquiry...' %}"></textarea>
                     </div>
                     
                     <div class="flex items-start">
                         <input type="checkbox" id="consent" name="consent" required
-                               class="mt-1 mr-3">
+                               class="mt-1 mr-3 border-cannabis-green text-cannabis-green focus:ring-cannabis-green">
                         <label for="consent" class="text-sm text-gray-600">
-                            I consent to the processing of my personal data for the purpose of responding to my inquiry. *
+                            {% trans "I consent to the processing of my personal data for the purpose of responding to my cannabis-related inquiry. *" %}
+                        </label>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <input type="checkbox" id="age_verify" name="age_verify" required
+                               class="mt-1 mr-3 border-cannabis-green text-cannabis-green focus:ring-cannabis-green">
+                        <label for="age_verify" class="text-sm text-gray-600">
+                            {% trans "I confirm that I am at least 18 years old *" %}
                         </label>
                     </div>
                     
                     <button type="submit" 
-                            class="w-full bg-medical-blue text-white py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
-                        Send Message
+                            class="w-full bg-cannabis-green hover:bg-cannabis-dark text-white py-3 rounded-lg font-semibold transition duration-300">
+                        {% trans "Send Message" %}
                     </button>
                 </form>
             </div>
@@ -93,58 +104,58 @@
             <!-- Contact Information -->
             <div class="space-y-8">
                 <!-- Contact Details -->
-                <div class="bg-white rounded-lg shadow-lg p-8">
-                    <h2 class="text-2xl font-semibold mb-6">Contact Information</h2>
+                <div class="bg-white rounded-lg shadow-lg p-8 border border-cannabis-light">
+                    <h2 class="text-2xl font-semibold mb-6 text-cannabis-green">{% trans "Contact Information" %}</h2>
                     
                     <div class="space-y-6">
                         <div class="flex items-start">
-                            <div class="bg-medical-light rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
-                                <i class="fas fa-map-marker-alt text-medical-blue"></i>
+                            <div class="bg-cannabis-light rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-map-marker-alt text-cannabis-green"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-800">Address</h3>
+                                <h3 class="font-semibold text-gray-800">{% trans "Address" %}</h3>
                                 <p class="text-gray-600">
-                                    123 Medical Plaza<br>
-                                    Paris, France 75001<br>
+                                    420 Cannabis Avenue<br>
+                                    Lyon, France 69002<br>
                                     Europe
                                 </p>
                             </div>
                         </div>
                         
                         <div class="flex items-start">
-                            <div class="bg-medical-light rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
-                                <i class="fas fa-phone text-medical-blue"></i>
+                            <div class="bg-cannabis-light rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-phone text-cannabis-green"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-800">Phone</h3>
-                                <p class="text-gray-600">+33 1 23 45 67 89</p>
-                                <p class="text-sm text-gray-500">Mon-Fri: 9:00 AM - 6:00 PM CET</p>
+                                <h3 class="font-semibold text-gray-800">{% trans "Phone" %}</h3>
+                                <p class="text-gray-600">+33 4 12 34 56 78</p>
+                                <p class="text-sm text-gray-500">{% trans "Mon-Fri: 9:00 AM - 6:00 PM CET" %}</p>
                             </div>
                         </div>
                         
                         <div class="flex items-start">
-                            <div class="bg-medical-light rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
-                                <i class="fas fa-envelope text-medical-blue"></i>
+                            <div class="bg-cannabis-light rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-envelope text-cannabis-green"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-800">Email</h3>
-                                <p class="text-gray-600">info@medicalstore.com</p>
-                                <p class="text-sm text-gray-500">We respond within 24 hours</p>
+                                <h3 class="font-semibold text-gray-800">{% trans "Email" %}</h3>
+                                <p class="text-gray-600">info@greenleafwellness.com</p>
+                                <p class="text-sm text-gray-500">{% trans "We respond within 24 hours" %}</p>
                             </div>
                         </div>
                         
                         <div class="flex items-start">
-                            <div class="bg-medical-light rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
-                                <i class="fas fa-clock text-medical-blue"></i>
+                            <div class="bg-cannabis-light rounded-full w-12 h-12 flex items-center justify-center mr-4 flex-shrink-0">
+                                <i class="fas fa-clock text-cannabis-green"></i>
                             </div>
                             <div>
-                                <h3 class="font-semibold text-gray-800">Business Hours</h3>
+                                <h3 class="font-semibold text-gray-800">{% trans "Business Hours" %}</h3>
                                 <p class="text-gray-600">
-                                    Monday - Friday: 9:00 AM - 6:00 PM<br>
-                                    Saturday: 10:00 AM - 4:00 PM<br>
-                                    Sunday: Closed
+                                    {% trans "Monday - Friday: 9:00 AM - 6:00 PM" %}<br>
+                                    {% trans "Saturday: 10:00 AM - 4:00 PM" %}<br>
+                                    {% trans "Sunday: Closed" %}
                                 </p>
-                                <p class="text-sm text-gray-500">Central European Time (CET)</p>
+                                <p class="text-sm text-gray-500">{% trans "Central European Time (CET)" %}</p>
                             </div>
                         </div>
                     </div>
@@ -153,29 +164,28 @@
                 <!-- Emergency Contact -->
                 <div class="bg-red-50 border border-red-200 rounded-lg p-6">
                     <h3 class="font-semibold text-red-800 mb-2">
-                        <i class="fas fa-exclamation-triangle mr-2"></i>Medical Emergency
+                        <i class="fas fa-exclamation-triangle mr-2"></i>{% trans "Cannabis Emergency" %}
                     </h3>
                     <p class="text-red-700 text-sm mb-3">
-                        If you are experiencing a medical emergency, do not use this contact form. 
-                        Please contact your local emergency services immediately.
+                        {% trans "If you or someone else is experiencing adverse effects from cannabis, seek medical attention immediately." %}
                     </p>
                     <p class="text-red-700 text-sm">
-                        <strong>Emergency Numbers:</strong><br>
-                        France: 15 (SAMU) or 112 (European Emergency)<br>
-                        Other countries: Contact your local emergency services
+                        <strong>{% trans "Emergency Numbers:" %}</strong><br>
+                        {% trans "France: 15 (SAMU) or 112 (European Emergency)" %}<br>
+                        {% trans "Other countries: Contact your local emergency services" %}
                     </p>
                 </div>
 
-                <!-- Professional Support -->
-                <div class="bg-medical-light rounded-lg p-6">
-                    <h3 class="font-semibold text-medical-dark mb-2">
-                        <i class="fas fa-user-md mr-2"></i>Professional Support
+                <!-- Cannabis Support -->
+                <div class="bg-cannabis-light rounded-lg p-6 border border-cannabis-light">
+                    <h3 class="font-semibold text-cannabis-dark mb-2">
+                        <i class="fas fa-cannabis mr-2"></i>{% trans "Cannabis Support" %}
                     </h3>
                     <p class="text-gray-700 text-sm mb-3">
-                        Our team includes licensed healthcare professionals who can provide guidance on product selection and usage.
+                        {% trans "Our team includes cannabis specialists who can provide guidance on product selection, dosing, and consumption methods." %}
                     </p>
                     <p class="text-gray-700 text-sm">
-                        For complex medical questions, we recommend scheduling a consultation with one of our healthcare advisors.
+                        {% trans "For medical cannabis questions, we recommend consulting with a cannabis-certified healthcare provider." %}
                     </p>
                 </div>
             </div>
@@ -183,10 +193,10 @@
 
         <!-- FAQ Link -->
         <div class="text-center mt-12">
-            <p class="text-gray-600 mb-4">Looking for quick answers?</p>
+            <p class="text-gray-600 mb-4">{% trans "Looking for quick answers about cannabis?" %}</p>
             <a href="{% url 'pages:faq' %}" 
-               class="text-medical-blue hover:text-medical-dark font-semibold">
-                Check our Frequently Asked Questions <i class="fas fa-arrow-right ml-1"></i>
+               class="text-cannabis-green hover:text-cannabis-dark font-semibold">
+                {% trans "Check our Cannabis FAQ" %} <i class="fas fa-arrow-right ml-1"></i>
             </a>
         </div>
     </div>

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ site_settings.site_name }} - {{ site_settings.tagline }}{% endblock %}</title>
     <meta name="description" content="{% block meta_description %}{{ site_settings.about_text }}{% endblock %}">
-    <meta name="keywords" content="{% block meta_keywords %}{% trans 'natural medical products, cannabis, CBD, hemp, organic medicine, herbal remedies' %}{% endblock %}">
+    <meta name="keywords" content="{% block meta_keywords %}{% trans 'cannabis, CBD, hemp, medical cannabis, cannabis products, THC, cannabinoids, terpenes' %}{% endblock %}">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -16,18 +16,17 @@
             theme: {
                 extend: {
                     colors: {
-                        'cannabis-green': '#4CAF50',  /* Updated primary accent */
-                        'cannabis-dark': '#1B5E20',   /* Updated deep green */
-                        'cannabis-light': '#E8F5E9',  /* Updated light accent */
-                        'cannabis-accent': '#1B5E20', /* Matching deep green */
-                        'natural-brown': '#92400e',
-                        'earth-tone': '#a3a3a3',
-                        'leaf-green': '#4CAF50',      /* Matching primary */
-                        'forest-green': '#1B5E20',    /* Matching deep green */
-                        'text-primary': '#212121',    /* Added text color */
+                        'cannabis-green': '#4CAF50',
+                        'cannabis-dark': '#1B5E20',
+                        'cannabis-light': '#E8F5E9',
+                        'cannabis-accent': '#1B5E20',
+                        'cannabis-gold': '#D4AF37',  /* Added gold for premium products */
+                        'cannabis-brown': '#5D4037',  /* Added earthy brown */
+                        'text-primary': '#212121',
                     },
                     fontFamily: {
                         'sans': ['Inter', 'system-ui', 'sans-serif'],
+                        'cannabis': ['"Alegreya Sans"', 'sans-serif'] /* Alternative cannabis-friendly font */
                     }
                 }
             }
@@ -35,7 +34,7 @@
     </script>
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Alegreya+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -43,39 +42,53 @@
     <!-- Custom CSS -->
     <style>
         .cannabis-gradient {
-            background: linear-gradient(135deg, #4CAF50 0%, #1B5E20 100%); /* Updated gradient */
+            background: linear-gradient(135deg, #4CAF50 0%, #1B5E20 100%);
         }
         
-        .natural-gradient {
-            background: linear-gradient(135deg, #4CAF50 0%, #1B5E20 50%, #1B5E20 100%); /* Updated gradient */
+        .cannabis-leaf-pattern {
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 20c5.5 0 10 4.5 10 10s-4.5 10-10 10-10-4.5-10-10 4.5-10 10-10zm0 2c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z' fill='%234CAF50' fill-opacity='0.05'/%3E%3C/svg%3E");
         }
         
-        .hero-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M30 20c5.5 0 10 4.5 10 10s-4.5 10-10 10-10-4.5-10-10 4.5-10 10-10zm0 2c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        .age-gate {
+            background-color: rgba(0,0,0,0.8);
         }
         
-        .leaf-pattern {
-            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%234CAF50' fill-opacity='0.05'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10c2.8 0 5.3-1.1 7.1-2.9C18.9 25.3 20 22.8 20 20z'/%3E%3C/g%3E%3C/svg%3E");
-        }
-        
-        /* Ensure text contrast */
-        .text-cannabis-dark {
-            color: #1B5E20;
-        }
-        
-        .text-cannabis-green {
-            color: #4CAF50;
+        /* Age verification modal */
+        #age-verification {
+            transition: all 0.3s ease;
         }
     </style>
     
     {% block extra_css %}{% endblock %}
 </head>
-<body class="bg-white font-sans leaf-pattern text-primary"> <!-- Updated background and text colors -->
+<body class="bg-white font-sans cannabis-leaf-pattern text-primary">
+    <!-- Age Verification Modal -->
+    <div id="age-verification" class="fixed inset-0 z-50 flex items-center justify-center age-gate hidden">
+        <div class="bg-white rounded-lg shadow-xl p-8 max-w-md mx-4">
+            <div class="text-center mb-6">
+                <i class="fas fa-cannabis text-4xl text-cannabis-green mb-4"></i>
+                <h2 class="text-2xl font-bold text-cannabis-dark">{% trans "Age Verification" %}</h2>
+                <p class="text-gray-600 mt-2">{% trans "You must be at least 18 years old to enter this site" %}</p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="verifyAge(true)" class="bg-cannabis-green text-white py-2 rounded-lg font-semibold hover:bg-cannabis-dark transition">
+                    {% trans "I'm 18 or Older" %}
+                </button>
+                <button onclick="verifyAge(false)" class="bg-gray-200 text-gray-800 py-2 rounded-lg font-semibold hover:bg-gray-300 transition">
+                    {% trans "I'm Under 18" %}
+                </button>
+            </div>
+            <p class="text-xs text-gray-500 mt-4 text-center">
+                {% trans "By entering this site, you agree to our Terms of Service and Privacy Policy" %}
+            </p>
+        </div>
+    </div>
+
     <!-- GDPR Cookie Consent -->
-    <div id="cookie-consent" class="fixed bottom-0 left-0 right-0 bg-forest-green text-white p-4 z-50 hidden">
+    <div id="cookie-consent" class="fixed bottom-0 left-0 right-0 bg-cannabis-dark text-white p-4 z-40 hidden">
         <div class="container mx-auto flex flex-col md:flex-row items-center justify-between">
             <p class="text-sm mb-2 md:mb-0">
-                {% trans "We use cookies to improve your experience. By continuing to use our site, you accept our use of cookies." %}
+                {% trans "We use cookies to enhance your cannabis shopping experience. By continuing, you accept our use of cookies." %}
                 <a href="{% url 'pages:privacy' %}" class="underline">{% trans "Learn more" %}</a>
             </p>
             <button onclick="acceptCookies()" class="bg-cannabis-green hover:bg-cannabis-dark px-4 py-2 rounded text-sm">
@@ -91,15 +104,16 @@
                 <!-- Logo -->
                 <div class="flex items-center">
                     <a href="{% url 'pages:home' %}" class="text-2xl font-bold text-cannabis-green">
-                        <i class="fas fa-leaf mr-2"></i>{{ site_settings.site_name }}
+                        <i class="fas fa-cannabis mr-2"></i>{{ site_settings.site_name }}
                     </a>
+                    <span class="ml-2 text-xs bg-cannabis-green text-white px-2 py-1 rounded-full">{% trans "CBD 0.2% THC" %}</span>
                 </div>
 
                 <!-- Search Bar -->
                 <div class="hidden md:flex flex-1 max-w-lg mx-8">
                     <form method="GET" action="{% url 'products:product_list' %}" class="w-full">
                         <div class="relative">
-                            <input type="text" name="q" placeholder="{% trans 'Search products...' %}" 
+                            <input type="text" name="q" placeholder="{% trans 'Search cannabis products...' %}" 
                                    value="{{ request.GET.q }}"
                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                             <button type="submit" class="absolute right-2 top-2 text-gray-400 hover:text-cannabis-green">
@@ -111,9 +125,13 @@
 
                 <!-- Navigation Links -->
                 <div class="flex items-center space-x-6">
-                    <a href="{% url 'products:product_list' %}" class="text-gray-700 hover:text-cannabis-green">{% trans "Products" %}</a>
-                    <a href="{% url 'pages:about' %}" class="text-gray-700 hover:text-cannabis-green">{% trans "About" %}</a>
-                    <a href="{% url 'pages:contact' %}" class="text-gray-700 hover:text-cannabis-green">{% trans "Contact" %}</a>
+                    <div class="hidden md:flex space-x-6">
+                        <a href="{% url 'products:product_list' %}" class="text-gray-700 hover:text-cannabis-green flex items-center">
+                            <i class="fas fa-cannabis mr-1"></i> {% trans "Products" %}
+                        </a>
+                        <a href="{% url 'pages:about' %}" class="text-gray-700 hover:text-cannabis-green">{% trans "About" %}</a>
+                        <a href="{% url 'pages:contact' %}" class="text-gray-700 hover:text-cannabis-green">{% trans "Contact" %}</a>
+                    </div>
                     
                     <!-- Language Switcher -->
                     <div class="relative group">
@@ -156,6 +174,9 @@
                             <div class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 hidden group-hover:block">
                                 <a href="{% url 'accounts:profile' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-cannabis-light">{% trans "Profile" %}</a>
                                 <a href="{% url 'orders:order_history' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-cannabis-light">{% trans "Order History" %}</a>
+                                {% if user.is_medical %}
+                                <a href="{% url 'medical:prescriptions' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-cannabis-light">{% trans "Medical Prescriptions" %}</a>
+                                {% endif %}
                                 <a href="{% url 'logout' %}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-cannabis-light">{% trans "Logout" %}</a>
                             </div>
                         </div>
@@ -180,29 +201,44 @@
     {% endif %}
 
     <!-- Main Content -->
-    <main class="text-primary"> <!-- Added text color class -->
+    <main class="text-primary">
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="bg-forest-green text-white mt-16">
+    <footer class="bg-cannabis-dark text-white mt-16">
         <div class="container mx-auto px-4 py-12">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
                     <h3 class="text-xl font-bold mb-4">
-                        <i class="fas fa-leaf mr-2"></i>{{ site_settings.site_name }}
+                        <i class="fas fa-cannabis mr-2"></i>{{ site_settings.site_name }}
                     </h3>
                     <p class="text-gray-300">
                         {{ site_settings.about_text }}
                     </p>
+                    <div class="mt-4 flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="text-gray-300 hover:text-white"><i class="fab fa-twitter"></i></a>
+                    </div>
                 </div>
                 
                 <div>
-                    <h4 class="font-semibold mb-4">{% trans "Quick Links" %}</h4>
+                    <h4 class="font-semibold mb-4">{% trans "Shop" %}</h4>
                     <ul class="space-y-2">
-                        <li><a href="{% url 'products:product_list' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Products" %}</a></li>
+                        <li><a href="{% url 'products:category_detail' 'cbd' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "CBD Products" %}</a></li>
+                        <li><a href="{% url 'products:category_detail' 'flowers' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Hemp Flowers" %}</a></li>
+                        <li><a href="{% url 'products:category_detail' 'oils' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Cannabis Oils" %}</a></li>
+                        <li><a href="{% url 'products:category_detail' 'medical' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Medical Cannabis" %}</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">{% trans "Information" %}</h4>
+                    <ul class="space-y-2">
                         <li><a href="{% url 'pages:about' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "About Us" %}</a></li>
-                        <li><a href="{% url 'pages:contact' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Contact" %}</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-cannabis-light">{% trans "Cannabis Education" %}</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-cannabis-light">{% trans "Lab Results" %}</a></li>
                         <li><a href="{% url 'pages:faq' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "FAQ" %}</a></li>
                     </ul>
                 </div>
@@ -210,17 +246,10 @@
                 <div>
                     <h4 class="font-semibold mb-4">{% trans "Legal" %}</h4>
                     <ul class="space-y-2">
-                        <li><a href="{% url 'pages:legal' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Legal Notice" %}</a></li>
+                        <li><a href="{% url 'pages:services' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Terms of Service" %}</a></li>
                         <li><a href="{% url 'pages:privacy' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Privacy Policy" %}</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="font-semibold mb-4">{% trans "Contact Info" %}</h4>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><i class="fas fa-envelope mr-2"></i>{{ site_settings.email }}</li>
-                        <li><i class="fas fa-phone mr-2"></i>{{ site_settings.phone }}</li>
-                        <li><i class="fas fa-map-marker-alt mr-2"></i>{{ site_settings.address }}</li>
+                        <li><a href="{% url 'pages:shipping' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Shipping Policy" %}</a></li>
+                        <li><a href="{% url 'pages:returns_policy' %}" class="text-gray-300 hover:text-cannabis-light">{% trans "Returns Policy" %}</a></li>
                     </ul>
                 </div>
             </div>
@@ -228,7 +257,10 @@
             <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
                 <p>&copy; 2024 {{ site_settings.site_name }}. {% trans "All rights reserved." %}</p>
                 <p class="mt-2 text-sm">
-                    <strong>{% trans "Medical Disclaimer:" %}</strong> {% trans "The information provided is for educational purposes only and should not replace professional medical advice." %}
+                    <strong>{% trans "Disclaimer:" %}</strong> {% trans "Products contain less than 0.2% THC. Not intended to diagnose, treat, cure or prevent any disease. Keep out of reach of children." %}
+                </p>
+                <p class="mt-2 text-xs">
+                    {% trans "License Number: FR-CBD-2024-001" %}
                 </p>
             </div>
         </div>
@@ -236,6 +268,23 @@
 
     <!-- JavaScript -->
     <script>
+        // Age verification
+        function verifyAge(isAdult) {
+            const modal = document.getElementById('age-verification');
+            if (isAdult) {
+                modal.classList.add('hidden');
+                localStorage.setItem('ageVerified', 'true');
+            } else {
+                window.location.href = 'https://www.google.com';
+            }
+        }
+
+        // Show age verification if not confirmed
+        if (!localStorage.getItem('ageVerified')) {
+            document.getElementById('age-verification').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
         // Cookie consent
         function acceptCookies() {
             document.getElementById('cookie-consent').style.display = 'none';
@@ -247,7 +296,7 @@
             document.getElementById('cookie-consent').classList.remove('hidden');
         }
 
-        // Mobile menu toggle (if needed)
+        // Mobile menu toggle
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             menu.classList.toggle('hidden');

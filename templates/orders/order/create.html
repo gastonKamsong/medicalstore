@@ -3,13 +3,29 @@
 {% block title %}Checkout - MedicalStore{% endblock %}
 
 {% block content %}
+{% load i18n %}
 <div class="container mx-auto px-4 py-8">
-    <h1 class="text-3xl font-bold mb-8 text-primary">Checkout</h1>
+    <h1 class="text-3xl font-bold mb-8 text-cannabis-dark">
+        <i class="fas fa-shopping-bag mr-2"></i>{% trans "Checkout" %}
+    </h1>
     
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Order Form -->
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-xl font-semibold mb-6 text-primary">Delivery Information</h2>
+        <div class="bg-white rounded-lg shadow-lg p-6 border border-cannabis-light">
+            <!-- Age Verification -->
+            <div class="bg-cannabis-light bg-opacity-30 p-4 rounded-lg mb-6">
+                <div class="flex items-start">
+                    <input type="checkbox" id="age-verify" required class="mt-1 mr-2 text-cannabis-green focus:ring-cannabis-green">
+                    <label for="age-verify" class="text-sm text-gray-700">
+                        {% trans "I confirm that I am 21 years of age or older and agree to the" %} 
+                        <a href="#" class="text-cannabis-green hover:underline">{% trans "Terms of Service" %}</a>
+                    </label>
+                </div>
+            </div>
+            
+            <h2 class="text-xl font-semibold mb-6 text-cannabis-dark">
+                <i class="fas fa-truck mr-2"></i>{% trans "Delivery Information" %}
+            </h2>
             
             <form method="post" class="space-y-4">
                 {% csrf_token %}
@@ -17,7 +33,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                            First Name *
+                            {% trans "First Name" %} *
                         </label>
                         {{ form.first_name }}
                         {% if form.first_name.errors %}
@@ -27,7 +43,7 @@
                     
                     <div>
                         <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                            Last Name *
+                            {% trans "Last Name" %} *
                         </label>
                         {{ form.last_name }}
                         {% if form.last_name.errors %}
@@ -38,7 +54,7 @@
                 
                 <div>
                     <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Email *
+                        {% trans "Email" %} *
                     </label>
                     {{ form.email }}
                     {% if form.email.errors %}
@@ -48,7 +64,7 @@
                 
                 <div>
                     <label for="{{ form.address.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Address *
+                        {% trans "Address" %} *
                     </label>
                     {{ form.address }}
                     {% if form.address.errors %}
@@ -59,7 +75,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="{{ form.postal_code.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                            Postal Code *
+                            {% trans "Postal Code" %} *
                         </label>
                         {{ form.postal_code }}
                         {% if form.postal_code.errors %}
@@ -69,7 +85,7 @@
                     
                     <div>
                         <label for="{{ form.city.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                            City *
+                            {% trans "City" %} *
                         </label>
                         {{ form.city }}
                         {% if form.city.errors %}
@@ -81,7 +97,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label for="{{ form.country.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                            Country *
+                            {% trans "Country" %} *
                         </label>
                         {{ form.country }}
                         {% if form.country.errors %}
@@ -91,7 +107,7 @@
                     
                     <div>
                         <label for="{{ form.phone.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                            Phone
+                            {% trans "Phone" %}
                         </label>
                         {{ form.phone }}
                         {% if form.phone.errors %}
@@ -100,73 +116,96 @@
                     </div>
                 </div>
                 
-                <!-- Payment Section (Placeholder) -->
-                <div class="border-t pt-6 mt-6">
-                    <h3 class="text-lg font-semibold mb-4 text-primary">Payment Method</h3>
-                    <div class="bg-cannabis-light p-4 rounded-lg">
+                <!-- Medical Information -->
+                <div class="bg-cannabis-light bg-opacity-20 p-4 rounded-lg mt-4">
+                    <h3 class="font-semibold text-cannabis-dark mb-2">
+                        <i class="fas fa-heartbeat mr-2"></i>{% trans "Medical Use Information" %}
+                    </h3>
+                    <div class="text-sm text-gray-700 space-y-2">
+                        <p><strong>{% trans "Dosage:" %}</strong> {% trans "Start with low doses (2.5-5mg THC). Effects may take 30-90 minutes when ingested." %}</p>
+                        <p><strong>{% trans "Storage:" %}</strong> {% trans "Keep in a cool, dark place. Store securely away from children and pets." %}</p>
+                    </div>
+                </div>
+                
+                <!-- Payment Section -->
+                <div class="border-t border-cannabis-light pt-6 mt-6">
+                    <h3 class="text-lg font-semibold mb-4 text-cannabis-dark">
+                        <i class="fas fa-credit-card mr-2"></i>{% trans "Payment Method" %}
+                    </h3>
+                    <div class="bg-cannabis-light bg-opacity-20 p-4 rounded-lg">
                         <div class="flex items-center">
                             <input type="radio" id="card" name="payment" value="card" checked class="mr-3 text-cannabis-green focus:ring-cannabis-green">
                             <label for="card" class="flex items-center">
                                 <i class="fas fa-credit-card mr-2 text-cannabis-green"></i>
-                                Credit/Debit Card
+                                {% trans "Credit/Debit Card" %}
                             </label>
                         </div>
                         <p class="text-sm text-gray-600 mt-2">
-                            Payment processing will be implemented in the next phase.
+                            {% trans "Secure payment processing via our PCI-compliant payment gateway." %}
                         </p>
                     </div>
                 </div>
                 
                 <button type="submit" 
-                        class="w-full bg-cannabis-green text-white py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300">
-                    Place Order
+                        class="w-full bg-cannabis-green text-white py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300 mt-6">
+                    <i class="fas fa-lock mr-2"></i>{% trans "Place Order" %}
                 </button>
             </form>
         </div>
         
         <!-- Order Summary -->
-        <div class="bg-white rounded-lg shadow-lg p-6">
-            <h2 class="text-xl font-semibold mb-6 text-primary">Order Summary</h2>
+        <div class="bg-white rounded-lg shadow-lg p-6 border border-cannabis-light">
+            <h2 class="text-xl font-semibold mb-6 text-cannabis-dark">
+                <i class="fas fa-receipt mr-2"></i>{% trans "Order Summary" %}
+            </h2>
             
             <div class="space-y-4 mb-6">
                 {% for item in cart_items %}
-                <div class="flex items-center justify-between py-2 border-b border-gray-100">
+                <div class="flex items-center justify-between py-3 border-b border-cannabis-light">
                     <div class="flex items-center">
                         {% if item.product.image %}
                             <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" 
-                                 class="w-12 h-12 object-cover rounded mr-3">
+                                 class="w-12 h-12 object-cover rounded mr-3 border border-cannabis-light">
                         {% else %}
-                            <div class="w-12 h-12 bg-gray-200 rounded mr-3 flex items-center justify-center">
-                                <i class="fas fa-pills text-gray-400 text-sm"></i>
+                            <div class="w-12 h-12 bg-gray-200 rounded mr-3 flex items-center justify-center border border-cannabis-light">
+                                <i class="fas fa-cannabis text-gray-400"></i>
                             </div>
                         {% endif %}
                         <div>
-                            <h4 class="font-medium text-sm text-primary">{{ item.product.name }}</h4>
-                            <p class="text-gray-600 text-xs">Qty: {{ item.quantity }}</p>
+                            <h4 class="font-medium text-sm text-cannabis-dark">{{ item.product.name }}</h4>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <span class="text-xs text-gray-600">{% trans "Qty" %}: {{ item.quantity }}</span>
+                                {% if item.product.thc_content %}
+                                <span class="text-xs bg-red-50 text-red-800 px-1 rounded">THC: {{ item.product.thc_content }}%</span>
+                                {% endif %}
+                                {% if item.product.cbd_content %}
+                                <span class="text-xs bg-green-50 text-green-800 px-1 rounded">CBD: {{ item.product.cbd_content }}%</span>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                    <span class="font-semibold">${{ item.total_price }}</span>
+                    <span class="font-semibold text-cannabis-dark">€{{ item.total_price }}</span>
                 </div>
                 {% endfor %}
             </div>
             
             <div class="space-y-2 mb-6">
                 <div class="flex justify-between text-gray-700">
-                    <span>Subtotal</span>
-                    <span>${{ cart.get_total_price }}</span>
+                    <span>{% trans "Subtotal" %}</span>
+                    <span>€{{ cart.get_total_price }}</span>
                 </div>
                 <div class="flex justify-between text-gray-700">
-                    <span>Shipping</span>
-                    <span>Free</span>
+                    <span>{% trans "Shipping" %}</span>
+                    <span>{% trans "Free" %}</span>
                 </div>
                 <div class="flex justify-between text-gray-700">
-                    <span>Tax</span>
-                    <span>$0.00</span>
+                    <span>{% trans "Tax" %}</span>
+                    <span>€0.00</span>
                 </div>
-                <div class="border-t pt-2">
+                <div class="border-t border-cannabis-light pt-2">
                     <div class="flex justify-between text-lg font-semibold">
-                        <span class="text-primary">Total</span>
-                        <span class="text-cannabis-green">${{ cart.get_total_price }}</span>
+                        <span class="text-cannabis-dark">{% trans "Total" %}</span>
+                        <span class="text-cannabis-green">€{{ cart.get_total_price }}</span>
                     </div>
                 </div>
             </div>
@@ -175,10 +214,32 @@
             <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <p class="text-sm text-yellow-800">
                     <i class="fas fa-exclamation-triangle mr-2"></i>
-                    <strong>Medical Disclaimer:</strong> These products are for informational purposes only. Consult your healthcare provider before use.
+                    <strong>{% trans "Medical Disclaimer:" %}</strong> {% trans "These products are not intended to diagnose, treat, cure or prevent any disease. Consult your healthcare provider before use." %}
                 </p>
+            </div>
+            
+            <!-- Delivery Info -->
+            <div class="mt-6 bg-cannabis-light bg-opacity-20 p-4 rounded-lg">
+                <h3 class="font-semibold text-cannabis-dark mb-2">
+                    <i class="fas fa-info-circle mr-2"></i>{% trans "Delivery Information" %}
+                </h3>
+                <ul class="text-sm text-gray-700 space-y-1 list-disc pl-5">
+                    <li>{% trans "Discreet packaging for all orders" %}</li>
+                    <li>{% trans "Adult signature required upon delivery" %}</li>
+                    <li>{% trans "No returns on cannabis products" %}</li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+// Age verification for form submission
+document.querySelector('form').addEventListener('submit', function(e) {
+    if (!document.getElementById('age-verify').checked) {
+        e.preventDefault();
+        alert('{% trans "You must confirm you are 21+ to place an order" %}');
+    }
+});
+</script>
 {% endblock %}

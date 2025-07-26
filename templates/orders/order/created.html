@@ -3,6 +3,7 @@
 {% block title %}Order Confirmation - MedicalStore{% endblock %}
 
 {% block content %}
+{% load i18n %}
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-2xl mx-auto">
         <!-- Success Message -->
@@ -10,73 +11,101 @@
             <div class="bg-green-100 rounded-full w-20 h-20 flex items-center justify-center mx-auto mb-4">
                 <i class="fas fa-check text-3xl text-green-600"></i>
             </div>
-            <h1 class="text-3xl font-bold text-gray-800 mb-2">Order Confirmed!</h1>
-            <p class="text-gray-600">Thank you for your order. We'll send you a confirmation email shortly.</p>
+            <h1 class="text-3xl font-bold text-cannabis-dark mb-2">{% trans "Order Confirmed!" %}</h1>
+            <p class="text-gray-600">{% trans "Thank you for your order. We'll send you a confirmation email shortly." %}</p>
         </div>
 
         <!-- Order Details -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <h2 class="text-xl font-semibold mb-4">Order Details</h2>
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6 border border-cannabis-light">
+            <h2 class="text-xl font-semibold mb-4 text-cannabis-dark">
+                <i class="fas fa-receipt mr-2"></i>{% trans "Order Details" %}
+            </h2>
             
             <div class="grid grid-cols-2 gap-4 mb-6">
                 <div>
-                    <p class="text-sm text-gray-600">Order Number</p>
+                    <p class="text-sm text-gray-600">{% trans "Order Number" %}</p>
                     <p class="font-semibold">#{{ order.id }}</p>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Order Date</p>
+                    <p class="text-sm text-gray-600">{% trans "Order Date" %}</p>
                     <p class="font-semibold">{{ order.created|date:"F d, Y" }}</p>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Status</p>
-                    <p class="font-semibold text-medical-blue">{{ order.get_status_display }}</p>
+                    <p class="text-sm text-gray-600">{% trans "Status" %}</p>
+                    <p class="font-semibold text-cannabis-green">{{ order.get_status_display }}</p>
                 </div>
                 <div>
-                    <p class="text-sm text-gray-600">Total Amount</p>
-                    <p class="font-semibold text-lg">${{ order.total_amount }}</p>
+                    <p class="text-sm text-gray-600">{% trans "Total Amount" %}</p>
+                    <p class="font-semibold text-lg text-cannabis-green">€{{ order.total_amount }}</p>
                 </div>
             </div>
 
             <!-- Delivery Information -->
-            <div class="border-t pt-4">
-                <h3 class="font-semibold mb-3">Delivery Information</h3>
+            <div class="border-t border-cannabis-light pt-4">
+                <h3 class="font-semibold mb-3 text-cannabis-dark">
+                    <i class="fas fa-truck mr-2"></i>{% trans "Delivery Information" %}
+                </h3>
                 <div class="text-sm text-gray-600">
                     <p>{{ order.first_name }} {{ order.last_name }}</p>
                     <p>{{ order.address }}</p>
                     <p>{{ order.city }}, {{ order.postal_code }}</p>
                     <p>{{ order.country }}</p>
                     {% if order.phone %}
-                        <p>Phone: {{ order.phone }}</p>
+                        <p>{% trans "Phone" %}: {{ order.phone }}</p>
                     {% endif %}
                 </div>
             </div>
         </div>
 
         <!-- Order Items -->
-        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
-            <h2 class="text-xl font-semibold mb-4">Order Items</h2>
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6 border border-cannabis-light">
+            <h2 class="text-xl font-semibold mb-4 text-cannabis-dark">
+                <i class="fas fa-cannabis mr-2"></i>{% trans "Order Items" %}
+            </h2>
             
             <div class="space-y-4">
                 {% for item in order.items.all %}
-                <div class="flex items-center justify-between py-3 border-b border-gray-100">
+                <div class="flex items-center justify-between py-3 border-b border-cannabis-light">
                     <div class="flex items-center">
                         {% if item.product.image %}
                             <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" 
-                                 class="w-16 h-16 object-cover rounded mr-4">
+                                 class="w-16 h-16 object-cover rounded mr-4 border border-cannabis-light">
                         {% else %}
-                            <div class="w-16 h-16 bg-gray-200 rounded mr-4 flex items-center justify-center">
-                                <i class="fas fa-pills text-gray-400"></i>
+                            <div class="w-16 h-16 bg-gray-200 rounded mr-4 flex items-center justify-center border border-cannabis-light">
+                                <i class="fas fa-cannabis text-gray-400"></i>
                             </div>
                         {% endif %}
                         <div>
-                            <h4 class="font-semibold">{{ item.product.name }}</h4>
-                            <p class="text-gray-600 text-sm">{{ item.product.category.name }}</p>
-                            <p class="text-sm">Quantity: {{ item.quantity }}</p>
+                            <h4 class="font-semibold text-cannabis-dark">{{ item.product.name }}</h4>
+                            <div class="flex items-center space-x-2 mt-1">
+                                <span class="text-gray-600 text-sm">{{ item.product.category.name }}</span>
+                                {% if item.product.strain_type %}
+                                <span class="text-xs px-2 py-1 rounded 
+                                    {% if item.product.strain_type == 'Sativa' %}bg-green-100 text-green-800
+                                    {% elif item.product.strain_type == 'Indica' %}bg-purple-100 text-purple-800
+                                    {% else %}bg-blue-100 text-blue-800{% endif %}">
+                                    {{ item.product.strain_type }}
+                                </span>
+                                {% endif %}
+                            </div>
+                            <div class="mt-1">
+                                {% if item.product.thc_content %}
+                                <span class="text-xs bg-red-50 text-red-800 px-2 py-1 rounded mr-1">
+                                    <i class="fas fa-fire mr-1"></i>THC: {{ item.product.thc_content }}%
+                                </span>
+                                {% endif %}
+                                {% if item.product.cbd_content %}
+                                <span class="text-xs bg-green-50 text-green-800 px-2 py-1 rounded">
+                                    <i class="fas fa-leaf mr-1"></i>CBD: {{ item.product.cbd_content }}%
+                                </span>
+                                {% endif %}
+                            </div>
+                            <p class="text-sm mt-1">{% trans "Quantity" %}: {{ item.quantity }}</p>
                         </div>
                     </div>
                     <div class="text-right">
-                        <p class="font-semibold">${{ item.get_cost }}</p>
-                        <p class="text-sm text-gray-600">${{ item.price }} each</p>
+                        <p class="font-semibold text-cannabis-dark">€{{ item.get_cost }}</p>
+                        <p class="text-sm text-gray-600">€{{ item.price }} {% trans "each" %}</p>
                     </div>
                 </div>
                 {% endfor %}
@@ -84,46 +113,69 @@
         </div>
 
         <!-- Next Steps -->
-        <div class="bg-medical-light rounded-lg p-6 mb-6">
-            <h2 class="text-xl font-semibold mb-4">What's Next?</h2>
-            <ul class="space-y-2 text-sm">
+        <div class="bg-cannabis-light bg-opacity-20 rounded-lg p-6 mb-6 border border-cannabis-light">
+            <h2 class="text-xl font-semibold mb-4 text-cannabis-dark">
+                <i class="fas fa-question-circle mr-2"></i>{% trans "What's Next?" %}
+            </h2>
+            <ul class="space-y-3 text-sm">
                 <li class="flex items-center">
-                    <i class="fas fa-envelope text-medical-blue mr-3"></i>
-                    You'll receive an order confirmation email at {{ order.email }}
+                    <div class="bg-cannabis-green text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">
+                        <i class="fas fa-envelope text-xs"></i>
+                    </div>
+                    {% trans "You'll receive an order confirmation email at" %} {{ order.email }}
                 </li>
                 <li class="flex items-center">
-                    <i class="fas fa-box text-medical-blue mr-3"></i>
-                    We'll prepare your order for shipping within 1-2 business days
+                    <div class="bg-cannabis-green text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">
+                        <i class="fas fa-box text-xs"></i>
+                    </div>
+                    {% trans "We'll prepare your discreet package within 1-2 business days" %}
                 </li>
                 <li class="flex items-center">
-                    <i class="fas fa-truck text-medical-blue mr-3"></i>
-                    You'll receive tracking information once your order ships
+                    <div class="bg-cannabis-green text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">
+                        <i class="fas fa-truck text-xs"></i>
+                    </div>
+                    {% trans "Adult signature required upon delivery (21+ only)" %}
                 </li>
                 <li class="flex items-center">
-                    <i class="fas fa-phone text-medical-blue mr-3"></i>
-                    Contact us if you have any questions about your order
+                    <div class="bg-cannabis-green text-white rounded-full w-6 h-6 flex items-center justify-center mr-3 flex-shrink-0">
+                        <i class="fas fa-phone text-xs"></i>
+                    </div>
+                    {% trans "Contact us if you have any questions about your order" %}
                 </li>
             </ul>
+        </div>
+
+        <!-- Medical Information -->
+        <div class="bg-cannabis-light bg-opacity-20 rounded-lg p-6 mb-6 border border-cannabis-light">
+            <h2 class="text-xl font-semibold mb-4 text-cannabis-dark">
+                <i class="fas fa-heartbeat mr-2"></i>{% trans "Medical Information" %}
+            </h2>
+            <div class="text-sm text-gray-700 space-y-3">
+                <p><strong>{% trans "Dosage Guidance:" %}</strong> {% trans "Start with low doses (2.5-5mg THC). Wait at least 2 hours before consuming more." %}</p>
+                <p><strong>{% trans "Effects:" %}</strong> {% trans "Inhalation: effects in 5-15 minutes. Edibles: effects in 30-90 minutes. Duration: 2-6 hours." %}</p>
+                <p><strong>{% trans "Storage:" %}</strong> {% trans "Keep in a cool, dark place. Store securely away from children and pets." %}</p>
+                <p><strong>{% trans "Safety:" %}</strong> {% trans "Do not drive or operate machinery after use. May interact with medications." %}</p>
+            </div>
         </div>
 
         <!-- Medical Disclaimer -->
         <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
             <p class="text-sm text-yellow-800">
                 <i class="fas fa-exclamation-triangle mr-2"></i>
-                <strong>Medical Disclaimer:</strong> These products are for informational purposes only and should not replace professional medical advice. Please consult your healthcare provider before use.
+                <strong>{% trans "Medical Disclaimer:" %}</strong> {% trans "These products are not intended to diagnose, treat, cure or prevent any disease. Consult your healthcare provider before use, especially if you have medical conditions or take medications." %}
             </p>
         </div>
 
         <!-- Action Buttons -->
-        <div class="text-center space-x-4">
+        <div class="text-center space-y-3 sm:space-y-0 sm:space-x-4">
             <a href="{% url 'products:product_list' %}" 
-               class="bg-medical-blue text-white px-6 py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
-                Continue Shopping
+               class="inline-block bg-cannabis-green text-white px-6 py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300">
+                <i class="fas fa-shopping-bag mr-2"></i>{% trans "Continue Shopping" %}
             </a>
             {% if user.is_authenticated %}
                 <a href="{% url 'orders:order_history' %}" 
-                   class="border border-medical-blue text-medical-blue px-6 py-3 rounded-lg font-semibold hover:bg-medical-light transition duration-300">
-                    View Order History
+                   class="inline-block border border-cannabis-green text-cannabis-green px-6 py-3 rounded-lg font-semibold hover:bg-cannabis-light transition duration-300 mt-3 sm:mt-0">
+                    <i class="fas fa-history mr-2"></i>{% trans "View Order History" %}
                 </a>
             {% endif %}
         </div>

@@ -3,210 +3,159 @@
 {% block title %}Privacy Policy - MedicalStore{% endblock %}
 
 {% block content %}
+{% load i18n %}
+
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-4xl mx-auto">
-        <h1 class="text-4xl font-bold text-center text-gray-800 mb-8">Privacy Policy</h1>
+        <h1 class="text-4xl font-bold text-center text-cannabis-dark mb-8">{% trans "Privacy Policy" %}</h1>
         
         <div class="prose max-w-none">
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">Introduction</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Introduction" %}</h2>
                 <div class="space-y-4 text-gray-700">
                     <p>
-                        At MedicalStore, we are committed to protecting your privacy and ensuring the security of your personal information. 
-                        This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website 
-                        or use our services.
+                        {% trans "At GreenLeaf Wellness, we prioritize your privacy and the security of your personal information, especially when purchasing cannabis-related products. This Privacy Policy explains how we collect, use, and protect your data when you visit our website or purchase our CBD and cannabis products." %}
                     </p>
                     <p>
-                        This policy complies with the General Data Protection Regulation (GDPR) and other applicable privacy laws.
+                        {% trans "This policy complies with GDPR, French data protection laws (Loi Informatique et Libertés), and cannabis industry regulations." %}
                     </p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">Information We Collect</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Information We Collect" %}</h2>
                 <div class="space-y-4 text-gray-700">
-                    <h3 class="text-lg font-semibold">Personal Information</h3>
-                    <p>We may collect the following personal information:</p>
+                    <h3 class="text-lg font-semibold">{% trans "Personal Information" %}</h3>
+                    <p>{% trans "We collect the following for legal cannabis purchases:" %}</p>
                     <ul class="list-disc pl-6 space-y-1">
-                        <li>Name and contact information (email, phone, address)</li>
-                        <li>Account credentials (username, password)</li>
-                        <li>Payment information (processed securely by third-party providers)</li>
-                        <li>Order history and preferences</li>
-                        <li>Communication records with our support team</li>
+                        <li>{% trans "Name, contact details (email, phone, address)" %}</li>
+                        <li>{% trans "Age verification information (to confirm you're 18+)" %}</li>
+                        <li>{% trans "Payment information (processed securely by certified providers)" %}</li>
+                        <li>{% trans "Purchase history of cannabis/CBD products" %}</li>
+                        <li>{% trans "Medical cannabis authorization (if applicable)" %}</li>
                     </ul>
 
-                    <h3 class="text-lg font-semibold">Technical Information</h3>
-                    <p>We automatically collect certain technical information:</p>
+                    <h3 class="text-lg font-semibold">{% trans "Technical Information" %}</h3>
+                    <p>{% trans "We automatically collect:" %}</p>
                     <ul class="list-disc pl-6 space-y-1">
-                        <li>IP address and browser information</li>
-                        <li>Device type and operating system</li>
-                        <li>Website usage patterns and analytics</li>
-                        <li>Cookies and similar tracking technologies</li>
+                        <li>{% trans "IP address and browsing data" %}</li>
+                        <li>{% trans "Device information" %}</li>
+                        <li>{% trans "Cookies for site functionality (see our Cookie Policy)" %}</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">How We Use Your Information</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "How We Use Your Information" %}</h2>
                 <div class="space-y-4 text-gray-700">
-                    <p>We use your information for the following purposes:</p>
+                    <p>{% trans "We use your data responsibly for:" %}</p>
                     <ul class="list-disc pl-6 space-y-2">
-                        <li><strong>Service Provision:</strong> To process orders, provide customer support, and deliver our services</li>
-                        <li><strong>Communication:</strong> To send order confirmations, updates, and respond to inquiries</li>
-                        <li><strong>Improvement:</strong> To analyze usage patterns and improve our website and services</li>
-                        <li><strong>Legal Compliance:</strong> To comply with applicable laws and regulations</li>
-                        <li><strong>Marketing:</strong> To send promotional materials (with your consent)</li>
-                        <li><strong>Security:</strong> To protect against fraud and ensure website security</li>
+                        <li><strong>{% trans "Legal Compliance:" %}</strong> {% trans "Age verification and cannabis purchase records as required by law" %}</li>
+                        <li><strong>{% trans "Order Processing:" %}</strong> {% trans "Secure processing of cannabis product orders" %}</li>
+                        <li><strong>{% trans "Customer Support:" %}</strong> {% trans "Responding to cannabis product inquiries" %}</li>
+                        <li><strong>{% trans "Product Safety:" %}</strong> {% trans "Tracking for quality control and recalls if needed" %}</li>
+                        <li><strong>{% trans "Legal Requirements:" %}</strong> {% trans "Maintaining required cannabis purchase records" %}</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">Legal Basis for Processing</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Legal Basis for Processing" %}</h2>
                 <div class="space-y-4 text-gray-700">
-                    <p>Under GDPR, we process your personal data based on the following legal grounds:</p>
+                    <p>{% trans "Under GDPR, we process data based on:" %}</p>
                     <ul class="list-disc pl-6 space-y-2">
-                        <li><strong>Contract Performance:</strong> To fulfill our contractual obligations to you</li>
-                        <li><strong>Legitimate Interest:</strong> For business operations, security, and service improvement</li>
-                        <li><strong>Consent:</strong> For marketing communications and optional services</li>
-                        <li><strong>Legal Obligation:</strong> To comply with applicable laws and regulations</li>
+                        <li><strong>{% trans "Legal Obligation:" %}</strong> {% trans "For cannabis purchase records and age verification" %}</li>
+                        <li><strong>{% trans "Contract:" %}</strong> {% trans "To fulfill your cannabis product orders" %}</li>
+                        <li><strong>{% trans "Consent:" %}</strong> {% trans "For marketing communications (opt-in)" %}</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">Information Sharing</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Information Sharing" %}</h2>
                 <div class="space-y-4 text-gray-700">
-                    <p>We may share your information with:</p>
+                    <p>{% trans "We may share information with:" %}</p>
                     <ul class="list-disc pl-6 space-y-2">
-                        <li><strong>Service Providers:</strong> Third-party companies that help us operate our business (payment processors, shipping companies, etc.)</li>
-                        <li><strong>Healthcare Partners:</strong> Licensed healthcare professionals for consultation services (with your consent)</li>
-                        <li><strong>Legal Authorities:</strong> When required by law or to protect our rights</li>
-                        <li><strong>Business Transfers:</strong> In case of merger, acquisition, or sale of assets</li>
+                        <li><strong>{% trans "Payment Processors:" %}</strong> {% trans "Certified providers for secure transactions" %}</li>
+                        <li><strong>{% trans "Shipping Providers:" %}</strong> {% trans "Discreet delivery of cannabis products" %}</li>
+                        <li><strong>{% trans "Regulatory Authorities:" %}</strong> {% trans "When required by cannabis laws" %}</li>
+                        <li><strong>{% trans "Medical Professionals:" %}</strong> {% trans "Only with explicit consent for medical cannabis" %}</li>
                     </ul>
-                    <p>We do not sell, rent, or trade your personal information to third parties for marketing purposes.</p>
+                    <p>{% trans "We never sell your cannabis purchase history to third parties." %}</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">Cookies and Tracking</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Your Rights (GDPR)" %}</h2>
                 <div class="space-y-4 text-gray-700">
-                    <p>We use cookies and similar technologies to:</p>
-                    <ul class="list-disc pl-6 space-y-1">
-                        <li>Remember your preferences and settings</li>
-                        <li>Analyze website traffic and usage patterns</li>
-                        <li>Provide personalized content and recommendations</li>
-                        <li>Ensure website security and prevent fraud</li>
-                    </ul>
-                    <p>
-                        You can control cookie settings through your browser preferences. However, disabling cookies may affect 
-                        website functionality.
-                    </p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">Your Rights (GDPR)</h2>
-                <div class="space-y-4 text-gray-700">
-                    <p>Under GDPR, you have the following rights:</p>
+                    <p>{% trans "You have the right to:" %}</p>
                     <ul class="list-disc pl-6 space-y-2">
-                        <li><strong>Access:</strong> Request a copy of your personal data</li>
-                        <li><strong>Rectification:</strong> Correct inaccurate or incomplete data</li>
-                        <li><strong>Erasure:</strong> Request deletion of your personal data</li>
-                        <li><strong>Restriction:</strong> Limit how we process your data</li>
-                        <li><strong>Portability:</strong> Receive your data in a structured format</li>
-                        <li><strong>Objection:</strong> Object to processing based on legitimate interests</li>
-                        <li><strong>Withdraw Consent:</strong> Withdraw consent for consent-based processing</li>
+                        <li>{% trans "Access your personal data" %}</li>
+                        <li>{% trans "Correct inaccurate information" %}</li>
+                        <li>{% trans "Request deletion (where not required by cannabis laws)" %}</li>
+                        <li>{% trans "Restrict processing" %}</li>
+                        <li>{% trans "Data portability" %}</li>
+                        <li>{% trans "Object to processing" %}</li>
+                        <li>{% trans "Withdraw consent" %}</li>
                     </ul>
-                    <p>To exercise these rights, contact us at privacy@medicalstore.com</p>
+                    <p>{% trans "Note: Cannabis purchase records may be retained as required by law." %}</p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">Data Security</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Data Security" %}</h2>
                 <div class="space-y-4 text-gray-700">
-                    <p>We implement appropriate technical and organizational measures to protect your personal data:</p>
+                    <p>{% trans "We implement strict security measures for cannabis purchases:" %}</p>
                     <ul class="list-disc pl-6 space-y-1">
-                        <li>SSL encryption for data transmission</li>
-                        <li>Secure servers and databases</li>
-                        <li>Regular security audits and updates</li>
-                        <li>Access controls and employee training</li>
-                        <li>Incident response procedures</li>
+                        <li>{% trans "End-to-end encryption for all transactions" %}</li>
+                        <li>{% trans "Secure storage with limited access" %}</li>
+                        <li>{% trans "Regular security audits" %}</li>
+                        <li>{% trans "Employee confidentiality agreements" %}</li>
                     </ul>
-                    <p>
-                        While we strive to protect your information, no method of transmission over the internet is 100% secure. 
-                        We cannot guarantee absolute security.
-                    </p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">Data Retention</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Data Retention" %}</h2>
                 <div class="space-y-4 text-gray-700">
-                    <p>We retain your personal data for as long as necessary to:</p>
+                    <p>{% trans "We retain data as required by cannabis regulations:" %}</p>
                     <ul class="list-disc pl-6 space-y-1">
-                        <li>Provide our services to you</li>
-                        <li>Comply with legal obligations</li>
-                        <li>Resolve disputes and enforce agreements</li>
-                        <li>Maintain business records</li>
-                    </ul>
-                    <p>
-                        Specific retention periods vary depending on the type of data and applicable legal requirements. 
-                        Contact us for more information about retention periods for specific data categories.
-                    </p>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">International Transfers</h2>
-                <div class="space-y-4 text-gray-700">
-                    <p>
-                        Your personal data may be transferred to and processed in countries outside the European Economic Area (EEA). 
-                        When we transfer data internationally, we ensure appropriate safeguards are in place, such as:
-                    </p>
-                    <ul class="list-disc pl-6 space-y-1">
-                        <li>Adequacy decisions by the European Commission</li>
-                        <li>Standard Contractual Clauses</li>
-                        <li>Binding Corporate Rules</li>
-                        <li>Certification schemes</li>
+                        <li>{% trans "Purchase records: 10 years (French cannabis law requirement)" %}</li>
+                        <li>{% trans "Account information: Until account closure + legal period" %}</li>
+                        <li>{% trans "Marketing data: Until consent withdrawal" %}</li>
                     </ul>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">Children's Privacy</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Age Verification" %}</h2>
                 <div class="space-y-4 text-gray-700">
                     <p>
-                        Our services are not intended for children under 16 years of age. We do not knowingly collect personal 
-                        information from children under 16. If you are a parent or guardian and believe your child has provided 
-                        us with personal information, please contact us immediately.
+                        {% trans "We strictly verify that all customers are at least 18 years old. By using our site, you confirm you meet the legal age requirement for cannabis purchases in your jurisdiction." %}
                     </p>
                 </div>
             </div>
 
-            <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
-                <h2 class="text-2xl font-semibold text-medical-blue mb-4">Contact Information</h2>
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Contact Information" %}</h2>
                 <div class="space-y-4 text-gray-700">
-                    <p>For privacy-related questions or to exercise your rights, contact us:</p>
-                    <div class="bg-gray-50 p-4 rounded">
-                        <p><strong>Data Protection Officer:</strong> Dr. Sophie Martin</p>
-                        <p><strong>Email:</strong> privacy@medicalstore.com</p>
-                        <p><strong>Phone:</strong> +33 1 23 45 67 89</p>
-                        <p><strong>Address:</strong> 123 Medical Plaza, 75001 Paris, France</p>
+                    <p>{% trans "For privacy concerns regarding cannabis purchases:" %}</p>
+                    <div class="bg-cannabis-light p-4 rounded">
+                        <p><strong>{% trans "Data Protection Officer:" %}</strong> {% trans "Jean-Luc Rousseau" %}</p>
+                        <p><strong>{% trans "Email:" %}</strong> privacy@greenleafwellness.com</p>
+                        <p><strong>{% trans "Phone:" %}</strong> +33 4 12 34 56 78</p>
+                        <p><strong>{% trans "Address:" %}</strong> 420 Cannabis Avenue, 69002 Lyon, France</p>
                     </div>
                     <p>
-                        You also have the right to lodge a complaint with the French Data Protection Authority (CNIL) 
-                        or your local supervisory authority.
+                        {% trans "You may also contact the CNIL (French Data Protection Authority) if you have concerns about our processing of your cannabis purchase data." %}
                     </p>
                 </div>
             </div>
 
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                <p class="text-sm text-blue-800">
-                    <i class="fas fa-info-circle mr-2"></i>
-                    <strong>Last Updated:</strong> This Privacy Policy was last updated on January 1, 2024. 
-                    We may update this policy from time to time. We will notify you of any material changes by posting 
-                    the new policy on this page and updating the "Last Updated" date.
+            <div class="bg-cannabis-light border border-cannabis-green rounded-lg p-6">
+                <p class="text-sm text-cannabis-dark">
+                    <i class="fas fa-cannabis mr-2"></i>
+                    <strong>{% trans "Last Updated:" %}</strong> {% trans "This policy was updated on January 1, 2024 to comply with current cannabis regulations. Changes will be communicated to account holders." %}
                 </p>
             </div>
         </div>

@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% block title %}Privacy Policy - MedicalStore{% endblock %}
+
+{% block content %}
+{% load i18n %}
+
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl font-bold text-center text-cannabis-dark mb-8">{% trans "Terms of Service" %}</h1>
+        
+        <div class="prose max-w-none">
+            <!-- Introduction -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Introduction" %}</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>
+                        {% trans "Welcome to GreenLeaf Wellness. These Terms of Service govern your use of our website and purchase of cannabis-derived products containing less than 0.2% THC in compliance with EU Regulation No. 1307/2013 and French law." %}
+                    </p>
+                    <p>
+                        {% trans "By accessing our site or purchasing products, you confirm you are at least 18 years old and agree to these Terms. Medical cannabis patients must provide valid authorization." %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Age Restriction -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Age Restriction" %}</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>
+                        {% trans "You must be at least 18 years old to access this website or purchase our CBD products. For THC-containing medical cannabis products, you must be 21+ with valid medical authorization." %}
+                    </p>
+                    <p>
+                        {% trans "We reserve the right to verify your age through third-party services or request identification. False declarations will result in order cancellation." %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Product Compliance -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Product Compliance" %}</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>
+                        {% trans "All products contain less than 0.2% THC unless specifically labeled as medical cannabis products requiring authorization under French Article R. 5132-86." %}
+                    </p>
+                    <p>
+                        {% trans "You are responsible for checking cannabis laws in your jurisdiction before purchasing. We cannot ship to locations where our products are prohibited." %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Medical Disclaimer -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Medical Disclaimer" %}</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>
+                        {% trans "Our products are not intended to diagnose, treat, cure or prevent any disease. The information provided is for educational purposes only regarding the potential benefits of cannabinoids." %}
+                    </p>
+                    <p>
+                        {% trans "For medical cannabis products, consultation with a healthcare provider is required. Never discontinue prescribed medications without medical advice." %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Purchasing and Shipping -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Purchasing & Shipping" %}</h2>
+                <div class="space-y-4 text-gray-700">
+                    <h3 class="text-lg font-semibold">{% trans "Order Acceptance" %}</h3>
+                    <p>
+                        {% trans "All orders are subject to age verification and product availability. We reserve the right to refuse service to anyone." %}
+                    </p>
+
+                    <h3 class="text-lg font-semibold">{% trans "Shipping Restrictions" %}</h3>
+                    <p>
+                        {% trans "We cannot ship cannabis products to countries where they are prohibited. International shipments may be subject to customs inspection." %}
+                    </p>
+
+                    <h3 class="text-lg font-semibold">{% trans "Discreet Packaging" %}</h3>
+                    <p>
+                        {% trans "All products are shipped in odor-proof, discreet packaging without cannabis branding. However, we cannot guarantee delivery against local laws." %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Returns & Refunds -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Returns & Refunds" %}</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>
+                        {% trans "Due to the nature of cannabis products:" %}
+                    </p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>{% trans "Opened products cannot be returned for hygiene reasons" %}</li>
+                        <li>{% trans "Unopened products may be returned within 14 days with original packaging" %}</li>
+                        <li>{% trans "Medical cannabis products are non-returnable" %}</li>
+                        <li>{% trans "Defective products will be replaced with proof of defect" %}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Intellectual Property -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Intellectual Property" %}</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>
+                        {% trans "All cannabis strain names, product formulations, and educational content are protected intellectual property. Unauthorized commercial use is prohibited." %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Limitation of Liability -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Limitation of Liability" %}</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>
+                        {% trans "GreenLeaf Wellness shall not be liable for:" %}
+                    </p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>{% trans "Misuse of cannabis products" %}</li>
+                        <li>{% trans "Unauthorized purchases by minors" %}</li>
+                        <li>{% trans "Legal consequences in jurisdictions where cannabis is prohibited" %}</li>
+                        <li>{% trans "Individual reactions to cannabinoids" %}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Governing Law -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Governing Law" %}</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>
+                        {% trans "These Terms are governed by French law, specifically regarding cannabis regulations under:" %}
+                    </p>
+                    <ul class="list-disc pl-6 space-y-1">
+                        <li>{% trans "EU Regulation No. 1307/2013" %}</li>
+                        <li>{% trans "French Public Health Code Article R. 5132-86" %}</li>
+                        <li>{% trans "General Data Protection Regulation (GDPR)" %}</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Changes to Terms -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Changes to Terms" %}</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>
+                        {% trans "We may update these Terms to reflect changes in cannabis regulations. Continued use after changes constitutes acceptance." %}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Contact -->
+            <div class="bg-white rounded-lg shadow-lg p-8 mb-8 border border-cannabis-light">
+                <h2 class="text-2xl font-semibold text-cannabis-green mb-4">{% trans "Contact" %}</h2>
+                <div class="space-y-4 text-gray-700">
+                    <p>
+                        {% trans "For questions about these Terms or our cannabis products:" %}
+                    </p>
+                    <div class="bg-cannabis-light p-4 rounded">
+                        <p><strong>{% trans "Email:" %}</strong> legal@greenleafwellness.com</p>
+                        <p><strong>{% trans "Address:" %}</strong> 420 Cannabis Avenue, Lyon, France 69002</p>
+                        <p><strong>{% trans "License Number:" %}</strong> FR-CBD-2024-001</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Effective Date -->
+            <div class="bg-cannabis-light border border-cannabis-green rounded-lg p-6">
+                <p class="text-sm text-cannabis-dark">
+                    <i class="fas fa-gavel mr-2"></i>
+                    <strong>{% trans "Effective Date:" %}</strong> {% trans "January 1, 2024 | Last Updated: January 1, 2024" %}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

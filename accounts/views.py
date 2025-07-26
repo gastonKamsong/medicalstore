@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from .forms import UserRegistrationForm
-
+from django.contrib.auth import logout
 
 def register(request):
     """User registration"""
@@ -24,3 +24,8 @@ def register(request):
 def profile(request):
     """User profile page"""
     return render(request, 'accounts/profile.html')
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, "You have been logged out.")
+    return redirect('pages:home')

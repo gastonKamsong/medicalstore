@@ -3,12 +3,16 @@
 {% block title %}Login - MedicalStore{% endblock %}
 
 {% block content %}
+{% load i18n %}
 <div class="container mx-auto px-4 py-8">
     <div class="max-w-md mx-auto">
-        <div class="bg-white rounded-lg shadow-lg p-8">
+        <div class="bg-white rounded-lg shadow-lg p-8 border border-cannabis-light">
             <div class="text-center mb-8">
-                <h1 class="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
-                <p class="text-gray-600">Sign in to your MedicalStore account</p>
+                <div class="bg-cannabis-green rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-leaf text-2xl text-white"></i>
+                </div>
+                <h1 class="text-3xl font-bold text-cannabis-dark mb-2">{% trans "Welcome Back" %}</h1>
+                <p class="text-gray-600">{% trans "Sign in to your cannabis account" %}</p>
             </div>
 
             <form method="post" class="space-y-6">
@@ -18,18 +22,18 @@
                     <div class="bg-red-50 border border-red-200 rounded-lg p-4">
                         <p class="text-red-800 text-sm">
                             <i class="fas fa-exclamation-circle mr-2"></i>
-                            Please correct the errors below.
+                            {% trans "Please correct the errors below." %}
                         </p>
                     </div>
                 {% endif %}
 
                 <div>
                     <label for="{{ form.username.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Username
+                        {% trans "Username or Email" %}
                     </label>
                     <input type="text" name="username" id="{{ form.username.id_for_label }}" 
                            value="{{ form.username.value|default:'' }}" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
+                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
                     {% if form.username.errors %}
                         <p class="text-red-500 text-sm mt-1">{{ form.username.errors.0 }}</p>
                     {% endif %}
@@ -37,10 +41,16 @@
 
                 <div>
                     <label for="{{ form.password.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
-                        Password
+                        {% trans "Password" %}
                     </label>
-                    <input type="password" name="password" id="{{ form.password.id_for_label }}" required
-                           class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-medical-blue focus:border-transparent">
+                    <div class="relative">
+                        <input type="password" name="password" id="{{ form.password.id_for_label }}" required
+                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cannabis-green focus:border-transparent">
+                        <button type="button" onclick="togglePasswordVisibility('{{ form.password.id_for_label }}')" 
+                                class="absolute right-3 top-2.5 text-gray-400 hover:text-cannabis-green">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                     {% if form.password.errors %}
                         <p class="text-red-500 text-sm mt-1">{{ form.password.errors.0 }}</p>
                     {% endif %}
@@ -48,17 +58,27 @@
 
                 <div class="flex items-center justify-between">
                     <label class="flex items-center">
-                        <input type="checkbox" name="remember_me" class="mr-2">
-                        <span class="text-sm text-gray-600">Remember me</span>
+                        <input type="checkbox" name="remember_me" class="mr-2 text-cannabis-green focus:ring-cannabis-green">
+                        <span class="text-sm text-gray-600">{% trans "Remember me" %}</span>
                     </label>
-                    <a href="{% url 'password_reset' %}" class="text-sm text-medical-blue hover:text-medical-dark">
-                        Forgot password?
+                    <a href="{% url 'password_reset' %}" class="text-sm text-cannabis-green hover:text-cannabis-dark">
+                        {% trans "Forgot password?" %}
                     </a>
                 </div>
 
+                <!-- Age Verification -->
+                <div class="bg-cannabis-light bg-opacity-20 p-3 rounded-lg">
+                    <div class="flex items-start">
+                        <input type="checkbox" id="age-verify" required class="mt-1 mr-2 text-cannabis-green focus:ring-cannabis-green">
+                        <label for="age-verify" class="text-sm text-gray-700">
+                            {% trans "I confirm that I am 21 years of age or older" %}
+                        </label>
+                    </div>
+                </div>
+
                 <button type="submit" 
-                        class="w-full bg-medical-blue text-white py-3 rounded-lg font-semibold hover:bg-medical-dark transition duration-300">
-                    Sign In
+                        class="w-full bg-cannabis-green text-white py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300">
+                    <i class="fas fa-sign-in-alt mr-2"></i>{% trans "Sign In" %}
                 </button>
 
                 <input type="hidden" name="next" value="{{ next }}">
@@ -66,32 +86,67 @@
 
             <div class="mt-8 text-center">
                 <p class="text-gray-600">
-                    Don't have an account? 
-                    <a href="{% url 'accounts:register' %}" class="text-medical-blue hover:text-medical-dark font-semibold">
-                        Sign up here
+                    {% trans "Don't have an account?" %} 
+                    <a href="{% url 'accounts:register' %}" class="text-cannabis-green hover:text-cannabis-dark font-semibold">
+                        {% trans "Sign up here" %}
                     </a>
                 </p>
             </div>
 
             <!-- Guest Checkout Option -->
             {% if 'cart' in request.path or 'checkout' in request.path %}
-            <div class="mt-6 pt-6 border-t border-gray-200">
-                <p class="text-center text-gray-600 mb-4">Or continue as guest</p>
+            <div class="mt-6 pt-6 border-t border-cannabis-light">
+                <p class="text-center text-gray-600 mb-4">{% trans "Or continue as guest" %}</p>
                 <a href="{% url 'orders:order_create' %}" 
-                   class="w-full block text-center border border-medical-blue text-medical-blue py-3 rounded-lg font-semibold hover:bg-medical-light transition duration-300">
-                    Continue as Guest
+                   class="w-full block text-center border border-cannabis-green text-cannabis-green py-3 rounded-lg font-semibold hover:bg-cannabis-light transition duration-300">
+                    {% trans "Continue as Guest" %}
                 </a>
             </div>
             {% endif %}
         </div>
 
+        <!-- Medical Information -->
+        <div class="bg-cannabis-light bg-opacity-20 rounded-lg p-4 mt-6 border border-cannabis-light">
+            <h3 class="font-semibold text-cannabis-dark mb-2">
+                <i class="fas fa-info-circle mr-2"></i>{% trans "Important Information" %}
+            </h3>
+            <ul class="text-sm text-gray-700 space-y-2 list-disc pl-5">
+                <li>{% trans "All cannabis products are for adults 21+ only" %}</li>
+                <li>{% trans "Consult your physician before using cannabis products" %}</li>
+                <li>{% trans "Start with low doses and increase gradually" %}</li>
+                <li>{% trans "Store products securely away from children and pets" %}</li>
+            </ul>
+        </div>
+
         <!-- Medical Disclaimer -->
         <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mt-6">
             <p class="text-sm text-yellow-800 text-center">
-                <i class="fas fa-info-circle mr-2"></i>
-                By signing in, you acknowledge that you understand our medical products are for informational purposes and should not replace professional medical advice.
+                <i class="fas fa-exclamation-triangle mr-2"></i>
+                {% trans "These products are not intended to diagnose, treat, cure or prevent any disease. By signing in, you acknowledge you understand our products should not replace professional medical advice." %}
             </p>
         </div>
     </div>
 </div>
+
+<script>
+function togglePasswordVisibility(inputId) {
+    const input = document.getElementById(inputId);
+    const icon = event.currentTarget.querySelector('i');
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.replace('fa-eye', 'fa-eye-slash');
+    } else {
+        input.type = "password";
+        icon.classList.replace('fa-eye-slash', 'fa-eye');
+    }
+}
+
+// Age verification for form submission
+document.querySelector('form').addEventListener('submit', function(e) {
+    if (!document.getElementById('age-verify').checked) {
+        e.preventDefault();
+        alert('{% trans "You must confirm you are 21+ to access this site" %}');
+    }
+});
+</script>
 {% endblock %}

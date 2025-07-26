@@ -10,4 +10,7 @@ urlpatterns = [
     path('faq/', views.faq, name='faq'),
     path('legal/', views.legal, name='legal'),
     path('privacy/', views.privacy, name='privacy'),
+    path('services/', views.services, name='services'),
+    path('shipping/', views.shipping, name='shipping'),
+    path('returns_policy/', views.returns_policy, name='returns_policy'),
 ]
