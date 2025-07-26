@@ -3,10 +3,6 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 
-from django.db import models
-from django.utils.text import slugify
-from django.urls import reverse
-
 class Category(models.Model):
     STRAIN_TYPE_CHOICES = [
         ('Sativa', 'Sativa'),

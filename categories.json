@@ -1,0 +1,89 @@
+ [
+    {
+        "slug": "thc-flower",
+        "description": "High-quality cannabis flowers with significant THC content",
+        "meta_description": "Premium THC cannabis flowers for various needs",
+        "meta_keywords": "THC flower, cannabis, marijuana, buds",
+        "strain_type": "Hybrid",
+        "preferred_ratio": "high_thc",
+        "recommended_methods": ["flower", "vapes"],
+        "primary_benefits": "Pain relief, relaxation, appetite stimulation",
+        "dosage_advice": "Start with small amounts (0.1g) and wait 2 hours before additional doses",
+        "effects_timeline": "Effects begin within 5-15 minutes when smoked, lasting 2-4 hours",
+        "storage_advice": "Store in airtight glass containers away from light and heat",
+        "icon": "fas fa-cannabis",
+        "is_medical": true,
+        "is_recreational": true,
+        
+        "names": {
+            "en": "THC Flower",
+            "da": "THC Blomst",  
+            "fi": "THC Kukka",  
+            "fr": "Fleurs THC",  
+            "de": "THC Blüte",  
+            "it": "Fiore THC",  
+            "hu": "THC Virág",  
+            "no": "THC Blomst",  
+            "ga": "Bláth THC",  
+            "es": "Flor THC",  
+            "sv": "THC Blomma"
+        },
+        "descriptions": {
+            "en": "High-quality cannabis flowers with significant THC content",
+            "da": "Højkvalitets cannabisblomster med betydeligt THC-indhold",
+            "fi": "Laadukas THC-pitoinen kannabiskukka",
+            "fr": "Fleurs de cannabis de haute qualité avec une teneur significative en THC",
+            "de": "Hochwertige Cannabisblüten mit bedeutendem THC-Gehalt",
+            "it": "Fiori di cannabis di alta qualità con significativo contenuto di THC",
+            "hu": "Kiváló minőségű THC-tartalmú kannabisz virágok",
+            "no": "Høy kvalitet cannabisblomster med betydelig THC-innhold",
+            "ga": "Bláthanna cannabais ar ardchaighdeán le go leor THC",
+            "es": "Flores de cannabis de alta calidad con contenido significativo de THC",
+            "sv": "Högkvalitativ cannabisblomma med betydande THC-halt"
+        }
+    },
+    {
+        "slug": "cbd-flower",
+        "description": "Premium CBD-rich cannabis flowers with minimal THC content",
+        "meta_description": "Therapeutic CBD flowers for wellness without intoxication",
+        "meta_keywords": "CBD flower, hemp, therapeutic, non-psychoactive",
+        "strain_type": "Sativa",
+        "preferred_ratio": "high_cbd",
+        "recommended_methods": ["flower", "oil"],
+        "primary_benefits": "Anxiety relief, anti-inflammatory, neuroprotective",
+        "dosage_advice": "Dose as needed, typically 0.5-1g per session",
+        "effects_timeline": "Effects begin within 15-30 minutes, lasting 4-6 hours",
+        "storage_advice": "Store in cool, dark place with humidity control",
+        "icon": "fas fa-leaf",
+        "is_medical": true,
+        "is_recreational": false,
+        
+        
+        "names": {
+            "en": "CBD Flower",
+            "da": "CBD Blomst",  
+            "fi": "CBD Kukka",  
+            "fr": "Fleurs CBD",  
+            "de": "CBD Blüte",  
+            "it": "Fiore CBD",  
+            "hu": "CBD Virág",  
+            "no": "CBD Blomst",  
+            "ga": "Bláth CBD",  
+            "es": "Flor CBD",  
+            "sv": "CBD Blomma"  
+        },
+        "descriptions": {
+            "en": "Premium CBD-rich cannabis flowers with minimal THC content",
+            "da": "Premium CBD-rige cannabisblomster med minimalt THC-indhold",
+            "fi": "Laadukas CBD-pitoinen kannabiskukka, jossa on vähän THC:ta",
+            "fr": "Fleurs de cannabis riches en CBD premium avec une teneur minimale en THC",
+            "de": "Premium CBD-reiche Cannabisblüten mit minimalem THC-Gehalt",
+            "it": "Fiori di cannabis ricchi di CBD premium con contenuto minimo di THC",
+            "hu": "Prémium CBD-dús kannabisz virágok minimális THC-tartalommal",
+            "no": "Premium CBD-rike cannabisblomster med minimalt THC-innhold",
+            "ga": "Bláthanna cannabais ar ardchaighdeán le go leor CBD agus THC íosta",
+            "es": "Flores de cannabis ricas en CBD premium con contenido mínimo de THC",
+            "sv": "Premium CBD-rik cannabisblomma med minimal THC-halt"
+        }
+    }
+]

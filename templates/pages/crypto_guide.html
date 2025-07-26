@@ -1,0 +1,239 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "How to Pay with Cryptocurrency" %}{% endblock %}
+
+{% block content %}
+{% load i18n %}
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+    <div class="bg-white rounded-xl shadow-lg p-8 border border-cannabis-light">
+        <h1 class="text-3xl font-bold mb-6 text-cannabis-dark font-heading">
+            <i class="fab fa-bitcoin text-cannabis-green mr-2"></i>{% trans "How to Pay with Cryptocurrency" %}
+        </h1>
+        
+        <!-- Important Notice -->
+        <div class="bg-blue-50 border-l-4 border-blue-400 p-4 mb-8 rounded-r-lg">
+            <div class="flex">
+                <i class="fas fa-exclamation-circle text-blue-500 mt-1 mr-3 text-xl"></i>
+                <div>
+                    <p class="text-blue-800 font-medium">{% trans "Important Notice:" %}</p>
+                    <p class="text-blue-700">{% trans "Always send the exact amount shown in your order confirmation. Incorrect amounts will delay processing." %}</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Wallet Addresses -->
+        <div class="mb-10">
+            <h2 class="text-2xl font-semibold mb-4 text-cannabis-dark border-b pb-2">
+                <i class="fas fa-wallet mr-2 text-cannabis-green"></i>{% trans "Our Wallet Addresses" %}
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Bitcoin Address -->
+                <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
+                    <div class="flex items-center mb-3">
+                        <i class="fab fa-bitcoin text-orange-500 text-2xl mr-3"></i>
+                        <h3 class="font-bold text-lg">Bitcoin (BTC)</h3>
+                    </div>
+                    <div class="bg-white p-3 rounded border border-gray-300 mb-3">
+                        <code class="text-sm break-all font-mono">1JyHnY2KyFgUhooTqPq5o8rHbeiivPBfPt</code>
+                    </div>
+                    <button onclick="copyToClipboard('1JyHnY2KyFgUhooTqPq5o8rHbeiivPBfPt')" 
+                            class="text-sm bg-cannabis-green hover:bg-cannabis-dark text-white px-3 py-1 rounded flex items-center">
+                        <i class="fas fa-copy mr-2"></i>{% trans "Copy Address" %}
+                    </button>
+                </div>
+                
+                <!-- Litecoin Address -->
+                <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
+                    <div class="flex items-center mb-3">
+                        <i class="fab fa-litecoin text-gray-500 text-2xl mr-3"></i>
+                        <h3 class="font-bold text-lg">Litecoin (LTC)</h3>
+                    </div>
+                    <div class="bg-white p-3 rounded border border-gray-300 mb-3">
+                        <code class="text-sm break-all font-mono">LdCF3kLA3uvXxcVd1XpP59v3os6176vQNX</code>
+                    </div>
+                    <button onclick="copyToClipboard('LdCF3kLA3uvXxcVd1XpP59v3os6176vQNX')" 
+                            class="text-sm bg-cannabis-green hover:bg-cannabis-dark text-white px-3 py-1 rounded flex items-center">
+                        <i class="fas fa-copy mr-2"></i>{% trans "Copy Address" %}
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Payment Options -->
+        <div class="space-y-10">
+            <!-- Option 1: Bitpanda -->
+            <div class="bg-cannabis-light/10 p-6 rounded-xl border border-cannabis-light">
+                <h2 class="text-2xl font-semibold mb-4 text-cannabis-dark flex items-center">
+                    <span class="bg-cannabis-green text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">1</span>
+                    {% trans "Using Bitpanda (Recommended)" %}
+                </h2>
+                
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Bitpanda Steps -->
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">1</span>
+                            <p>{% trans "Sign up on Bitpanda (Europe's leading crypto platform)" %}</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">2</span>
+                            <p>{% trans "Complete identity verification (takes about 10 minutes)" %}</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">3</span>
+                            <p>{% trans "Add your credit card or bank account" %}</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">4</span>
+                            <p>{% trans "Buy Bitcoin or Litecoin with your preferred payment method" %}</p>
+                        </div>
+                        <div class="flex items-start">
+                            <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">5</span>
+                            <p>{% trans "Send to our wallet address from your Bitpanda wallet" %}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Bitpanda Image Placeholder -->
+                    <div class="bg-gray-100 rounded-lg border border-gray-300 flex items-center justify-center p-4">
+                        <div class="text-center">
+                            <div class="bg-gray-200 w-full h-40 mb-2 rounded flex items-center justify-center text-gray-500">
+                                <i class="fas fa-image text-4xl"></i>
+                            </div>
+                            <p class="text-sm text-gray-600">{% trans "Bitpanda dashboard screenshot" %}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4">
+                    <a href="https://www.bitpanda.com" target="_blank" 
+                       class="inline-flex items-center text-cannabis-green hover:text-cannabis-dark font-medium">
+                        <i class="fas fa-external-link-alt mr-2"></i>
+                        {% trans "Visit Bitpanda to get started" %}
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Option 2: PayPal -->
+            <div class="bg-cannabis-light/10 p-6 rounded-xl border border-cannabis-light">
+                <h2 class="text-2xl font-semibold mb-4 text-cannabis-dark flex items-center">
+                    <span class="bg-cannabis-green text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">2</span>
+                    {% trans "Using PayPal" %}
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">1</span>
+                        <p>{% trans "Log in to your PayPal account and navigate to the 'Crypto' section" %}</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">2</span>
+                        <p>{% trans "Select 'Send' and choose Bitcoin or Litecoin" %}</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">3</span>
+                        <p>{% trans "Enter our wallet address and the exact order amount" %}</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">4</span>
+                        <p>{% trans "Confirm the transaction and send us the transaction ID" %}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Option 3: Credit Card -->
+            <div class="bg-cannabis-light/10 p-6 rounded-xl border border-cannabis-light">
+                <h2 class="text-2xl font-semibold mb-4 text-cannabis-dark flex items-center">
+                    <span class="bg-cannabis-green text-white rounded-full w-8 h-8 flex items-center justify-center mr-3">3</span>
+                    {% trans "Using Credit Card via Exchange" %}
+                </h2>
+                
+                <div class="space-y-4">
+                    <div class="flex items-start">
+                        <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">1</span>
+                        <p>{% trans "Sign up for a cryptocurrency exchange (Coinbase, Binance, Kraken)" %}</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">2</span>
+                        <p>{% trans "Complete identity verification (may take 1-2 days)" %}</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">3</span>
+                        <p>{% trans "Add your credit card as a payment method" %}</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">4</span>
+                        <p>{% trans "Purchase cryptocurrency for the exact order amount" %}</p>
+                    </div>
+                    <div class="flex items-start">
+                        <span class="bg-white border border-cannabis-green text-cannabis-green rounded-full w-6 h-6 flex items-center justify-center mr-3 mt-1 flex-shrink-0">5</span>
+                        <p>{% trans "Send to our wallet address from your exchange wallet" %}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Important Notes -->
+        <div class="mt-10 bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-r-lg">
+            <h2 class="text-xl font-semibold mb-4 text-cannabis-dark">
+                <i class="fas fa-exclamation-triangle text-yellow-600 mr-2"></i>
+                {% trans "Important Notes" %}
+            </h2>
+            <ul class="space-y-3">
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                    <span>{% trans "Always double-check wallet addresses before sending" %}</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                    <span>{% trans "Send only the exact amount specified in your order" %}</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                    <span>{% trans "Email us the transaction ID at payments@yourdomain.com" %}</span>
+                </li>
+                <li class="flex items-start">
+                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                    <span>{% trans "Processing begins after blockchain confirmation (typically 10-30 minutes)" %}</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Support Section -->
+        <div class="mt-8 bg-green-50 border-l-4 border-green-400 p-6 rounded-r-lg">
+            <div class="flex">
+                <i class="fas fa-headset text-green-500 text-2xl mt-1 mr-4"></i>
+                <div>
+                    <h3 class="font-semibold text-green-800 text-lg mb-1">{% trans "Need Help with Payment?" %}</h3>
+                    <p class="text-green-700">{% trans "Contact our payment support team at payments@yourdomain.com" %}</p>
+                    <p class="text-green-700 mt-2">{% trans "Include your order number and any transaction details." %}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Copy to clipboard function with feedback
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        // Create and show tooltip
+        const tooltip = document.createElement('div');
+        tooltip.className = 'fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded-lg text-sm shadow-lg';
+        tooltip.innerHTML = `
+            <div class="flex items-center">
+                <i class="fas fa-check-circle text-green-400 mr-2"></i>
+                {% trans "Address copied to clipboard!" %}
+            </div>
+        `;
+        document.body.appendChild(tooltip);
+        
+        // Remove after 2 seconds
+        setTimeout(() => {
+            tooltip.classList.add('opacity-0', 'transition-opacity', 'duration-300');
+            setTimeout(() => tooltip.remove(), 300);
+        }, 2000);
+    });
+}
+</script>
+{% endblock %}

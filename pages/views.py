@@ -5,7 +5,7 @@ from products.models import Product, Category
 def home(request):
     """Homepage with featured products and categories"""
     featured_products = Product.objects.filter(featured=True, is_active=True)[:8]
-    categories = Category.objects.all()[6:]
+    categories = Category.objects.all()
     
     context = {
         'featured_products': featured_products,
@@ -50,3 +50,7 @@ def shipping(request):
 def returns_policy(request):
     """Returns Policy"""
     return render(request, 'pages/returns_policy.html')
+
+def crypto_guide(request):
+    """crypto guide page"""
+    return render(request, 'pages/crypto_guide.html')

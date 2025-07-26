@@ -2146,3 +2146,146 @@ msgstr "Sessions de Méditation"
 msgid "Reggae Roots Classics"
 msgstr "Classiques Reggae Roots"
 
+msgid "Complete Your Order"
+msgstr "Finaliser Votre Commande"
+
+msgid "Billing Information"
+msgstr "Informations de Facturation"
+
+msgid "Street Address"
+msgstr "Adresse"
+
+msgid "Secure payment via Stripe"
+msgstr "Paiement sécurisé via Stripe"
+
+msgid "Bank Transfer"
+msgstr "Virement Bancaire"
+
+msgid "You'll receive payment details after order"
+msgstr "Vous recevrez les détails de paiement après la commande"
+
+msgid "Do not order if you don't intend to pay."
+msgstr "Ne commandez pas si vous ne comptez pas payer."
+
+msgid "Click Place Order and you'll receive an email with details, order number and our bank information for transfer."
+msgstr "Cliquez sur Passer la Commande et vous recevrez un email avec les détails, le numéro de commande et nos informations bancaires pour le virement."
+
+msgid "Use the order number as reference for the transfer."
+msgstr "Utilisez le numéro de commande comme référence pour le virement."
+
+msgid "Order will be shipped upon receipt of payment."
+msgstr "La commande sera expédiée après réception du paiement."
+
+msgid "Cryptocurrency"
+msgstr "Cryptomonnaie"
+
+msgid "BTC, LTC and other major cryptos"
+msgstr "BTC, LTC et autres cryptos majeures"
+
+msgid "How to pay with crypto"
+msgstr "Comment payer en crypto"
+
+msgid "Responsible Use"
+msgstr "Consommation Responsable"
+
+msgid "Place Secure Order"
+msgstr "Passer la Commande Sécurisée"
+
+msgid "Qty:"
+msgstr "Qté :"
+
+msgid "Estimated delivery: 2-5 business days"
+msgstr "Livraison estimée : 2-5 jours ouvrés"
+
+msgid "How to Pay with Cryptocurrency"
+msgstr "Comment Payer en Cryptomonnaie"
+
+msgid "Important Notice:"
+msgstr "Avis Important :"
+
+msgid "Always send the exact amount shown in your order confirmation. Incorrect amounts will delay processing."
+msgstr "Toujours envoyer le montant exact indiqué dans votre confirmation de commande. Les montants incorrects retarderont le traitement."
+
+msgid "Our Wallet Addresses"
+msgstr "Nos Adresses de Portefeuille"
+
+msgid "Copy Address"
+msgstr "Copier l'Adresse"
+
+msgid "Using Bitpanda (Recommended)"
+msgstr "Utiliser Bitpanda (Recommandé)"
+
+msgid "Sign up on Bitpanda (Europe's leading crypto platform)"
+msgstr "Inscrivez-vous sur Bitpanda (la principale plateforme crypto en Europe)"
+
+msgid "Complete identity verification (takes about 10 minutes)"
+msgstr "Complétez la vérification d'identité (prend environ 10 minutes)"
+
+msgid "Add your credit card or bank account"
+msgstr "Ajoutez votre carte de crédit ou compte bancaire"
+
+msgid "Buy Bitcoin or Litecoin with your preferred payment method"
+msgstr "Achetez du Bitcoin ou Litecoin avec votre méthode de paiement préférée"
+
+msgid "Send to our wallet address from your Bitpanda wallet"
+msgstr "Envoyez à notre adresse de portefeuille depuis votre portefeuille Bitpanda"
+
+msgid "Bitpanda dashboard screenshot"
+msgstr "Capture d'écran du tableau de bord Bitpanda"
+
+msgid "Visit Bitpanda to get started"
+msgstr "Visitez Bitpanda pour commencer"
+
+msgid "Using PayPal"
+msgstr "Utilisation de PayPal"
+
+msgid "Log in to your PayPal account and navigate to the 'Crypto' section"
+msgstr "Connectez-vous à votre compte PayPal et accédez à la section 'Crypto'"
+
+msgid "Select 'Send' and choose Bitcoin or Litecoin"
+msgstr "Sélectionnez 'Envoyer' et choisissez Bitcoin ou Litecoin"
+
+msgid "Enter our wallet address and the exact order amount"
+msgstr "Entrez notre adresse de portefeuille et le montant exact de la commande"
+
+msgid "Confirm the transaction and send us the transaction ID"
+msgstr "Confirmez la transaction et envoyez-nous l'ID de transaction"
+
+msgid "Using Credit Card via Exchange"
+msgstr "Utilisation d'une Carte de Crédit via un Exchange"
+
+msgid "Sign up for a cryptocurrency exchange (Coinbase, Binance, Kraken)"
+msgstr "Inscrivez-vous sur un exchange de cryptomonnaies (Coinbase, Binance, Kraken)"
+
+msgid "Complete identity verification (may take 1-2 days)"
+msgstr "Complétez la vérification d'identité (peut prendre 1-2 jours)"
+
+msgid "Add your credit card as a payment method"
+msgstr "Ajoutez votre carte de crédit comme méthode de paiement"
+
+msgid "Purchase cryptocurrency for the exact order amount"
+msgstr "Achetez la cryptomonnaie pour le montant exact de la commande"
+
+msgid "Send to our wallet address from your exchange wallet"
+msgstr "Envoyez à notre adresse de portefeuille depuis votre portefeuille d'exchange"
+
+msgid "Always double-check wallet addresses before sending"
+msgstr "Toujours vérifier les adresses de portefeuille avant d'envoyer"
+
+msgid "Send only the exact amount specified in your order"
+msgstr "Envoyez uniquement le montant exact spécifié dans votre commande"
+
+msgid "Email us the transaction ID at payments@yourdomain.com"
+msgstr "Envoyez-nous l'ID de transaction à payments@yourdomain.com"
+
+msgid "Processing begins after blockchain confirmation (typically 10-30 minutes)"
+msgstr "Le traitement commence après confirmation blockchain (généralement 10-30 minutes)"
+
+msgid "Need Help with Payment?"
+msgstr "Besoin d'Aide pour le Paiement ?"
+
+msgid "Contact our payment support team at payments@yourdomain.com"
+msgstr "Contactez notre équipe de support paiement à payments@yourdomain.com"
+
+msgid "Include your order number and any transaction details."
+msgstr "Incluez votre numéro de commande et tout détail de transaction."
