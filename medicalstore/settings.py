@@ -140,17 +140,17 @@ USE_TZ = True
 
 # Supported Languages - Updated to match requirements
 LANGUAGES = [
-    ('da', 'Danish'),
+    # ('da', 'Danish'),
     ('en', 'English'),
-    ('fi', 'Finnish'),
+    # ('fi', 'Finnish'),
     ('fr', 'French'),
-    ('de', 'German'),
-    ('it', 'Italian'),
-    ('hu', 'Hungarian'),
-    ('no', 'Norwegian'),
-    ('ga', 'Irish'),
-    ('es', 'Spanish'),
-    ('sv', 'Swedish'),
+    # ('de', 'German'),
+    # ('it', 'Italian'),
+    # ('hu', 'Hungarian'),
+    # ('no', 'Norwegian'),
+    # ('ga', 'Irish'),
+    # ('es', 'Spanish'),
+    # ('sv', 'Swedish'),
 ]
 
 LOCALE_PATHS = [
