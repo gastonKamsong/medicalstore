@@ -7,6 +7,28 @@ from .forms import OrderCreateForm
 from django.core.mail import send_mail
 from django.conf import settings
 from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
+
+def send_admin_order_email(order, cleaned_data):
+    """Send order confirmation email to admin"""
+    admin_email = settings.ADMIN_EMAIL  # Add to settings.py
+    
+    subject = f'🛒 New Order #{order.id} - {order.total_amount}€'
+    body = render_to_string('emails/admin_order_notification.html', {
+        'order': order,
+        'cleaned_data': cleaned_data,
+        'payment_method': cleaned_data.get('payment_method', 'N/A')
+    })
+    
+    email = EmailMessage(
+        subject,
+        body,
+        settings.DEFAULT_FROM_EMAIL,
+        [admin_email],
+        cc=[settings.SALES_EMAIL] if hasattr(settings, 'SALES_EMAIL') else None
+    )
+    email.content_subtype = 'html'
+    email.send()
 
 def order_create(request):
     """Create a new order and handle bank payment email if needed"""
@@ -34,7 +56,7 @@ def order_create(request):
                     quantity=item['quantity']
                 )
 
-            # cart.clear()
+            cart.clear()
             messages.success(request, f'Order {order.id} created successfully!')
 
             # Send bank info email if payment method is bank
@@ -121,7 +143,9 @@ def order_create(request):
                 email.content_subtype = 'html'  # Set content type to HTML
                 email.send()
 
-
+            # 2. Send admin email notification
+            send_admin_order_email(order, form.cleaned_data)
+            
             return redirect('orders:order_created', order_id=order.id)
 
     else:

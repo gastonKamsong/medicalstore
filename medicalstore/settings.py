@@ -95,7 +95,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "kamsonganderson39@gmail.com"
 EMAIL_HOST_PASSWORD = "zbci mysk xhds gjxe"
-
+ADMIN_EMAIL = 'kamsonganderson39@gmail.com'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

@@ -10,7 +10,12 @@ from django.conf.urls.i18n import i18n_patterns
 urlpatterns = [
     path('i18n/', include('django.conf.urls.i18n')),
 ]
+# from pages.views import change_language
 
+# urlpatterns = [
+#     # ... your other URLs ...
+#     path('i18n/setlang/', change_language, name='change_language'),
+# ]
 urlpatterns += i18n_patterns(
     path('admin/', admin.site.urls),
     path('', include('pages.urls')),
