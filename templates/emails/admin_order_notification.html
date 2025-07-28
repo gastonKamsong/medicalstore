@@ -1,0 +1,20 @@
+<html>
+<body>
+    <h2>New Order Notification</h2>
+    <p>A new order has been placed:</p>
+    
+    <table>
+        <tr><td>Order ID:</td><td><strong>#{{ order.id }}</strong></td></tr>
+        <tr><td>Customer:</td><td>{{ order.first_name }} {{ order.last_name }}</td></tr>
+        <tr><td>Email:</td><td>{{ cleaned_data.email }}</td></tr>
+        <tr><td>Amount:</td><td>{{ order.total_amount }}€</td></tr>
+        <tr><td>Payment Method:</td><td>{{ payment_method }}</td></tr>
+    </table>
+    
+    <p>
+        <a href="{{ settings.BASE_URL }}/admin/orders/order/{{ order.id }}/">
+            View order in admin
+        </a>
+    </p>
+</body>
+</html>
