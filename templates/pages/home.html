@@ -61,49 +61,69 @@
       {% trans "Featured Products" %}
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      {% for product in featured_products %}
-      <div
-        class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300"
-      >
-        {% if product.image %}
-        <img
-          src="{{ product.image.url }}"
-          alt="{{ product.name }}"
-          class="w-full h-48 object-cover"
-        />
-        {% else %}
-        <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
-          <i class="fas fa-pills text-4xl text-gray-400"></i>
-        </div>
-        {% endif %}
-        <div class="p-6">
-          <h3 class="text-lg font-semibold mb-2 text-primary">
-            {{ product.name }}
-          </h3>
-          <p class="text-gray-600 text-sm mb-3">
-            {{ product.description|truncatewords:15 }}
-          </p>
-          <div class="flex justify-between items-center">
-            <span class="text-2xl font-bold text-cannabis-green"
-              >${{ product.price }}</span
-            >
-            <a
-              href="{{ product.get_absolute_url }}"
-              class="bg-cannabis-green text-white px-4 py-2 rounded hover:bg-cannabis-dark transition duration-300"
-            >
-              {% trans "View Details" %}
-            </a>
+  {% for product in featured_products %}
+  <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 flex flex-col h-full">
+    {% if product.image %}
+    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-48 object-cover">
+    {% else %}
+    <div class="w-full h-48 bg-gray-200 flex items-center justify-center">
+      <i class="fas fa-pills text-4xl text-gray-400"></i>
+    </div>
+    {% endif %}
+    
+    <div class="p-6 flex-grow flex flex-col">
+      <div class="flex-grow">
+        <h3 class="text-lg font-semibold mb-2 text-primary">
+          {{ product.name }}
+        </h3>
+        
+        <!-- Rating Display -->
+        <div class="flex items-center mb-3">
+          <div class="flex">
+            {% for i in "12345" %}
+              {% if forloop.counter <= product.average_rating %}
+                <i class="fas fa-star text-yellow-400"></i>
+              {% elif forloop.counter|add:"-0.5" <= product.average_rating %}
+                <i class="fas fa-star-half-alt text-yellow-400"></i>
+              {% else %}
+                <i class="far fa-star text-yellow-400"></i>
+              {% endif %}
+            {% endfor %}
           </div>
+          <span class="text-sm text-gray-600 ml-2">
+            ({{ product.rating_count }})
+          </span>
         </div>
-      </div>
-      {% empty %}
-      <div class="col-span-full text-center py-8">
-        <p class="text-gray-600">
-          {% trans "No featured products available yet." %}
+        
+        <p class="text-gray-600 text-sm mb-3">
+          {{ product.description|truncatewords:15 }}
         </p>
       </div>
-      {% endfor %}
+      
+      <div class="flex justify-between items-center mt-auto">
+        <div>
+          <span class="text-2xl font-bold text-cannabis-green">
+            ${{ product.price }}
+          </span>
+          {% if not product.is_in_stock %}
+            <span class="text-xs text-red-500 block">{% trans "Out of Stock" %}</span>
+          {% endif %}
+        </div>
+        <a href="{{ product.get_absolute_url }}" 
+           class="bg-cannabis-green text-white px-4 py-2 rounded hover:bg-cannabis-dark transition duration-300">
+          {% trans "View Details" %}
+        </a>
+      </div>
     </div>
+  </div>
+  {% empty %}
+  <div class="col-span-full text-center py-8">
+    <p class="text-gray-600">
+      {% trans "No featured products available yet." %}
+    </p>
+  </div>
+  {% endfor %}
+</div>
 
     {% if featured_products %}
     <div class="text-center mt-12">

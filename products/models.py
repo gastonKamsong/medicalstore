@@ -120,7 +120,7 @@ class Product(models.Model):
     image = models.ImageField(upload_to='products/', blank=True, null=True)
     
     # SEO fields
-    meta_description = models.CharField(max_length=160, blank=True, help_text="SEO meta description")
+    meta_description = models.CharField( blank=True, help_text="SEO meta description")
     meta_keywords = models.CharField(max_length=255, blank=True, help_text="SEO keywords")
     
     # Additional fields
@@ -148,6 +148,17 @@ class Product(models.Model):
         null=True,
         help_text="e.g., ['flower', 'oil']"
     )
+    # Rating fields
+    average_rating = models.DecimalField(
+        max_digits=3, 
+        decimal_places=2,
+        default=0.00,
+        help_text="Automatically calculated average rating (0-5)"
+    )
+    rating_count = models.PositiveIntegerField(
+        default=0,
+        help_text="Total number of ratings received"
+    )
 
     class Meta:
         ordering = ['-created_at']
@@ -167,6 +178,13 @@ class Product(models.Model):
 
     def get_absolute_url(self):
         return reverse('products:product_detail', kwargs={'slug': self.slug})
+
+    def update_rating(self, new_rating):
+        """Update the average rating when a new rating is received"""
+        total_ratings = self.average_rating * self.rating_count
+        self.rating_count += 1
+        self.average_rating = (total_ratings + new_rating) / self.rating_count
+        self.save()
 
     @property
     def is_in_stock(self):
