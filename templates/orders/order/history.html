@@ -14,6 +14,7 @@
             <div class="space-y-6">
                 {% for order in orders %}
                 <div class="bg-white rounded-lg shadow-lg p-6 border border-cannabis-light">
+                    <!-- Order Header -->
                     <div class="flex flex-col md:flex-row justify-between items-start mb-4">
                         <div class="mb-4 md:mb-0">
                             <h3 class="text-lg font-semibold text-cannabis-dark">
@@ -33,9 +34,16 @@
                                 {% endif %}">
                                 {{ order.get_status_display }}
                             </span>
-                            <p class="text-lg font-bold text-cannabis-green mt-1">
-                                €{{ order.total_amount }}
-                            </p>
+                            <div class="flex items-center justify-end mt-1">
+                                <p class="text-lg font-bold text-cannabis-green">
+                                    €{{ order.total_amount|floatformat:2 }}
+                                </p>
+                                {% if order.get_total_discount > 0 %}
+                                <span class="ml-2 text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                                    Saved €{{ order.get_total_discount|floatformat:2 }}
+                                </span>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                     
@@ -59,7 +67,14 @@
                                     <div>
                                         <p class="font-medium text-cannabis-dark">{{ item.product.name }}</p>
                                         <div class="flex items-center flex-wrap gap-2 mt-1">
-                                            <p class="text-sm text-gray-600">{% trans "Qty" %}: {{ item.quantity }}</p>
+                                            <p class="text-xs bg-gray-100 px-2 py-1 rounded">
+                                                {% trans "Qty:" %} {{ item.quantity }} × {{ item.weight }}g
+                                            </p>
+                                            {% if item.discount_percentage > 0 %}
+                                            <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">
+                                                {{ item.discount_percentage }}% OFF
+                                            </span>
+                                            {% endif %}
                                             {% if item.product.strain_type %}
                                             <span class="text-xs px-2 py-1 rounded 
                                                 {% if item.product.strain_type == 'Sativa' %}bg-green-100 text-green-800
@@ -68,25 +83,43 @@
                                                 {{ item.product.strain_type }}
                                             </span>
                                             {% endif %}
-                                            {% if item.product.thc_content %}
-                                            <span class="text-xs bg-red-50 text-red-800 px-2 py-1 rounded">
-                                                <i class="fas fa-fire mr-1"></i>THC: {{ item.product.thc_content }}%
-                                            </span>
-                                            {% endif %}
-                                            {% if item.product.cbd_content %}
-                                            <span class="text-xs bg-green-50 text-green-800 px-2 py-1 rounded">
-                                                <i class="fas fa-leaf mr-1"></i>CBD: {{ item.product.cbd_content }}%
-                                            </span>
-                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <p class="font-semibold text-cannabis-dark">€{{ item.get_cost }}</p>
-                                    <p class="text-sm text-gray-600">€{{ item.price }} {% trans "each" %}</p>
+                                    {% if item.discount_percentage > 0 %}
+                                    <span class="text-xs text-gray-400 line-through">€{{ item.price|floatformat:2 }}</span>
+                                    {% endif %}
+                                    <p class="font-semibold text-cannabis-dark">€{{ item.discount_price|floatformat:2 }}/g</p>
+                                    <p class="text-sm text-gray-600">= €{{ item.get_cost|floatformat:2 }}</p>
                                 </div>
                             </div>
                             {% endfor %}
+                        </div>
+                    </div>
+                    
+                    <!-- Order Summary -->
+                    <div class="border-t border-cannabis-light pt-4 mt-4">
+                        <h4 class="font-medium mb-3 text-cannabis-dark">
+                            <i class="fas fa-calculator mr-2"></i>{% trans "Order Summary" %}
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <h5 class="text-sm font-medium text-gray-600 mb-2">{% trans "Payment Method" %}</h5>
+                                <p class="capitalize">{{ order.payment_method|title }}</p>
+                            </div>
+                            <div>
+                                <h5 class="text-sm font-medium text-gray-600 mb-2">{% trans "Total Weight" %}</h5>
+                                <p>{{ order.get_total_weight }}g</p>
+                            </div>
+                            <div>
+                                <h5 class="text-sm font-medium text-gray-600 mb-2">{% trans "Items" %}</h5>
+                                <p>{{ order.items.count }}</p>
+                            </div>
+                            <div>
+                                <h5 class="text-sm font-medium text-gray-600 mb-2">{% trans "Date Ordered" %}</h5>
+                                <p>{{ order.created|date:"M d, Y" }}</p>
+                            </div>
                         </div>
                     </div>
                     
@@ -103,18 +136,6 @@
                             {% if order.phone %}
                                 <p>{% trans "Phone" %}: {{ order.phone }}</p>
                             {% endif %}
-                        </div>
-                    </div>
-                    
-                    <!-- Medical Use Reminder -->
-                    <div class="border-t border-cannabis-light pt-4 mt-4">
-                        <h4 class="font-medium mb-2 text-cannabis-dark">
-                            <i class="fas fa-heartbeat mr-2"></i>{% trans "Usage Reminder" %}
-                        </h4>
-                        <div class="text-sm text-gray-600 space-y-1">
-                            <p>{% trans "Start with low doses and increase gradually" %}</p>
-                            <p>{% trans "Store products securely away from children and pets" %}</p>
-                            <p>{% trans "Consult your physician with any questions" %}</p>
                         </div>
                     </div>
                     

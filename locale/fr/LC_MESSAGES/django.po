@@ -2289,3 +2289,184 @@ msgstr "Contactez notre équipe de support paiement à payments@yourdomain.com"
 
 msgid "Include your order number and any transaction details."
 msgstr "Incluez votre numéro de commande et tout détail de transaction."
+
+msgid "reviews"
+msgstr "avis"
+
+msgid "Update Your Review"
+msgstr "Mettre à jour votre avis"
+
+msgid "Write a Review"
+msgstr "Écrire un avis"
+
+msgid "Select Weight"
+msgstr "Sélectionner le poids"
+
+msgid "Unit Price"
+msgstr "Prix unitaire"
+
+msgid "Total for"
+msgstr "Total pour"
+
+msgid "Usage"
+msgstr "Utilisation"
+
+msgid "Reviews"
+msgstr "Avis"
+
+msgid "Ingredients"
+msgstr "Ingrédients"
+
+msgid "Start with low doses"
+msgstr "Commencez avec de faibles doses"
+
+msgid "Customer Reviews"
+msgstr "Avis clients"
+
+msgid "Your Review"
+msgstr "Votre avis"
+
+msgid "Your Rating"
+msgstr "Votre note"
+
+msgid "Submit Review"
+msgstr "Soumettre l'avis"
+
+msgid "Please"
+msgstr "Veuillez"
+
+msgid "sign in"
+msgstr "vous connecter"
+
+msgid "to write a review."
+msgstr "pour écrire un avis."
+
+msgid "No reviews yet. Be the first to review this product!"
+msgstr "Pas encore d'avis. Soyez le premier à évaluer ce produit !"
+
+msgid "Recommended Methods"
+msgstr "Méthodes recommandées"
+
+msgid "Update Review"
+msgstr "Mettre à jour l'avis"
+
+msgid "Total Weight"
+msgstr "Poids total"
+
+msgid "Date Ordered"
+msgstr "Date de commande"
+
+msgid "Saved"
+msgstr "Économisé"
+
+msgid "pending"
+msgstr "en attente"
+
+msgid "processing"
+msgstr "en cours"
+
+msgid "shipped"
+msgstr "expédié"
+
+msgid "delivered"
+msgstr "livré"
+
+msgid "cancelled"
+msgstr "annulé"
+
+msgid "OFF"
+msgstr "DE RÉDUCTION"
+
+msgid "Payment instructions sent to your email"
+msgstr "Instructions de paiement envoyées par email"
+
+msgid "Discounts"
+msgstr "Remises"
+
+msgid "You saved"
+msgstr "Vous avez économisé"
+
+msgid "Your order contains"
+msgstr "Votre commande contient"
+
+msgid "of premium cannabis products"
+msgstr "de produits cannabis premium"
+
+msgid "Bank transfer instructions sent to your email"
+msgstr "Instructions de virement bancaire envoyées par email"
+
+msgid "Usage Guidance"
+msgstr "Conseils d'utilisation"
+
+msgid "Inhalation: effects in 5-15 minutes, duration 2-3 hours. Edibles: effects in 30-90 minutes, duration 4-6 hours."
+msgstr "Inhalation : effets en 5-15 min, durée 2-3h. Comestibles : effets en 30-90 min, durée 4-6h."
+
+msgid "Keep in a cool, dark place in airtight containers. Store securely away from children and pets."
+msgstr "Conserver dans un endroit frais et sombre dans des contenants hermétiques. Tenir hors de portée des enfants et animaux."
+
+msgid "Address copied to clipboard!"
+msgstr "Adresse copiée dans le presse-papiers !"
+
+msgid "Weight"
+msgstr "Poids"
+
+msgid "Thank You for Your Order"
+msgstr "Merci pour votre commande"
+
+msgid "Dear Valued Customer,"
+msgstr "Cher client,"
+
+msgid "We appreciate your trust in GreenMed Store. Please find below the details for your bank transfer payment:"
+msgstr "Nous apprécions votre confiance en GreenMed Store. Veuillez trouver ci-dessous les détails pour votre paiement par virement bancaire :"
+
+msgid "Payment Instructions"
+msgstr "Instructions de paiement"
+
+msgid "Bank Name:"
+msgstr "Nom de la banque :"
+
+msgid "Account Name:"
+msgstr "Nom du compte :"
+
+msgid "Account Number:"
+msgstr "Numéro de compte :"
+
+msgid "Amount Due:"
+msgstr "Montant dû :"
+
+msgid "Please include your Order ID in the payment reference to ensure prompt processing."
+msgstr "Veuillez inclure votre numéro de commande dans la référence de paiement pour un traitement rapide."
+
+msgid "Next Steps"
+msgstr "Prochaines étapes"
+
+msgid "Complete your bank transfer using the details above"
+msgstr "Effectuez votre virement bancaire en utilisant les détails ci-dessus"
+
+msgid "Keep your transaction receipt for reference"
+msgstr "Conservez votre reçu de transaction comme référence"
+
+msgid "We'll notify you once payment is received"
+msgstr "Nous vous informerons une fois le paiement reçu"
+
+msgid "Your order will be prepared for shipment"
+msgstr "Votre commande sera préparée pour l'expédition"
+
+msgid "Need assistance? Contact our friendly support team:"
+msgstr "Besoin d'aide ? Contactez notre équipe de support :"
+
+msgid "With green regards,"
+msgstr "Cordialement,"
+
+msgid "The GreenMed Store Team"
+msgstr "L'équipe GreenMed Store"
+
+msgid "Nurturing Your Wellness Naturally"
+msgstr "Prendre soin de votre bien-être naturellement"
+
+msgid "IBAN:"
+msgstr "IBAN :"
+
+msgid "SWIFT/BIC:"
+msgstr "SWIFT/BIC :"
+

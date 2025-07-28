@@ -26,80 +26,150 @@
             <div class="bg-white rounded-lg shadow-lg overflow-hidden border border-cannabis-light">
                 <div class="p-6">
                     {% for item in cart_items %}
-                    <div class="flex items-center py-6 {% if not forloop.last %}border-b border-gray-200{% endif %}">
-                        <!-- Product Image -->
-                        <div class="w-20 h-20 flex-shrink-0">
-                            {% if item.product.image %}
-                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" 
-                                     class="w-full h-full object-cover rounded border border-cannabis-light">
-                            {% else %}
-                                <div class="w-full h-full bg-gray-200 rounded flex items-center justify-center border border-cannabis-light">
-                                    <i class="fas fa-cannabis text-gray-400"></i>
-                                </div>
-                            {% endif %}
-                        </div>
-                        
-                        <!-- Product Info -->
-                        <div class="ml-6 flex-1">
-                            <h3 class="text-lg font-semibold">
-                                <a href="{{ item.product.get_absolute_url }}" class="text-cannabis-dark hover:text-cannabis-green">
-                                    {{ item.product.name }}
-                                </a>
-                            </h3>
-                            <div class="flex items-center space-x-3 mt-1">
-                                {% if item.product.strain_type %}
-                                <span class="text-xs px-2 py-1 rounded 
-                                    {% if item.product.strain_type == 'Sativa' %}bg-green-100 text-green-800
-                                    {% elif item.product.strain_type == 'Indica' %}bg-purple-100 text-purple-800
-                                    {% else %}bg-blue-100 text-blue-800{% endif %}">
-                                    {{ item.product.strain_type }}
-                                </span>
-                                {% endif %}
-                                <span class="text-gray-600 text-sm">{{ item.product.category.name }}</span>
-                            </div>
-                            <div class="mt-2">
-                                <span class="text-cannabis-green font-semibold">€{{ item.price }}</span>
-                                {% if item.product.thc_content %}
-                                <span class="ml-3 text-xs bg-red-50 text-red-800 px-2 py-1 rounded">
-                                    <i class="fas fa-fire mr-1"></i>THC: {{ item.product.thc_content }}%
-                                </span>
-                                {% endif %}
-                                {% if item.product.cbd_content %}
-                                <span class="ml-2 text-xs bg-green-50 text-green-800 px-2 py-1 rounded">
-                                    <i class="fas fa-leaf mr-1"></i>CBD: {{ item.product.cbd_content }}%
-                                </span>
+                    <div class="py-6 {% if not forloop.last %}border-b border-gray-200{% endif %}">
+                        <div class="flex items-start">
+                            <!-- Product Image -->
+                            <div class="w-20 h-20 flex-shrink-0">
+                                {% if item.product.image %}
+                                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" 
+                                         class="w-full h-full object-cover rounded border border-cannabis-light">
+                                {% else %}
+                                    <div class="w-full h-full bg-gray-200 rounded flex items-center justify-center border border-cannabis-light">
+                                        <i class="fas fa-cannabis text-gray-400"></i>
+                                    </div>
                                 {% endif %}
                             </div>
-                        </div>
-                        
-                        <!-- Quantity Controls -->
-                        <div class="flex items-center space-x-4">
-                            <form action="{% url 'cart:cart_add' item.product.id %}" method="post" class="flex items-center">
-                                {% csrf_token %}
-                                <select name="quantity" class="border border-gray-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-cannabis-green">
-                                    {% for i in "12345678910"|make_list %}
-                                        <option value="{{ forloop.counter }}" {% if forloop.counter == item.quantity %}selected{% endif %}>
-                                            {{ forloop.counter }}
-                                        </option>
-                                    {% endfor %}
-                                </select>
-                                <input type="hidden" name="override" value="True">
-                                <button type="submit" class="ml-2 bg-cannabis-green text-white px-3 py-1 rounded text-sm hover:bg-cannabis-dark transition duration-300">
-                                    {% trans "Update" %}
-                                </button>
-                            </form>
                             
-                            <form action="{% url 'cart:cart_remove' item.product.id %}" method="post">
-                                {% csrf_token %}
-                                <button type="submit" class="text-red-600 hover:text-red-800" aria-label="{% trans 'Remove item' %}">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </form>
+                            <!-- Product Info -->
+                            <div class="ml-6 flex-1">
+                                <div class="flex justify-between">
+                                    <div>
+                                        <h3 class="text-lg font-semibold">
+                                            <a href="{{ item.product.get_absolute_url }}" class="text-cannabis-dark hover:text-cannabis-green">
+                                                {{ item.product.name }}
+                                            </a>
+                                        </h3>
+                                        <div class="flex items-center space-x-3 mt-1">
+                                            {% if item.product.strain_type %}
+                                            <span class="text-xs px-2 py-1 rounded 
+                                                {% if item.product.strain_type == 'Sativa' %}bg-green-100 text-green-800
+                                                {% elif item.product.strain_type == 'Indica' %}bg-purple-100 text-purple-800
+                                                {% else %}bg-blue-100 text-blue-800{% endif %}">
+                                                {{ item.product.strain_type }}
+                                            </span>
+                                            {% endif %}
+                                            <span class="text-gray-600 text-sm">{{ item.product.category.name }}</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Rating -->
+                                    <div class="flex items-center">
+                                        <div class="flex items-center">
+                                            {% for i in "12345"|make_list %}
+                                                {% if forloop.counter <= item.product.average_rating|floatformat:0 %}
+                                                    <i class="fas fa-star text-yellow-400 text-sm"></i>
+                                                {% else %}
+                                                    <i class="far fa-star text-yellow-400 text-sm"></i>
+                                                {% endif %}
+                                            {% endfor %}
+                                            <span class="ml-1 text-xs text-gray-600">
+                                                ({{ item.product.rating_count }})
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Weight and Pricing -->
+                                <div class="mt-4">
+                                    <div class="flex items-center justify-between">
+                                        <div>
+                                            <label class="block text-sm font-medium text-gray-700 mb-1">{% trans "Weight" %}</label>
+                                            <div class="flex space-x-2">
+                                                {% for weight in item.available_weights %}
+                                                <form action="{% url 'cart:cart_update_weight' item.product.id %}" method="post" class="inline">
+                                                    {% csrf_token %}
+                                                    <input type="hidden" name="weight" value="{{ weight }}">
+                                                    <button type="submit" class="weight-option text-xs px-3 py-1 rounded border 
+                                                        {% if item.weight == weight %}bg-cannabis-green text-white border-cannabis-green
+                                                        {% else %}border-gray-300 hover:bg-gray-50{% endif %}">
+                                                        {{ weight }}g
+                                                    </button>
+                                                </form>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="text-right">
+                                            {% if item.discount_percentage > 0 %}
+                                            <div class="text-xs text-green-600 mb-1">
+                                                <span class="bg-green-100 px-2 py-1 rounded-full">
+                                                    {{ item.discount_percentage }}% OFF
+                                                </span>
+                                            </div>
+                                            {% endif %}
+                                            <div class="text-sm">
+                                                <span class="text-gray-500">{% trans "Unit Price" %}: </span>
+                                                {% if item.discount_percentage > 0 %}
+                                                <span class="text-gray-400 line-through mr-1">€{{ item.base_price|floatformat:2 }}</span>
+                                                {% endif %}
+                                                <span class="font-semibold text-cannabis-green">€{{ item.unit_price|floatformat:2 }}</span>
+                                                <span class="text-xs text-gray-500">/g</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- THC/CBD Content -->
+                                <div class="mt-2">
+                                    {% if item.product.thc_content %}
+                                    <span class="text-xs bg-red-50 text-red-800 px-2 py-1 rounded mr-1">
+                                        <i class="fas fa-fire mr-1"></i>THC: {{ item.product.thc_content }}%
+                                    </span>
+                                    {% endif %}
+                                    {% if item.product.cbd_content %}
+                                    <span class="text-xs bg-green-50 text-green-800 px-2 py-1 rounded">
+                                        <i class="fas fa-leaf mr-1"></i>CBD: {{ item.product.cbd_content }}%
+                                    </span>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
                         
-                        <!-- Item Total -->
-                        <div class="ml-6 text-right">
-                            <p class="text-lg font-semibold text-cannabis-dark">€{{ item.total_price }}</p>
+                        <!-- Quantity Controls and Total -->
+                        <div class="flex items-center justify-between mt-4">
+                            <!-- Quantity Controls -->
+                            <div class="flex items-center space-x-4">
+                                <form action="{% url 'cart:cart_add' item.product.id %}" method="post" class="flex items-center">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="weight" value="{{ item.weight }}">
+                                    <select name="quantity" class="border border-gray-300 rounded px-2 py-1 text-sm focus:ring-2 focus:ring-cannabis-green">
+                                        {% for i in "12345678910"|make_list %}
+                                            <option value="{{ forloop.counter }}" {% if forloop.counter == item.quantity %}selected{% endif %}>
+                                                {{ forloop.counter }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                    <input type="hidden" name="override" value="True">
+                                    <button type="submit" class="ml-2 bg-cannabis-green text-white px-3 py-1 rounded text-sm hover:bg-cannabis-dark transition duration-300">
+                                        {% trans "Update" %}
+                                    </button>
+                                </form>
+                                
+                                <form action="{% url 'cart:cart_remove' item.product.id %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="text-red-600 hover:text-red-800" aria-label="{% trans 'Remove item' %}">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            
+                            <!-- Item Total -->
+                            <div class="text-right">
+                                <p class="text-sm text-gray-500">
+                                    {{ item.quantity }} × {{ item.weight }}g = {{ item.total_weight }}g
+                                </p>
+                                <p class="text-lg font-semibold text-cannabis-dark">€{{ item.total_price|floatformat:2 }}</p>
+                            </div>
                         </div>
                     </div>
                     {% endfor %}
@@ -117,18 +187,33 @@
                 <div class="space-y-3 mb-6">
                     <div class="flex justify-between text-gray-700">
                         <span>{% trans "Items" %} ({{ cart|length }})</span>
-                        <span>€{{ cart.get_total_price }}</span>
+                        <span>€{{ total_price_withouth_discount|floatformat:2 }}</span>
                     </div>
+                    
+                    {% if total_discount > 0 %}
+                    <div class="flex justify-between text-green-600">
+                        <span>{% trans "Discounts" %}</span>
+                        <span>-€{{ total_discount|floatformat:2 }}</span>
+                    </div>
+                    {% endif %}
+                    
                     <div class="flex justify-between text-gray-700">
                         <span>{% trans "Shipping" %}</span>
                         <span>{% trans "Free" %}</span>
                     </div>
+                    
                     <div class="border-t border-cannabis-light pt-3">
                         <div class="flex justify-between text-lg font-semibold">
                             <span class="text-cannabis-dark">{% trans "Total" %}</span>
-                            <span class="text-cannabis-green">€{{ cart.get_total_price }}</span>
+                            <span class="text-cannabis-green">€{{ total_price|floatformat:2 }}</span>
                         </div>
                     </div>
+                    
+                    {% if total_discount > 0 %}
+                    <div class="text-sm text-green-600 text-right">
+                        <i class="fas fa-tag mr-1"></i> {% trans "You saved" %} €{{ total_discount|floatformat:2 }}
+                    </div>
+                    {% endif %}
                 </div>
                 
                 <a href="{% url 'orders:order_create' %}" 

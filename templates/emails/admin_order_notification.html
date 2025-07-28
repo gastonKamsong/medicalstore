@@ -1,0 +1,20 @@
+<html>
+<body>
+    <h2>Nouvelle Notification de Commande</h2>
+    <p>Une nouvelle commande a été passée :</p>
+    
+    <table>
+        <tr><td>ID de Commande :</td><td><strong>#{{ order.id }}</strong></td></tr>
+        <tr><td>Client :</td><td>{{ order.first_name }} {{ order.last_name }}</td></tr>
+        <tr><td>Email :</td><td>{{ cleaned_data.email }}</td></tr>
+        <tr><td>Montant :</td><td>{{ order.total_amount }}€</td></tr>
+        <tr><td>Moyen de Paiement :</td><td>{{ payment_method }}</td></tr>
+    </table>
+    
+    <p>
+        <a href="{{ settings.BASE_URL }}/admin/orders/order/{{ order.id }}/">
+            Voir la commande dans l'administration
+        </a>
+    </p>
+</body>
+</html>

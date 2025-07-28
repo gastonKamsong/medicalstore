@@ -9,6 +9,15 @@
 {% load i18n %}
 <div class="container mx-auto px-4 py-8">
     <!-- Breadcrumb -->
+    {% if messages %}
+    <div class="container mx-auto px-4">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} mb-8 p-4 rounded-lg">
+            {{ message }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     <nav class="mb-8">
         <ol class="flex items-center space-x-2 text-sm text-gray-600">
             <li><a href="{% url 'pages:home' %}" class="hover:text-cannabis-green">{% trans "Home" %}</a></li>
@@ -32,6 +41,29 @@
                     <i class="fas fa-cannabis text-8xl text-gray-400"></i>
                 </div>
             {% endif %}
+            
+            <!-- Rating and Reviews -->
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <div class="flex items-center">
+                        {% for i in "12345" %}
+                            {% if forloop.counter <= product.average_rating %}
+                                <i class="fas fa-star text-yellow-400"></i>
+                            {% elif forloop.counter|add:"-0.5" <= product.average_rating %}
+                                <i class="fas fa-star-half-alt text-yellow-400"></i>
+                            {% else %}
+                                <i class="far fa-star text-yellow-400"></i>
+                            {% endif %}
+                        {% endfor %}
+                        <span class="ml-2 text-gray-600 text-sm">
+                            {{ product.average_rating|floatformat:1 }} ({{ product.rating_count }} {% trans "reviews" %})
+                        </span>
+                    </div>
+                </div>
+                <a href="#tab-reviews" onclick="showTab('reviews')" class="text-sm text-cannabis-green hover:underline">
+                    {% if user_review %}{% trans "Update Your Review" %}{% else %}{% trans "Write a Review" %}{% endif %}
+                </a>
+            </div>
             
             <!-- Strain Type Badge -->
             {% if product.strain_type %}
@@ -70,9 +102,49 @@
                 </div>
             </div>
 
-            <!-- Price and Stock -->
+            <!-- Weight Selection and Dynamic Pricing -->
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Select Weight" %}</label>
+                    <div class="grid grid-cols-4 gap-2">
+                        <button type="button" data-weight="10" class="weight-option border rounded py-2 px-3 text-sm font-medium hover:bg-cannabis-green hover:text-white transition">
+                            10g
+                        </button>
+                        <button type="button" data-weight="50" class="weight-option border rounded py-2 px-3 text-sm font-medium hover:bg-cannabis-green hover:text-white transition">
+                            50g
+                        </button>
+                        <button type="button" data-weight="100" class="weight-option border rounded py-2 px-3 text-sm font-medium hover:bg-cannabis-green hover:text-white transition">
+                            100g
+                        </button>
+                        <button type="button" data-weight="500" class="weight-option border rounded py-2 px-3 text-sm font-medium hover:bg-cannabis-green hover:text-white transition">
+                            500g
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Price Display with Discount -->
+                <div class="flex items-center justify-between">
+                    <div>
+                        <span class="text-gray-500 text-sm">{% trans "Unit Price" %}</span>
+                        <div class="flex items-baseline space-x-2">
+                            <span id="base-price" class="text-gray-500 line-through">€{{ product.price|floatformat:2 }}</span>
+                            <span id="discounted-price" class="text-3xl font-bold text-cannabis-green">€{{ product.price|floatformat:2 }}</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span id="discount-percentage" class="inline-block bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                            0% OFF
+                        </span>
+                        <div class="text-sm text-gray-600 mt-1">
+                            <span id="total-price-label">{% trans "Total for 10g" %}:</span>
+                            <span id="total-price" class="font-semibold">€{{ product.price|floatformat:2 }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Stock Status -->
             <div class="flex items-center space-x-4">
-                <span class="text-4xl font-bold text-cannabis-green">€{{ product.price }}</span>
                 {% if product.is_in_stock %}
                     <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
                         <i class="fas fa-check mr-1"></i>
@@ -103,17 +175,21 @@
             {% if product.is_in_stock %}
             <form action="{% url 'cart:cart_add' product.id %}" method="post" class="space-y-4">
                 {% csrf_token %}
+                <input type="hidden" name="quantity" id="form-quantity" value="1">
+                <input type="hidden" name="weight" id="form-weight" value="10">
+                <input type="hidden" name="override" value="False">
+                
                 <div class="flex items-center space-x-4">
-                    <label for="quantity" class="text-sm font-medium text-cannabis-dark">{% trans "Quantity" %}:</label>
-                    <select name="quantity" id="quantity" class="border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-cannabis-green">
+                    <label for="quantity-select" class="text-sm font-medium text-cannabis-dark">{% trans "Quantity" %}:</label>
+                    <select id="quantity-select" class="border border-gray-300 rounded px-3 py-2 focus:ring-2 focus:ring-cannabis-green">
                         {% for i in "12345678910"|make_list %}
                             <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <input type="hidden" name="override" value="False">
+                
                 <button type="submit" 
-                        class="bg-cannabis-green text-white px-8 py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300">
+                        class="bg-cannabis-green text-white px-8 py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300 w-full">
                     <i class="fas fa-cart-plus mr-2"></i>{% trans "Add to Cart" %}
                 </button>
             </form>
@@ -156,6 +232,10 @@
                 <button onclick="showTab('creation')" id="tab-creation" 
                         class="tab-button py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">
                     <i class="fas fa-industry mr-2"></i>{% trans "Production" %}
+                </button>
+                <button onclick="showTab('reviews')" id="tab-reviews" 
+                        class="tab-button py-2 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium text-sm">
+                    <i class="fas fa-star mr-2"></i>{% trans "Reviews" %} ({{ product.rating_count }})
                 </button>
             </nav>
         </div>
@@ -203,6 +283,145 @@
                     {{ product.creation_method|linebreaks }}
                 </div>
             </div>
+            
+            <!-- Reviews Tab -->
+            <div id="content-reviews" class="tab-content hidden">
+                <div class="space-y-8">
+                    <div id="reviews">
+                        <h3 class="text-xl font-semibold mb-6 text-cannabis-dark">{% trans "Customer Reviews" %}</h3>
+                        
+                        {% if product.rating_count > 0 %}
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-8">
+                            <div class="flex items-center mb-4">
+                                <div class="text-4xl font-bold mr-4">{{ product.average_rating|floatformat:1 }}</div>
+                                <div>
+                                    <div class="flex items-center mb-1">
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= product.average_rating %}
+                                                <i class="fas fa-star text-yellow-400"></i>
+                                            {% elif forloop.counter|add:"-0.5" <= product.average_rating %}
+                                                <i class="fas fa-star-half-alt text-yellow-400"></i>
+                                            {% else %}
+                                                <i class="far fa-star text-yellow-400"></i>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div class="text-sm text-gray-600">
+                                        {{ product.rating_count }} {% trans "reviews" %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Rating distribution -->
+                            <div class="space-y-2">
+                                {% for i in "54321"|make_list %}
+                                <div class="flex items-center">
+                                    <span class="w-10 text-sm text-gray-600">{{ i }} {% trans "star" %}</span>
+                                    <div class="flex-1 mx-2 h-2 bg-gray-200 rounded-full overflow-hidden">
+                                        <div class="h-full bg-yellow-400" style="width: {% widthratio forloop.revcounter 5 100 %}"></div>
+                                    </div>
+                                    <span class="w-10 text-sm text-gray-600 text-right">
+                                        {% widthratio forloop.revcounter 5 100 %}%
+                                    </span>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        
+                        <!-- User's existing review -->
+                        {% if user.is_authenticated and user_review %}
+                        <div class="bg-gray-50 p-6 rounded-lg border border-gray-200 mb-8">
+                            <h4 class="font-semibold mb-3">{% trans "Your Review" %}</h4>
+                            <div class="flex items-center mb-2">
+                                {% for i in "12345"|make_list %}
+                                    {% if forloop.counter <= user_review.rating %}
+                                        <i class="fas fa-star text-yellow-400"></i>
+                                    {% else %}
+                                        <i class="far fa-star text-yellow-400"></i>
+                                    {% endif %}
+                                {% endfor %}
+                                <span class="text-sm text-gray-600 ml-2">{{ user_review.created_at|date:"M d, Y" }}</span>
+                            </div>
+                            <p class="text-gray-700">{{ user_review.comment }}</p>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- All reviews -->
+                        <div class="space-y-6">
+                            {% for review in product.reviews.all %}
+                            {% if review.user != user or not user.is_authenticated %}
+                            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-semibold">{{ review.user.username }}</h4>
+                                    <span class="text-sm text-gray-600">{{ review.created_at|date:"M d, Y" }}</span>
+                                </div>
+                                <div class="flex items-center mb-3">
+                                    {% for i in "12345"|make_list %}
+                                        {% if forloop.counter <= review.rating %}
+                                            <i class="fas fa-star text-yellow-400"></i>
+                                        {% else %}
+                                            <i class="far fa-star text-yellow-400"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <p class="text-gray-700">{{ review.comment }}</p>
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        
+                        {% else %}
+                        <div class="bg-gray-50 p-6 rounded-lg text-center">
+                            <i class="fas fa-star text-4xl text-gray-300 mb-3"></i>
+                            <p class="text-gray-600">{% trans "No reviews yet. Be the first to review this product!" %}</p>
+                        </div>
+                        {% endif %}
+                        
+                        <!-- Review Form -->
+                        {% if user.is_authenticated %}
+                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mt-8">
+                            <h4 class="font-semibold mb-4">
+                                {% if user_review %}{% trans "Update Your Review" %}{% else %}{% trans "Write a Review" %}{% endif %}
+                            </h4>
+                            <form method="post" action="{% url 'products:add_review' product.id %}">
+                                {% csrf_token %}
+                                <div class="mb-4">
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">{% trans "Your Rating" %}</label>
+                                    <div class="flex space-x-1" id="rating-stars">
+                                        {% for i in "12345"|make_list %}
+                                        <i class="far fa-star text-2xl text-gray-300 cursor-pointer hover:text-yellow-400 rating-star" 
+                                           data-rating="{{ i }}"
+                                           {% if user_review and forloop.counter <= user_review.rating %}style="display:none"{% endif %}></i>
+                                        <i class="fas fa-star text-2xl text-yellow-400 cursor-pointer rating-star-filled" 
+                                           data-rating="{{ i }}"
+                                           {% if not user_review or forloop.counter > user_review.rating %}style="display:none"{% endif %}></i>
+                                        {% endfor %}
+                                    </div>
+                                    <input type="hidden" name="rating" id="rating-input" 
+                                           value="{% if user_review %}{{ user_review.rating }}{% else %}5{% endif %}">
+                                </div>
+                                <div class="mb-4">
+                                    <label for="review-text" class="block text-sm font-medium text-gray-700 mb-2">{% trans "Your Review" %}</label>
+                                    <textarea required name="comment" id="review-text" rows="4" 
+                                              class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-cannabis-green">{% if user_review %}{{ user_review.comment }}{% endif %}</textarea>
+                                </div>
+                                <button type="submit" 
+                                        class="bg-cannabis-green text-white px-4 py-2 rounded-md hover:bg-cannabis-dark transition">
+                                    {% if user_review %}{% trans "Update Review" %}{% else %}{% trans "Submit Review" %}{% endif %}
+                                </button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <div class="bg-gray-50 p-4 rounded-lg text-center">
+                            <p class="text-gray-600">
+                                {% trans "Please" %} <a href="{% url 'account_login' %}?next={{ request.path }}" class="text-cannabis-green hover:underline">{% trans "sign in" %}</a> 
+                                {% trans "to write a review." %}
+                            </p>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -223,6 +442,15 @@
                 {% endif %}
                 <div class="p-4">
                     <h3 class="font-semibold mb-2 text-cannabis-dark">{{ related_product.name }}</h3>
+                    {% for i in "12345" %}
+                        {% if forloop.counter <= related_product.average_rating %}
+                            <i class="fas fa-star text-yellow-400"></i>
+                        {% elif forloop.counter|add:"-0.5" <= related_product.average_rating %}
+                            <i class="fas fa-star-half-alt text-yellow-400"></i>
+                        {% else %}
+                            <i class="far fa-star text-yellow-400"></i>
+                        {% endif %}
+                    {% endfor %}
                     {% if related_product.strain_type %}
                     <span class="inline-block mb-2 px-2 py-1 text-xs rounded 
                         {% if related_product.strain_type == 'Sativa' %}bg-green-100 text-green-800
@@ -247,6 +475,110 @@
 </div>
 
 <script>
+// Weight and Price Calculation
+document.addEventListener('DOMContentLoaded', function() {
+    const basePrice = parseFloat({{ product.price }});
+    const weightOptions = document.querySelectorAll('.weight-option');
+    const discountedPriceElement = document.getElementById('discounted-price');
+    const basePriceElement = document.getElementById('base-price');
+    const discountPercentageElement = document.getElementById('discount-percentage');
+    const totalPriceElement = document.getElementById('total-price');
+    const totalPriceLabel = document.getElementById('total-price-label');
+    const formWeightInput = document.getElementById('form-weight');
+    const formQuantityInput = document.getElementById('form-quantity');
+    const quantitySelect = document.getElementById('quantity-select');
+    
+    // Initialize with default weight (10g)
+    updatePrice(10, 1);
+    
+    // Weight selection
+    weightOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            const weight = parseInt(this.getAttribute('data-weight'));
+            const quantity = parseInt(quantitySelect.value);
+            updatePrice(weight, quantity);
+            
+            // Update active state
+            weightOptions.forEach(btn => btn.classList.remove('bg-cannabis-green', 'text-white', 'border-cannabis-green'));
+            this.classList.add('bg-cannabis-green', 'text-white', 'border-cannabis-green');
+        });
+    });
+    
+    // Quantity selection
+    quantitySelect.addEventListener('change', function() {
+        const weight = parseInt(document.querySelector('.weight-option.active')?.getAttribute('data-weight') || 10);
+        const quantity = parseInt(this.value);
+        updatePrice(weight, quantity);
+    });
+    
+    function updatePrice(weight, quantity) {
+        let discount = 0;
+        
+        if (weight >= 1000) {
+            discount = 0.30;
+        } else if (weight >= 500) {
+            discount = 0.20;
+        } else if (weight >= 100) {
+            discount = 0.10;
+        } else if (weight >= 50) {
+            discount = 0.05;
+        }
+        
+        const discountedUnitPrice = basePrice * (1 - discount);
+        const totalPrice = discountedUnitPrice * weight * quantity;
+        
+        // Update display
+        discountedPriceElement.textContent = `€${discountedUnitPrice.toFixed(2)}`;
+        totalPriceElement.textContent = `€${totalPrice.toFixed(2)}`;
+        totalPriceLabel.textContent = `{% trans "Total for" %} ${weight}g:`;
+        
+        if (discount > 0) {
+            basePriceElement.style.display = 'inline';
+            discountPercentageElement.textContent = `${Math.round(discount * 100)}% OFF`;
+            discountPercentageElement.style.display = 'inline-block';
+        } else {
+            basePriceElement.style.display = 'none';
+            discountPercentageElement.style.display = 'none';
+        }
+        
+        // Update form values
+        formWeightInput.value = weight;
+        formQuantityInput.value = quantity;
+    }
+    
+    // Rating stars interaction - updated for filled/empty stars
+    const ratingStars = document.querySelectorAll('.rating-star, .rating-star-filled');
+    if (ratingStars.length > 0) {
+        ratingStars.forEach(star => {
+            star.addEventListener('click', function() {
+                const rating = parseInt(this.getAttribute('data-rating'));
+                document.getElementById('rating-input').value = rating;
+                
+                // Update all stars
+                document.querySelectorAll('.rating-star, .rating-star-filled').forEach((s, index) => {
+                    const starRating = parseInt(s.getAttribute('data-rating'));
+                    if (starRating <= rating) {
+                        if (s.classList.contains('rating-star')) {
+                            s.style.display = 'none';
+                        }
+                        if (s.classList.contains('rating-star-filled')) {
+                            s.style.display = 'inline-block';
+                        }
+                    } else {
+                        if (s.classList.contains('rating-star')) {
+                            s.style.display = 'inline-block';
+                        }
+                        if (s.classList.contains('rating-star-filled')) {
+                            s.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+    }
+});
+
+// Tab functionality
 function showTab(tabName) {
     // Hide all tab contents
     document.querySelectorAll('.tab-content').forEach(content => {
