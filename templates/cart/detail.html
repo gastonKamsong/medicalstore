@@ -216,10 +216,18 @@
                     {% endif %}
                 </div>
                 
-                <a href="{% url 'orders:order_create' %}" 
-                   class="w-full bg-cannabis-green text-white py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300 block text-center">
-                    <i class="fas fa-lock mr-2"></i>{% trans "Proceed to Checkout" %}
-                </a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'orders:order_create' %}" 
+                    class="w-full bg-cannabis-green text-white py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300 block text-center">
+                        <i class="fas fa-lock mr-2"></i>{% trans "Proceed to Checkout" %}
+                    </a>
+                {% else %}
+                    <a href="{% url 'login' %}?next={% url 'orders:order_create' %}" 
+                    class="w-full bg-cannabis-green text-white py-3 rounded-lg font-semibold hover:bg-cannabis-dark transition duration-300 block text-center">
+                        <i class="fas fa-lock mr-2"></i>{% trans "Login to Proceed" %}
+                    </a>
+                {% endif %}
+
                 
                 <a href="{% url 'products:product_list' %}" 
                    class="w-full mt-3 border border-cannabis-green text-cannabis-green py-3 rounded-lg font-semibold hover:bg-cannabis-light transition duration-300 block text-center">

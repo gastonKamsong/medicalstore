@@ -414,7 +414,7 @@
                         {% else %}
                         <div class="bg-gray-50 p-4 rounded-lg text-center">
                             <p class="text-gray-600">
-                                {% trans "Please" %} <a href="{% url 'account_login' %}?next={{ request.path }}" class="text-cannabis-green hover:underline">{% trans "sign in" %}</a> 
+                                {% trans "Please" %} <a href="{% url 'login' %}?next={{ request.path }}" class="text-cannabis-green hover:underline">{% trans "sign in" %}</a> 
                                 {% trans "to write a review." %}
                             </p>
                         </div>
