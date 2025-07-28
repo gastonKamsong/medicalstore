@@ -1,8 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect
 from django.db.models import Q
 from django.core.paginator import Paginator
-from .models import Product, Category
-
+from .models import Product, Category,Review
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 
 def product_list(request):
     """Display all products with advanced filtering"""
@@ -91,7 +93,6 @@ def product_detail(request, slug):
     }
     return render(request, 'products/product_detail.html', context)
 
-
 def category_detail(request, slug):
     """Display products in a specific category with applied filters"""
     category = get_object_or_404(Category, slug=slug)
@@ -141,3 +142,62 @@ def category_detail(request, slug):
         'request': request,  # Make sure request is in context
     }
     return render(request, 'products/category_detail.html', context)
+
+    # views.py
+
+@login_required
+@require_POST
+def add_review(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    
+    # Check if user already reviewed this product
+    existing_review = Review.objects.filter(product=product, user=request.user).first()
+    
+    try:
+        rating = int(request.POST.get('rating', 0))
+        comment = request.POST.get('comment', '').strip()
+        
+        # Validate rating
+        if not 0 <= rating <= 5:
+            raise ValueError("Rating must be between 0 and 5")
+            
+        # # Validate comment
+        # if not comment:
+        #     raise ValueError("Comment cannot be empty")
+            
+        # Update or create review
+        if existing_review:
+            # Update existing review
+            existing_review.rating = rating
+            existing_review.comment = comment
+            existing_review.save()
+            
+            # We need to recalculate the average rating since an existing review was updated
+            reviews = product.reviews.all()
+            if reviews.exists():
+                total_ratings = sum(review.rating for review in reviews)
+                product.rating_count = reviews.count()
+                product.average_rating = total_ratings / product.rating_count
+                product.save()
+                
+            messages.success(request, "Your review has been updated.")
+        else:
+            # Create new review
+            Review.objects.create(
+                product=product,
+                user=request.user,
+                rating=rating,
+                comment=comment
+            )
+            
+            # Update product rating stats
+            product.update_rating(rating)
+            messages.success(request, "Thank you for your review!")
+            
+    except ValueError as e:
+        messages.error(request, str(e))
+    except Exception as e:
+        messages.error(request, "An error occurred while submitting your review.")
+        
+    return redirect(product.get_absolute_url())
+

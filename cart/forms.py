@@ -17,3 +17,6 @@ class CartAddProductForm(forms.Form):
         initial=False,
         widget=forms.HiddenInput
     )
+
+class CartUpdateWeightForm(forms.Form):
+    weight = forms.IntegerField(min_value=10)

@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from django.conf import settings
 
 
 class Category(models.Model):
@@ -189,3 +190,18 @@ class Product(models.Model):
     @property
     def is_in_stock(self):
         return self.stock_quantity > 0
+
+class Review(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    rating = models.PositiveSmallIntegerField(choices=[(i, str(i)) for i in range(1, 6)])
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('product', 'user')  # One review per user per product
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Review for {self.product.name} by {self.user.username}"

@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from products.models import Product
-
+from django.core.validators import MinValueValidator
+from decimal import Decimal
 
 class Order(models.Model):
     STATUS_CHOICES = [
@@ -43,15 +44,61 @@ class Order(models.Model):
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
 
+    def get_subtotal(self):
+        return sum((item.price * item.weight* item.quantity) for item in self.items.all())
+
+    def get_total_discount(self):
+        return float(self.get_subtotal()) - float(self.get_total_cost())
+
+    def get_total_weight(self):
+        return sum(item.weight for item in self.items.all())
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
     product = models.ForeignKey(Product, related_name='order_items', on_delete=models.CASCADE)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     quantity = models.PositiveIntegerField(default=1)
+    weight = models.DecimalField(max_digits=10, decimal_places=2,validators=[MinValueValidator(10)]) 
 
     def __str__(self):
         return str(self.id)
 
     def get_cost(self):
-        return self.price * self.quantity
+        return  self.calculate_discounted_price_per_weight
+
+    @property
+    def calculate_discounted_price_per_weight(self):
+        discount = 0
+
+        if self.weight >= 1000:
+            discount = 0.30  # 30% discount
+        elif self.weight >= 500:
+            discount = 0.20  # 20% discount
+        elif self.weight >= 100:
+            discount = 0.10  # 10% discount
+        elif self.weight >= 50:
+            discount = 0.05
+
+        unit_price = float(self.price) * float(1 - discount) * float(self.weight) * float(self.quantity)
+        return round(unit_price, 2)
+    
+    @property
+    def discount_price(self):
+        return float(self.price) - (float(self.price) * (self.discount_percentage / 100))
+
+    @property
+    def discount_percentage(self):
+        discount = 0
+
+        if self.weight >= 1000:
+            discount = 0.30  # 30% discount
+        elif self.weight >= 500:
+            discount = 0.20  # 20% discount
+        elif self.weight >= 100:
+            discount = 0.10  # 10% discount
+        elif self.weight >= 50:
+            discount = 0.05
+        return 100 * discount
+    
+
+

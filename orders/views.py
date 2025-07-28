@@ -37,7 +37,40 @@ def order_create(request):
         messages.error(request, 'Your cart is empty.')
         return redirect('cart:cart_detail')
 
-    cart_items = cart.get_products_detail()
+    cart =cart.get_products_detail()
+    cart_items = []
+
+    for item in cart:
+        product = item['product']
+        quantity = item['quantity']
+        weight = item.get('weight', 10)  # Default to 10g
+        
+        # Calculate pricing based on weight
+        discount = calculate_discount(weight)
+        base_price = float(product.price)
+        unit_price = base_price * (1 - discount)
+        total_price = unit_price * weight * quantity
+        
+        cart_items.append({
+            'product': product,
+            'quantity': quantity,
+            'weight': weight,
+            'total_weight': weight * quantity,
+            'base_price': base_price,
+            'unit_price': unit_price,
+            'total_price': round(total_price, 2),
+            'discount_percentage': int(discount * 100)
+        })
+    
+    print(cart_items)
+    # Calculate totals
+    total_price = round(sum(item['total_price'] for item in cart_items), 2)
+    total_weight = round(sum(item['weight'] for item in cart_items), 2)
+    total_discount = round(sum(
+        (item['base_price'] * item['weight'] * item['quantity']) - item['total_price'] 
+        for item in cart_items
+    ), 2)
+    
 
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
@@ -45,15 +78,16 @@ def order_create(request):
             order = form.save(commit=False)
             if request.user.is_authenticated:
                 order.user = request.user
-            order.total_amount = cart.get_total_price()
+            order.total_amount = total_price
             order.save()
 
             for item in cart_items:
                 OrderItem.objects.create(
                     order=order,
                     product=item['product'],
-                    price=item['price'],
-                    quantity=item['quantity']
+                    price=item['base_price'],
+                    quantity=item['quantity'],
+                    weight=item['weight'],
                 )
 
             cart.clear()
@@ -67,81 +101,23 @@ def order_create(request):
             print(form.cleaned_data)
             if payment_method == 'bank_transfer' and customer_email:
                 subject = f'🌿 GreenMed Store - Instructions for Bank Transfer (Order #{order.id})'
-                body = f"""
-                    <html>
-                    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto;">
-                        <div style="background-color: #f5f9f0; padding: 20px; border-radius: 8px; border-left: 4px solid #4CAF50;">
-                        <h1 style="color: #2E7D32; margin-top: 0;">Thank You for Your Order #{order.id}</h1>
-                        <p>Dear Valued Customer,</p>
-                        <p>We appreciate your trust in GreenMed Store. Please find below the details for your bank transfer payment:</p>
-                        </div>
-
-                        <div style="background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 8px; border: 1px solid #e0e0e0;">
-                        <h2 style="color: #2E7D32; margin-top: 0;">💰 Payment Instructions</h2>
-                        
-                        <table style="width: 100%; border-collapse: collapse;">
-                            <tr>
-                            <td style="padding: 8px 0; width: 120px; font-weight: bold;">Bank Name:</td>
-                            <td style="padding: 8px 0;">ABC Bank</td>
-                            </tr>
-                            <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">Account Name:</td>
-                            <td style="padding: 8px 0;">GreenMed Store</td>
-                            </tr>
-                            <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">Account Number:</td>
-                            <td style="padding: 8px 0;">123456789</td>
-                            </tr>
-                            <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">IBAN:</td>
-                            <td style="padding: 8px 0;">FR76 3000 6000 0112 3456 7890 189</td>
-                            </tr>
-                            <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">SWIFT/BIC:</td>
-                            <td style="padding: 8px 0;">AGRIFRPPXXX</td>
-                            </tr>
-                            <tr>
-                            <td style="padding: 8px 0; font-weight: bold;">Amount Due:</td>
-                            <td style="padding: 8px 0; font-weight: bold; color: #2E7D32;">€{order.total_amount}</td>
-                            </tr>
-                        </table>
-                        
-                        <p style="background-color: #fff8e1; padding: 12px; border-left: 4px solid #ffc107; margin: 15px 0;">
-                            <strong>⚠️ Important:</strong> Please include your Order ID <strong>#{order.id}</strong> in the payment reference to ensure prompt processing.
-                        </p>
-                        </div>
-
-                        <div style="margin: 20px 0;">
-                        <h3 style="color: #2E7D32;">Next Steps</h3>
-                        <ol style="padding-left: 20px;">
-                            <li style="margin-bottom: 8px;">Complete your bank transfer using the details above</li>
-                            <li style="margin-bottom: 8px;">Keep your transaction receipt for reference</li>
-                            <li style="margin-bottom: 8px;">We'll notify you once payment is received</li>
-                            <li>Your order will be prepared for shipment</li>
-                        </ol>
-                        </div>
-
-                        <div style="background-color: #e8f5e9; padding: 15px; border-radius: 8px; text-align: center; margin: 20px 0;">
-                        <p>Need assistance? Contact our friendly support team:</p>
-                        <p style="margin: 10px 0;">
-                            <a href="mailto:support@greenmedstore.com" style="color: #2E7D32; text-decoration: none; font-weight: bold;">support@greenmedstore.com</a>
-                        </p>
-                        <p style="margin: 0;">
-                            <a href="https://www.greenmedstore.com" style="color: #2E7D32; text-decoration: none;">www.greenmedstore.com</a>
-                        </p>
-                        </div>
-
-                        <p style="color: #666; font-size: 0.9em; border-top: 1px solid #eee; padding-top: 15px;">
-                        With green regards,<br>
-                        <strong>The GreenMed Store Team</strong><br>
-                        <span style="color: #4CAF50;">Nurturing Your Wellness Naturally</span>
-                        </p>
-                    </body>
-                    </html>
-                    """
+                body = render_to_string('emails/bank_instructions.html', {
+                    'order': order,
+                    'customer_email': customer_email
+                })
                 email = EmailMessage(subject, body, settings.DEFAULT_FROM_EMAIL, [customer_email])
                 email.content_subtype = 'html'  # Set content type to HTML
                 email.send()
+            else:
+                subject = f'🌿 GreenMed Store - Instructions for Bank Transfer (Order #{order.id})'
+                body = render_to_string('emails/bank_instructions.html', {
+                    'order': order,
+                    'customer_email': customer_email
+                })
+                email = EmailMessage(subject, body, settings.DEFAULT_FROM_EMAIL, [customer_email])
+                email.content_subtype = 'html'  # Set content type to HTML
+                email.send()
+
 
             # 2. Send admin email notification
             send_admin_order_email(order, form.cleaned_data)
@@ -161,9 +137,12 @@ def order_create(request):
     context = {
         'cart': cart,
         'cart_items': cart_items,
-        'total_price': cart.get_total_price(),
-        'total_quantity': len(cart),
+        'total_price': total_price,
+        'total_price_withouth_discount': total_price + total_discount,
+        'total_discount': total_discount,
+        'total_quantity': sum(item['quantity'] for item in cart_items),
         'form': form,
+        'total_weight':total_weight
     }
 
     return render(request, 'orders/order/create.html', context)
@@ -171,6 +150,8 @@ def order_create(request):
 def order_created(request, order_id):
     """Order confirmation page"""
     order = Order.objects.get(id=order_id)
+    # for item in order.items.all:
+    print(order.items.all)
     return render(request, 'orders/order/created.html', {'order': order})
 
 
@@ -179,3 +160,15 @@ def order_history(request):
     """Display user's order history"""
     orders = Order.objects.filter(user=request.user).order_by('-created')
     return render(request, 'orders/order/history.html', {'orders': orders})
+
+def calculate_discount(weight):
+    """Helper function to calculate discount based on weight"""
+    if weight >= 1000:
+        return 0.30
+    elif weight >= 500:
+        return 0.20
+    elif weight >= 100:
+        return 0.10
+    elif weight >= 50:
+        return 0.05
+    return 0
