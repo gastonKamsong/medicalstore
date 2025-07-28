@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %}Checkout - MedicalStore{% endblock %}
+{% block title %}Checkout - {{ site_settings.site_name }}{% endblock %}
 
 {% block content %}
 {% load i18n %}
@@ -140,7 +140,7 @@
                         
                         <!-- Bank Transfer -->
                         <div class="relative">
-                            <input class="sr-only peer" type="radio" name="payment_method" id="bank-transfer" value="bank_transfer">
+                            <input class="sr-only peer" required type="radio" name="payment_method" id="bank-transfer" value="bank_transfer">
                             <label for="bank-transfer" class="flex p-4 border border-gray-300 rounded-lg cursor-pointer hover:border-cannabis-green peer-checked:border-cannabis-green peer-checked:bg-cannabis-light/20">
                                 <div class="flex items-center mr-4">
                                     <i class="fas fa-university text-2xl text-cannabis-green"></i>
@@ -161,7 +161,7 @@
                         
                         <!-- Cryptocurrency -->
                         <div class="relative">
-                            <input class="sr-only peer" type="radio" name="payment_method" id="cryptocurrency" value="cryptocurrency">
+                            <input class="sr-only peer" required type="radio" name="payment_method" id="cryptocurrency" value="cryptocurrency">
                             <label for="cryptocurrency" class="flex p-4 border border-gray-300 rounded-lg cursor-pointer hover:border-cannabis-green peer-checked:border-cannabis-green peer-checked:bg-cannabis-light/20">
                                 <div class="flex items-center mr-4">
                                     <i class="fab fa-bitcoin text-2xl text-cannabis-green"></i>
@@ -176,24 +176,24 @@
                                 <div class="mb-3">
                                     <p class="text-sm font-medium mb-1">BTC Address:</p>
                                     <div class="flex items-center bg-white p-2 rounded border border-gray-200">
-                                        <code class="text-xs mr-2">1JyHnY2KyFgUhooTqPq5o8rHbeiivPBfPt</code>
-                                        <button onclick="copyToClipboard('1JyHnY2KyFgUhooTqPq5o8rHbeiivPBfPt')" 
+                                        <code class="text-xs mr-2">bc1qwnv2uh7ppqdj8qvntl8yneadx9vjjwm2dy5g3l</code>
+                                        <span onclick="copyToClipboard('bc1qwnv2uh7ppqdj8qvntl8yneadx9vjjwm2dy5g3l')" 
                                                 class="ml-auto text-cannabis-green hover:text-cannabis-dark">
                                             <i class="fas fa-copy"></i>
-                                        </button>
+                                        </span>
                                     </div>
                                     <p class="text-xs text-gray-500 mt-1">Bitcoin Network</p>
                                 </div>
                                 <div>
-                                    <p class="text-sm font-medium mb-1">LTC Address:</p>
+                                    <p class="text-sm font-medium mb-1">USDT Address:</p>
                                     <div class="flex items-center bg-white p-2 rounded border border-gray-200">
-                                        <code class="text-xs mr-2">LdCF3kLA3uvXxcVd1XpP59v3os6176vQNX</code>
-                                        <button onclick="copyToClipboard('LdCF3kLA3uvXxcVd1XpP59v3os6176vQNX')" 
+                                        <code class="text-xs mr-2">TRYPQ1taiCUzgYNkkcVsEDGZrtALUKbE1j</code>
+                                        <span onclick="copyToClipboard('TRYPQ1taiCUzgYNkkcVsEDGZrtALUKbE1j')" 
                                                 class="ml-auto text-cannabis-green hover:text-cannabis-dark">
                                             <i class="fas fa-copy"></i>
-                                        </button>
+                                        </span>
                                     </div>
-                                    <p class="text-xs text-gray-500 mt-1">Litecoin Network</p>
+                                    <p class="text-xs text-gray-500 mt-1">USDT Network</p>
                                 </div>
                                 <a href="{% url 'pages:crypto_guide' %}" class="inline-block mt-2 text-sm text-cannabis-green hover:underline">
                                     <i class="fas fa-info-circle mr-1"></i>
@@ -328,20 +328,39 @@ document.querySelectorAll('input[name="payment_method"]').forEach(radio => {
         }
     });
 });
-
 // Copy to clipboard function
+function fallbackCopyToClipboard(text) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+}
+
 function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        // Show temporary tooltip
-        const tooltip = document.createElement('div');
-        tooltip.className = 'fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded text-sm';
-        tooltip.textContent = '{% trans "Address copied to clipboard!" %}';
-        document.body.appendChild(tooltip);
-        
-        setTimeout(() => {
-            tooltip.remove();
-        }, 2000);
-    });
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            showTooltip("{% trans 'Address copied to clipboard!' %}");
+        }).catch(() => {
+            fallbackCopyToClipboard(text);
+            showTooltip("{% trans 'Address copied to clipboard!' %}");
+        });
+    } else {
+        fallbackCopyToClipboard(text);
+        showTooltip("{% trans 'Address copied to clipboard!' %}");
+    }
+}
+
+function showTooltip(message) {
+    const tooltip = document.createElement('div');
+    tooltip.className = 'fixed bottom-20 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white px-4 py-2 rounded text-sm';
+    tooltip.textContent = message;
+    document.body.appendChild(tooltip);
+
+    setTimeout(() => {
+        tooltip.remove();
+    }, 2000);
 }
 
 // Age verification for form submission
