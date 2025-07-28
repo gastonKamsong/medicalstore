@@ -8,7 +8,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-
+from django.utils.http import urlencode
 def send_admin_order_email(order, cleaned_data):
     """Send order confirmation email to admin"""
     admin_email = settings.ADMIN_EMAIL  # Add to settings.py
@@ -126,13 +126,17 @@ def order_create(request):
 
     else:
         initial_data = {}
-        if request.user.is_authenticated:
-            print("request.user",request.user.last_name)
-            initial_data = {
-                'first_name': request.user.first_name,
-                'last_name': request.user.last_name,
-                'email': request.user.email,
-            }
+        if not request.user.is_authenticated:
+            login_url = '/accounts/login/'  # or use reverse('login') if named
+            query_string = urlencode({'next': request.get_full_path()})
+            return redirect(f'{login_url}?{query_string}')
+        
+        initial_data = {
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'email': request.user.email,
+        }
+
         form = OrderCreateForm(initial=initial_data)
 
     context = {

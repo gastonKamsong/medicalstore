@@ -19,7 +19,7 @@
                     <i class="fas fa-info-circle mr-2"></i>{% trans "Important Information" %}
                 </h3>
                 <p class="text-sm text-gray-700">
-                    {% trans "All cannabis products are for adults 21+ only. By proceeding to checkout, you confirm you meet the legal age requirement in your jurisdiction." %}
+                    {% trans "All cannabis products are for adults 18+ only. By proceeding to checkout, you confirm you meet the legal age requirement in your jurisdiction." %}
                 </p>
             </div>
             
@@ -239,7 +239,7 @@
                     <div class="flex items-start">
                         <input type="checkbox" id="age-verify" class="mt-1 mr-2 text-cannabis-green focus:ring-cannabis-green">
                         <label for="age-verify" class="text-sm text-gray-600">
-                            {% trans "I confirm that I am 21 years of age or older and agree to the" %} 
+                            {% trans "I confirm that I am 18 years of age or older and agree to the" %} 
                             <a href="#" class="text-cannabis-green hover:underline">{% trans "Terms of Service" %}</a>
                         </label>
                     </div>
@@ -303,7 +303,7 @@ document.addEventListener('DOMContentLoaded', function() {
 document.querySelector('a[href="{% url 'orders:order_create' %}"]').addEventListener('click', function(e) {
     if (!document.getElementById('age-verify').checked) {
         e.preventDefault();
-        alert('{% trans "Please confirm you are 21+ to proceed with checkout" %}');
+        alert('{% trans "Please confirm you are 18+ to proceed with checkout" %}');
     }
 });
 </script>

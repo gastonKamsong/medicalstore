@@ -18,7 +18,7 @@
                     <input type="checkbox" id="age-verify" required 
                            class="mt-1 mr-3 h-5 w-5 text-cannabis-green focus:ring-cannabis-green border-cannabis-green rounded">
                     <label for="age-verify" class="text-sm text-gray-700">
-                        {% trans "I confirm that I am 21 years of age or older and agree to the" %} 
+                        {% trans "I confirm that I am 18 years of age or older and agree to the" %} 
                         <a href="#" class="text-cannabis-green hover:underline font-medium">{% trans "Terms of Service" %}</a>
                     </label>
                 </div>
@@ -375,7 +375,7 @@ function showTooltip(message) {
 document.querySelector('form').addEventListener('submit', function(e) {
     if (!document.getElementById('age-verify').checked) {
         e.preventDefault();
-        alert('{% trans "You must confirm you are 21+ to place an order" %}');
+        alert('{% trans "You must confirm you are 18+ to place an order" %}');
     }
 });
 </script>

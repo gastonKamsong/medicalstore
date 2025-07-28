@@ -603,8 +603,8 @@ msgstr "Panier d'Achat"
 msgid "Important Information"
 msgstr "Informations Importantes"
 
-msgid "All cannabis products are for adults 21+ only. By proceeding to checkout, you confirm you meet the legal age requirement in your jurisdiction."
-msgstr "Tous les produits à base de cannabis sont réservés aux adultes de 21 ans et plus. En passant à la caisse, vous confirmez que vous remplissez les conditions d'âge légal dans votre juridiction."
+msgid "All cannabis products are for adults 18+ only. By proceeding to checkout, you confirm you meet the legal age requirement in your jurisdiction."
+msgstr "Tous les produits à base de cannabis sont réservés aux adultes de 18 ans et plus. En passant à la caisse, vous confirmez que vous remplissez les conditions d'âge légal dans votre juridiction."
 
 msgid "Update"
 msgstr "Mettre à jour"
@@ -633,8 +633,8 @@ msgstr "Passer à la Caisse"
 msgid "Continue Shopping"
 msgstr "Continuer les Achats"
 
-msgid "I confirm that I am 21 years of age or older and agree to the"
-msgstr "Je confirme que j'ai 21 ans ou plus et j'accepte les"
+msgid "I confirm that I am 18 years of age or older and agree to the"
+msgstr "Je confirme que j'ai 18 ans ou plus et j'accepte les"
 
 msgid "Your cart is empty"
 msgstr "Votre panier est vide"
@@ -669,8 +669,8 @@ msgstr "Les effets peuvent varier selon la physiologie individuelle"
 msgid "I Understand"
 msgstr "Je Comprends"
 
-msgid "Please confirm you are 21+ to proceed with checkout"
-msgstr "Veuillez confirmer que vous avez 21 ans ou plus pour procéder au paiement"
+msgid "Please confirm you are 18+ to proceed with checkout"
+msgstr "Veuillez confirmer que vous avez 18 ans ou plus pour procéder au paiement"
 
 msgid "Checkout"
 msgstr "Paiement"
@@ -733,8 +733,8 @@ msgstr "Signature d'un adulte requise à la livraison"
 msgid "No returns on cannabis products"
 msgstr "Pas de retour sur les produits à base de cannabis"
 
-msgid "You must confirm you are 21+ to place an order"
-msgstr "Vous devez confirmer que vous avez 21 ans ou plus pour passer commande"
+msgid "You must confirm you are 18+ to place an order"
+msgstr "Vous devez confirmer que vous avez 18 ans ou plus pour passer commande"
 
 msgid "Order Confirmed!"
 msgstr "Commande Confirmée!"
@@ -772,8 +772,8 @@ msgstr "Vous recevrez un email de confirmation à"
 msgid "We'll prepare your discreet package within 1-2 business days"
 msgstr "Nous préparerons votre colis discret sous 1-2 jours ouvrés"
 
-msgid "Adult signature required upon delivery (21+ only)"
-msgstr "Signature d'un adulte requise à la livraison (21+ seulement)"
+msgid "Adult signature required upon delivery (18+ only)"
+msgstr "Signature d'un adulte requise à la livraison (18+ seulement)"
 
 msgid "Contact us if you have any questions about your order"
 msgstr "Contactez-nous pour toute question concernant votre commande"
@@ -952,8 +952,8 @@ msgstr "Se souvenir de moi"
 msgid "Forgot password?"
 msgstr "Mot de passe oublié?"
 
-msgid "I confirm that I am 21 years of age or older"
-msgstr "Je confirme que j'ai 21 ans ou plus"
+msgid "I confirm that I am 18 years of age or older"
+msgstr "Je confirme que j'ai 18 ans ou plus"
 
 msgid "Sign In"
 msgstr "Se Connecter"
@@ -970,8 +970,8 @@ msgstr "Ou continuer en tant qu'invité"
 msgid "Continue as Guest"
 msgstr "Continuer en tant qu'Invité"
 
-msgid "All cannabis products are for adults 21+ only"
-msgstr "Tous les produits cannabis sont réservés aux adultes de 21 ans et plus"
+msgid "All cannabis products are for adults 18+ only"
+msgstr "Tous les produits cannabis sont réservés aux adultes de 18 ans et plus"
 
 msgid "Consult your physician before using cannabis products"
 msgstr "Consultez votre médecin avant d'utiliser des produits cannabis"
@@ -979,8 +979,8 @@ msgstr "Consultez votre médecin avant d'utiliser des produits cannabis"
 msgid "These products are not intended to diagnose, treat, cure or prevent any disease. By signing in, you acknowledge you understand our products should not replace professional medical advice."
 msgstr "Ces produits ne sont pas destinés à diagnostiquer, traiter, guérir ou prévenir une maladie. En vous connectant, vous reconnaissez comprendre que nos produits ne doivent pas remplacer un avis médical professionnel."
 
-msgid "You must confirm you are 21+ to access this site"
-msgstr "Vous devez confirmer que vous avez 21 ans ou plus pour accéder à ce site"
+msgid "You must confirm you are 18+ to access this site"
+msgstr "Vous devez confirmer que vous avez 18 ans ou plus pour accéder à ce site"
 
 msgid "Create Account"
 msgstr "Créer un compte"
@@ -997,8 +997,8 @@ msgstr "Confirmer le mot de passe"
 msgid "I agree to the <a href=\"%(url)s\">Terms of Service</a> and <a href=\"%(url)s\">Privacy Policy</a>"
 msgstr "J'accepte les <a href=\"%(url)s\">Conditions d'utilisation</a> et la <a href=\"%(url)s\">Politique de confidentialité</a>"
 
-msgid "I confirm that I am at least 21 years of age"
-msgstr "Je confirme que j'ai au moins 21 ans"
+msgid "I confirm that I am at least 18 years of age"
+msgstr "Je confirme que j'ai au moins 18 ans"
 
 msgid "I understand cannabis products are for adult use only and should be kept away from children"
 msgstr "Je comprends que les produits cannabis sont réservés aux adultes et doivent être tenus hors de portée des enfants"
@@ -1402,8 +1402,8 @@ msgstr "GreenMed Store est une plateforme premium de cannabis et CBD proposant d
 msgid "Who can purchase cannabis products?"
 msgstr "Qui peut acheter des produits cannabis ?"
 
-msgid "You must be at least 18 years old to purchase our CBD products and 21+ for THC-containing products where legally available. Some products may require medical authorization depending on your location."
-msgstr "Il faut avoir au moins 18 ans pour nos produits CBD et 21+ pour les produits contenant du THC là où c'est légal. Certains produits peuvent nécessiter une autorisation médicale selon votre localisation."
+msgid "You must be at least 18 years old to purchase our CBD products and 18+ for THC-containing products where legally available. Some products may require medical authorization depending on your location."
+msgstr "Il faut avoir au moins 18 ans pour nos produits CBD et 18+ pour les produits contenant du THC là où c'est légal. Certains produits peuvent nécessiter une autorisation médicale selon votre localisation."
 
 msgid "Are your products legal?"
 msgstr "Vos produits sont-ils légaux ?"
@@ -1765,8 +1765,8 @@ msgstr "Bienvenue chez GreenMed Store. Ces Conditions Générales régissent vot
 msgid "By accessing our site or purchasing products, you confirm you are at least 18 years old and agree to these Terms. Medical cannabis patients must provide valid authorization."
 msgstr "En accédant à notre site ou en achetant des produits, vous confirmez avoir au moins 18 ans et accepter ces Conditions. Les patients en cannabis médical doivent fournir une autorisation valide."
 
-msgid "You must be at least 18 years old to access this website or purchase our CBD products. For THC-containing medical cannabis products, you must be 21+ with valid medical authorization."
-msgstr "Vous devez avoir au moins 18 ans pour accéder à ce site ou acheter nos produits CBD. Pour les produits médicaux contenant du THC, vous devez avoir 21 ans avec une autorisation médicale valide."
+msgid "You must be at least 18 years old to access this website or purchase our CBD products. For THC-containing medical cannabis products, you must be 18+ with valid medical authorization."
+msgstr "Vous devez avoir au moins 18 ans pour accéder à ce site ou acheter nos produits CBD. Pour les produits médicaux contenant du THC, vous devez avoir 18 ans avec une autorisation médicale valide."
 
 msgid "We reserve the right to verify your age through third-party services or request identification. False declarations will result in order cancellation."
 msgstr "Nous nous réservons le droit de vérifier votre âge via des services tiers ou de demander une pièce d'identité. Les fausses déclarations entraîneront l'annulation de la commande."
@@ -2469,4 +2469,7 @@ msgstr "IBAN :"
 
 msgid "SWIFT/BIC:"
 msgstr "SWIFT/BIC :"
+
+msgid "Login to Proceed"
+msgstr "Connectez-vous pour continuer"
 
