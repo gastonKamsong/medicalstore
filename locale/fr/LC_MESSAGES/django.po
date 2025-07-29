@@ -2473,3 +2473,206 @@ msgstr "SWIFT/BIC :"
 msgid "Login to Proceed"
 msgstr "Connectez-vous pour continuer"
 
+# Password Reset Form
+msgid "Reset Your Password"
+msgstr "Réinitialiser votre mot de passe"
+
+msgid "Enter your email to receive reset instructions"
+msgstr "Entrez votre email pour recevoir les instructions de réinitialisation"
+
+msgid "Send Reset Link"
+msgstr "Envoyer le lien de réinitialisation"
+
+msgid "Remember your password?"
+msgstr "Vous vous souvenez de votre mot de passe ?"
+
+msgid "Security Notice"
+msgstr "Avis de sécurité"
+
+msgid "Password reset links expire after 24 hours"
+msgstr "Les liens de réinitialisation expirent après 24 heures"
+
+msgid "Links can only be used once"
+msgstr "Les liens ne peuvent être utilisés qu'une seule fois"
+
+msgid "If you didn't request this, please ignore the email"
+msgstr "Si vous n'avez pas fait cette demande, veuillez ignorer cet email"
+
+# Password Reset Done
+msgid "Check Your Email"
+msgstr "Vérifiez votre email"
+
+msgid "We've sent password reset instructions"
+msgstr "Nous avons envoyé les instructions de réinitialisation"
+
+msgid "If an account exists with this email, you'll receive a link to reset your password."
+msgstr "Si un compte existe avec cet email, vous recevrez un lien pour réinitialiser votre mot de passe."
+
+msgid "Please check your spam folder if you don't see it."
+msgstr "Veuillez vérifier votre dossier spam si vous ne le voyez pas."
+
+msgid "The link will expire in 24 hours for security reasons."
+msgstr "Le lien expirera dans 24 heures pour des raisons de sécurité."
+
+msgid "Return to Sign In"
+msgstr "Retour à la connexion"
+
+msgid "No Email Received?"
+msgstr "Vous n'avez pas reçu d'email ?"
+
+msgid "Check your spam/junk folder"
+msgstr "Vérifiez votre dossier spam/courrier indésirable"
+
+msgid "Wait a few minutes - emails may be delayed"
+msgstr "Attendez quelques minutes - les emails peuvent être retardés"
+
+msgid "Ensure you entered the correct email address"
+msgstr "Assurez-vous d'avoir entré la bonne adresse email"
+
+msgid "Contact support if you continue having issues"
+msgstr "Contactez le support si vous rencontrez toujours des problèmes"
+
+# Password Reset Confirm
+msgid "Set New Password"
+msgstr "Définir un nouveau mot de passe"
+
+msgid "Create a strong new password"
+msgstr "Créez un nouveau mot de passe sécurisé"
+
+msgid "Invalid Link"
+msgstr "Lien invalide"
+
+msgid "This password reset link is no longer valid"
+msgstr "Ce lien de réinitialisation n'est plus valide"
+
+msgid "New Password"
+msgstr "Nouveau mot de passe"
+
+msgid "Confirm New Password"
+msgstr "Confirmer le nouveau mot de passe"
+
+msgid "Password Requirements"
+msgstr "Exigences du mot de passe"
+
+msgid "Minimum 8 characters"
+msgstr "Minimum 8 caractères"
+
+msgid "Can't be too similar to your other information"
+msgstr "Ne doit pas trop ressembler à vos autres informations"
+
+msgid "Can't be a commonly used password"
+msgstr "Ne doit pas être un mot de passe couramment utilisé"
+
+msgid "Can't be entirely numeric"
+msgstr "Ne doit pas être entièrement numérique"
+
+msgid "The password reset link was invalid, possibly because it has already been used."
+msgstr "Le lien de réinitialisation était invalide, probablement parce qu'il a déjà été utilisé."
+
+msgid "Request New Reset Link"
+msgstr "Demander un nouveau lien de réinitialisation"
+
+msgid "Password Security"
+msgstr "Sécurité du mot de passe"
+
+msgid "Use a password manager to generate and store passwords"
+msgstr "Utilisez un gestionnaire de mots de passe pour générer et stocker vos mots de passe"
+
+msgid "Never reuse passwords across different sites"
+msgstr "Ne réutilisez jamais les mots de passe sur différents sites"
+
+msgid "Consider enabling two-factor authentication"
+msgstr "Envisagez d'activer l'authentification à deux facteurs"
+
+# Password Reset Complete
+msgid "Password Reset Complete"
+msgstr "Réinitialisation du mot de passe terminée"
+
+msgid "Your password has been successfully updated."
+msgstr "Votre mot de passe a été mis à jour avec succès."
+
+msgid "You can now sign in with your new password."
+msgstr "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe."
+
+msgid "Sign In Now"
+msgstr "Se connecter maintenant"
+
+msgid "Keep Your Account Secure"
+msgstr "Sécurisez votre compte"
+
+msgid "Regularly update your password"
+msgstr "Mettez régulièrement à jour votre mot de passe"
+
+msgid "Review your account security settings"
+msgstr "Vérifiez les paramètres de sécurité de votre compte"
+
+msgid "Monitor for suspicious activity"
+msgstr "Surveillez les activités suspectes"
+
+msgid "Remember to store your cannabis products securely and keep them away from children and pets."
+msgstr "N'oubliez pas de ranger vos produits cannabis en sécurité et hors de portée des enfants et des animaux."
+
+msgid "Please correct the error below."
+msgstr "Veuillez corriger l'erreur ci-dessous."
+
+msgid "Update your account security"
+msgstr "Mettez à jour la sécurité de votre compte"
+
+msgid "Current Password"
+msgstr "Mot de passe actuel"
+
+msgid "I confirm that I am 21 years of age or older"
+msgstr "Je confirme avoir 21 ans ou plus"
+
+msgid "Update Password"
+msgstr "Mettre à jour le mot de passe"
+
+msgid "Account Security Tips"
+msgstr "Conseils de sécurité du compte"
+
+msgid "Change your password every 3-6 months"
+msgstr "Changez votre mot de passe tous les 3-6 mois"
+
+msgid "Never share your password with anyone"
+msgstr "Ne partagez jamais votre mot de passe avec qui que ce soit"
+
+msgid "Enable two-factor authentication for extra security"
+msgstr "Activez l'authentification à deux facteurs pour plus de sécurité"
+
+msgid "Use a password manager for better security"
+msgstr "Utilisez un gestionnaire de mots de passe pour une meilleure sécurité"
+
+msgid "You must confirm you are 21+ to change your password"
+msgstr "Vous devez confirmer avoir 21+ pour changer votre mot de passe"
+
+# Password Reset Email
+msgid "Password Reset Request"
+msgstr "Demande de réinitialisation de mot de passe"
+
+msgid "You're receiving this email because you requested a password reset for your account at %(site_name)s."
+msgstr "Vous recevez cet email car vous avez demandé une réinitialisation de mot de passe pour votre compte sur %(site_name)s."
+
+msgid "Please click the button below to reset your password:"
+msgstr "Veuillez cliquer sur le bouton ci-dessous pour réinitialiser votre mot de passe :"
+
+msgid "Reset Password"
+msgstr "Réinitialiser le mot de passe"
+
+msgid "Security Notice:"
+msgstr "Avis de sécurité :"
+
+msgid "This link will expire in 24 hours and can only be used once."
+msgstr "Ce lien expirera dans 24 heures et ne peut être utilisé qu'une seule fois."
+
+msgid "If you didn't request this, please ignore this email and your password will remain unchanged."
+msgstr "Si vous n'avez pas fait cette demande, veuillez ignorer cet email et votre mot de passe restera inchangé."
+
+msgid "If the button doesn't work, copy and paste this link into your browser:"
+msgstr "Si le bouton ne fonctionne pas, copiez et collez ce lien dans votre navigateur :"
+
+msgid "Thank you,"
+msgstr "Merci,"
+
+msgid "Team"
+msgstr "Équipe"
+

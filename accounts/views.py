@@ -6,6 +6,12 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import UserRegistrationForm
 from django.contrib.auth import logout
 
+from django.contrib.auth.views import PasswordResetView
+from django.urls import path
+
+class CustomPasswordResetView(PasswordResetView):
+    html_email_template_name = 'registration/password_reset_email.html'  # Your HTML version
+   
 def register(request):
     """User registration"""
     if request.method == 'POST':
